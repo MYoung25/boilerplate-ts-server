@@ -18,7 +18,6 @@ export const app = express()
 
 app.get('/ping', (req: Request, res: Response) => {
   const { readyState } = mongoose.connection
-  console.log(readyState)
   let status = 503
   if (readyState) {
     status = 200
