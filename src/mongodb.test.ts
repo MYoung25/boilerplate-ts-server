@@ -31,13 +31,13 @@ describe('getMongoDBUriString', () => {
     })
 
     it('returns a full URI', () => {
-        expect(getMongoDBUriString()).toContain('mongodb://mongo/index')
+        expect(getMongoDBUriString()).toContain(`mongodb://${process.env.MONGODB_HOST}/index`)
     })
 
     it ('returns a URI with username and password', () => {
         config.mongo.username = 'username'
         config.mongo.password = 'password'
-        expect(getMongoDBUriString()).toContain('mongodb://username:password@mongo/index')
+        expect(getMongoDBUriString()).toContain(`mongodb://username:password@${process.env.MONGODB_HOST}/index`)
     })
 
 })

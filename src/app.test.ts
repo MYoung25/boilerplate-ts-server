@@ -1,4 +1,5 @@
 import { server, ErrnoException } from './app'
+import mongoose from 'mongoose'
 
 const mockExit = jest.spyOn(process, 'exit')
     .mockImplementation((number: number | undefined) => { throw new Error('process.exit: ' + number); });
@@ -14,13 +15,20 @@ const mockConsoleInfo = jest.spyOn(console, 'info')
 
 describe('server', () => {
 
+    beforeAll(async () => {
+        while (mongoose.connection.readyState !== 1) { 
+            await new Promise(resolve => setTimeout(resolve, 100))
+        }
+    })
+
     beforeEach(() => {
         jest.clearAllMocks()
     })
 
-    afterAll(() => {
+    afterAll(async () => {
         mockClose.mockRestore()
         server.close()
+        await mongoose.disconnect()
     })
 
     it('is listening', () => {
