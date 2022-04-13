@@ -6,10 +6,6 @@ declare global {
     var __MONGO_URI__: string
 }
 
-// // suppress error messages
-// const mockConsoleError = jest.spyOn(console, 'error')
-//     .mockImplementation((err: ErrnoException) => {})
-
 describe('/ping', () => {
     let connection: any
     beforeAll(async () => {
