@@ -4,7 +4,7 @@
     "scripts": {
         "test": "yarn jest --runInBand ./src",
         "start": "yarn ts-node src/app.ts",
-        "new:entity": "yarn node utils/cli/cli.js"
+        "entity:create": "yarn node utils/cli/cli.js"
     },
     "dependencies": {
         "express": "^4.17.3",
