@@ -1,6 +1,7 @@
 import http from 'http'
 import { config, logger } from './config'
 import { app } from './routes/index'
+import { establishMongooseConnection } from './mongodb'
 
 const port = config.port
 app.set('port', port)
@@ -62,10 +63,12 @@ const startGracefulShutdown = () => {
     })
 }
 
-
-server.listen(port)
-server.on('error', onError)
-server.on('listening', onListening)
+establishMongooseConnection()
+    .then(() => {
+        server.listen(port)
+        server.on('error', onError)
+        server.on('listening', onListening)
+    })
 
 process.on('SIGTERM', () => {
     logger.error('SIGTERM')

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { config, logger } from './config/index.js'
+import { config, logger } from './config/index'
 
 export function getMongoDBUriString () {
   if (config.mongo.username && config.mongo.password) {

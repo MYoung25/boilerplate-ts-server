@@ -1,8 +1,8 @@
 version: "3.4"
 
 services:
-  gbc:
-    container_name: gbc
+  boilerplate-ts:
+    container_name: boilerplate-ts
     build:
       context: ./
       dockerfile: ./Dockerfile

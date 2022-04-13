@@ -4,9 +4,11 @@
     "scripts": {
         "test": "yarn jest --runInBand ./src",
         "start": "yarn ts-node src/app.ts",
-        "entity:create": "yarn node utils/cli/cli.js"
+        "entity:create": "yarn node utils/cli/cli.js",
+        "healthcheck": "yarn ts-node docker/docker-healthcheck.mjs"
     },
     "dependencies": {
+        "axios": "^0.26.1",
         "express": "^4.17.3",
         "mongoose": "^6.2.10",
         "ts-node": "^10.7.0"
