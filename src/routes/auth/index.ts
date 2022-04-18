@@ -8,7 +8,10 @@ import { Serialization } from "./serialization"
 
 const RedisStore = connectRedis(session)
 
-const redisClient = createClient({ legacyMode: true })
+const redisClient = createClient({
+	url: config.redis.url,
+	legacyMode: true
+})
 
 export const router = Router()
 

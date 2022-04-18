@@ -22,6 +22,7 @@ export const config = {
         },
       },
     redis: {
+        url: process.env.REDIS_URL || 'redis://redis:6379',
         secret: process.env.REDIS_SECRET || 'secret'
     }
 }
