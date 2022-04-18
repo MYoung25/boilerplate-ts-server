@@ -1,8 +1,7 @@
 import express, { Request, Response } from 'express'
-import passport from 'passport'
 import mongoose from 'mongoose'
 import Permissions from './Permissions'
-// import auth from './auth'
+import auth from './auth'
 
 export const app = express()
 
@@ -16,8 +15,6 @@ app.get('/ping', (req: Request, res: Response) => {
 })
 
 app.use(express.json())
-app.use(passport.initialize())
-app.use(passport.session())
 
 app.use('/permissions', Permissions)
-// app.use('/auth', auth)
+app.use('/auth', auth)

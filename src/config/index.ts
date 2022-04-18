@@ -9,6 +9,7 @@ if (process.env.MONGO_URL) {
 
 export const config = {
     port: process.env.PORT || 3000,
+    node_env: process.env.NODE_ENV,
     mongo: {
         // include auth in the mongodb_uri env var
         protocol: process.env.MONGODB_PROTOCOL || 'mongodb',
@@ -20,6 +21,9 @@ export const config = {
           readPreference: 'primary',
         },
       },
+    redis: {
+        secret: process.env.REDIS_SECRET || 'secret'
+    }
 }
 
 export const logger = console
