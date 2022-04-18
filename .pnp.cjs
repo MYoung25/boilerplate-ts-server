@@ -38,6 +38,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:27.4.1"],\
             ["@types/mongoose", "npm:5.11.97"],\
             ["@types/node", "npm:17.0.23"],\
+            ["@types/passport", "npm:1.0.7"],\
             ["@types/supertest", "npm:2.0.12"],\
             ["axios", "npm:0.26.1"],\
             ["express", "npm:4.17.3"],\
@@ -1454,6 +1455,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-node-npm-17.0.23-167849e796-a351755473.zip/node_modules/@types/node/",\
           "packageDependencies": [\
             ["@types/node", "npm:17.0.23"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/passport", [\
+        ["npm:1.0.7", {\
+          "packageLocation": "./.yarn/cache/@types-passport-npm-1.0.7-a6aaee17b9-1b78fbbb58.zip/node_modules/@types/passport/",\
+          "packageDependencies": [\
+            ["@types/passport", "npm:1.0.7"],\
+            ["@types/express", "npm:4.17.13"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6229,6 +6240,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:27.4.1"],\
             ["@types/mongoose", "npm:5.11.97"],\
             ["@types/node", "npm:17.0.23"],\
+            ["@types/passport", "npm:1.0.7"],\
             ["@types/supertest", "npm:2.0.12"],\
             ["axios", "npm:0.26.1"],\
             ["express", "npm:4.17.3"],\

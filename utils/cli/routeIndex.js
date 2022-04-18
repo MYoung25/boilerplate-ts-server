@@ -7,6 +7,7 @@ module.exports = function () {
     .sort()
 
     return `import express, { Request, Response } from 'express'
+import passport from 'passport'
 import mongoose from 'mongoose'
 ${
     routes
@@ -26,6 +27,8 @@ app.get('/ping', (req: Request, res: Response) => {
 })
 
 app.use(express.json())
+app.use(passport.initialize())
+app.use(passport.session())
 
 ${
     routes
