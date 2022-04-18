@@ -21,7 +21,7 @@ describe('Permissions', () => {
 
     it('creates a Permissions', async () => {
         expect.assertions(2)
-        
+
         const entity = await new Permissions({})
             .save()
         expect(entity).toBeDefined()
@@ -32,7 +32,7 @@ describe('Permissions', () => {
 
     it('updates a Permissions', async () => {
         expect.assertions(2)
-        
+
         const entity = await new Permissions({})
             .save()
         expect(entity).toBeDefined()
@@ -44,7 +44,7 @@ describe('Permissions', () => {
 
     it('deletes a Permissions', async () => {
         expect.assertions(2)
-        
+
         const entity = await new Permissions({})
             .save()
         expect(entity).toBeDefined()
