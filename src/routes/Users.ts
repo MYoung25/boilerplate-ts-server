@@ -1,6 +1,6 @@
 import { logger } from '../config/index'
 import { Router, Response, Request } from 'express'
-import { User } from '../entities/User'
+import { User } from '../entities/Users'
 
 const router = Router()
 

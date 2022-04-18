@@ -1,4 +1,4 @@
-import { IUser, User } from "../../entities/User"
+import { IUser, User } from "../../entities/Users"
 import { Types } from 'mongoose'
 
 export class Serialization {

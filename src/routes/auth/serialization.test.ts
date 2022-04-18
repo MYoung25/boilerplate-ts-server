@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { Serialization } from './serialization'
-import { User, IUser } from "../../entities/User"
+import { User, IUser } from "../../entities/Users"
 import {ErrnoException} from "../../app"
 import {expectCt} from "helmet"
 

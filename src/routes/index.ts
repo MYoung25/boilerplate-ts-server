@@ -3,7 +3,7 @@ import helmet from 'helmet'
 import passport from 'passport'
 import mongoose from 'mongoose'
 import Permissions from './Permissions'
-import User from './User'
+import User from './Users'
 import auth from './auth'
 
 export const app = express()
@@ -22,5 +22,5 @@ app.get('/ping', (req: Request, res: Response) => {
 app.use(express.json())
 
 app.use('/permissions', Permissions)
-app.use('/user', User)
+app.use('/users', User)
 app.use('/auth', auth)

@@ -1,7 +1,7 @@
 import request from 'supertest'
 import mongoose from 'mongoose'
 import { app } from './index'
-import { User } from '../entities/User'
+import { User } from '../entities/Users'
 import { ErrnoException } from '../app'
 
 declare global {

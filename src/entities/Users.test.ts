@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { IUser, User } from './User'
+import { IUser, User } from './Users'
 
 declare global {
     var __MONGO_URI__: string
