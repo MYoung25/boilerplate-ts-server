@@ -1,8 +1,10 @@
 import { Router } from 'express'
+import passport from 'passport'
 import session from 'express-session'
 import { createClient } from 'redis'
 import connectRedis from 'connect-redis'
-import { logger, config } from '../../config/index'
+import { logger, config } from '../../config'
+import { Serialization } from "./serialization"
 
 const RedisStore = connectRedis(session)
 
@@ -31,6 +33,16 @@ if (config.node_env === 'test') {
 		})
 	)
 }
+
+
+// passport.(de)serializeUser implements an invalid User definition,
+// 	ts-ignore the calls and use our IUser definition instead in Serialization
+// @ts-ignore
+passport.serializeUser(Serialization.serialize)
+// @ts-ignore
+passport.deserializeUser(Serialization.deserialize)
+
+router.use(passport.initialize())
 
 
 export default router

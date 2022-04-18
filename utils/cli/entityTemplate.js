@@ -1,7 +1,8 @@
 module.exports = function (entityName) {
-return `import { Schema, model } from 'mongoose'
+return `import { Schema, model, Types } from 'mongoose'
 
 export interface I${entityName} {
+    _id: Types.ObjectId,
     name: string
 }
 
