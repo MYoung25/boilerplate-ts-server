@@ -8,3 +8,5 @@ A highly opinionated boilerplate for creating TypeScript servers.  Stack include
 Testing: `yarn test`
 
 Creating a new entity: `yarn entity:create`
+
+Seed Permissions: `yarn seed:permissions`
