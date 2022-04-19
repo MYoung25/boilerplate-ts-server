@@ -26,8 +26,8 @@ export const config = {
         secret: process.env.REDIS_SECRET || 'secret'
     },
     google_oauth: {
-        client_id: process.env.GOOGLE_OAUTH_CLIENT_ID || '',
-        client_secret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || ''
+        client_id: process.env.GOOGLE_OAUTH_CLIENT_ID || 'this_is_a_client_id',
+        client_secret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || 'this_is_a_client_secret'
     }
 }
 

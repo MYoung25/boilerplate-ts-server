@@ -6,14 +6,12 @@ import handleOauthCallback from "./handleOauthCallback"
 
 export const router = Router()
 
-const strategyOptions: StrategyOptions = {
-    clientID: config.google_oauth.client_id,
-    clientSecret: config.google_oauth.client_secret,
-    callbackURL: "/auth/google/callback",
-}
-
 passport.use(new Strategy(
-    strategyOptions,
+    {
+        clientID: config.google_oauth.client_id,
+        clientSecret: config.google_oauth.client_secret,
+        callbackURL: "/auth/google/callback",
+    },
     handleOauthCallback
 ))
 
