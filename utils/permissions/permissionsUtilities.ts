@@ -19,6 +19,10 @@ export class Permission {
         return this.name
     }
 
+    public getPlurifiedName (): string {
+        return this.name.slice(-1) === 's' ? this.name : this.name + 's'
+    }
+
     public setRoutes (routes: RouteInterface) {
         this.routes = routes
     }
@@ -30,7 +34,7 @@ export class Permission {
     public getMethodsAsArray (): string[] {
         return Object.entries(this.routes)
             .filter(([method, bool]) => bool)
-            .map(([method, bool]) => method)
+            .map(([method]) => method)
     }
 
 }

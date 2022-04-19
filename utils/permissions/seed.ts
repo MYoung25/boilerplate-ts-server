@@ -52,7 +52,11 @@ fs.readdir('./src/routes/', async (err, files) => {
             .getMethodsAsArray()
             .map(method => `${permission.getName().toLowerCase()}.${method}`)
         return Promise.all(mappedPermissionsStrings.map(permissionString => {
-            return PermissionModel.updateOne({name: permissionString}, {name: permissionString}, {upsert: true})
+            return PermissionModel.updateOne(
+                {name: permissionString},
+                {name: permissionString, group: permission.getPlurifiedName() },
+                {upsert: true}
+            )
         }))
     }))
 
