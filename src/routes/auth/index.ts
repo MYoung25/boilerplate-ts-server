@@ -6,6 +6,8 @@ import connectRedis from 'connect-redis'
 import { logger, config } from '../../config'
 import { Serialization } from "./serialization"
 
+import Google from './Google/index'
+
 const RedisStore = connectRedis(session)
 
 const redisClient = createClient({
@@ -47,5 +49,6 @@ passport.deserializeUser(Serialization.deserialize)
 
 router.use(passport.initialize())
 
+router.use('/google', Google)
 
 export default router

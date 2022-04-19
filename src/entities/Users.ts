@@ -5,12 +5,16 @@ export interface IUser {
     firstName: string
     lastName: string,
     email: string,
+    profilePicture?: string,
+    googleId?: string
 }
 
 export const userSchema = new Schema({
     firstName: String,
     lastName: String,
-    email: String
+    email: String,
+    profilePicture: String,
+    googleId: String
 })
 
 export const User = model<IUser>('User', userSchema)

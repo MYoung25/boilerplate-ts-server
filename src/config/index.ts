@@ -24,6 +24,10 @@ export const config = {
     redis: {
         url: process.env.REDIS_URL || 'redis://redis:6379',
         secret: process.env.REDIS_SECRET || 'secret'
+    },
+    google_oauth: {
+        client_id: process.env.GOOGLE_OAUTH_CLIENT_ID || '',
+        client_secret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || ''
     }
 }
 

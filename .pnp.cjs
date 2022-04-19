@@ -41,6 +41,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/mongoose", "npm:5.11.97"],\
             ["@types/node", "npm:17.0.23"],\
             ["@types/passport", "npm:1.0.7"],\
+            ["@types/passport-google-oauth20", "npm:2.0.11"],\
             ["@types/supertest", "npm:2.0.12"],\
             ["axios", "npm:0.26.1"],\
             ["connect-redis", "npm:6.1.3"],\
@@ -53,6 +54,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mongoose", "npm:6.2.10"],\
             ["nodemon", "npm:2.0.15"],\
             ["passport", "npm:0.5.2"],\
+            ["passport-google-oauth20", "npm:2.0.0"],\
             ["redis", "npm:4.0.6"],\
             ["supertest", "npm:6.2.2"],\
             ["ts-jest", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:27.1.4"],\
@@ -1621,12 +1623,46 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/oauth", [\
+        ["npm:0.9.1", {\
+          "packageLocation": "./.yarn/cache/@types-oauth-npm-0.9.1-94ae218a9b-5c079611b4.zip/node_modules/@types/oauth/",\
+          "packageDependencies": [\
+            ["@types/oauth", "npm:0.9.1"],\
+            ["@types/node", "npm:17.0.23"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/passport", [\
         ["npm:1.0.7", {\
           "packageLocation": "./.yarn/cache/@types-passport-npm-1.0.7-a6aaee17b9-1b78fbbb58.zip/node_modules/@types/passport/",\
           "packageDependencies": [\
             ["@types/passport", "npm:1.0.7"],\
             ["@types/express", "npm:4.17.13"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/passport-google-oauth20", [\
+        ["npm:2.0.11", {\
+          "packageLocation": "./.yarn/cache/@types-passport-google-oauth20-npm-2.0.11-a9a0a4f24f-5e87a0bf40.zip/node_modules/@types/passport-google-oauth20/",\
+          "packageDependencies": [\
+            ["@types/passport-google-oauth20", "npm:2.0.11"],\
+            ["@types/express", "npm:4.17.13"],\
+            ["@types/passport", "npm:1.0.7"],\
+            ["@types/passport-oauth2", "npm:1.4.11"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/passport-oauth2", [\
+        ["npm:1.4.11", {\
+          "packageLocation": "./.yarn/cache/@types-passport-oauth2-npm-1.4.11-299820231e-09d047a6c0.zip/node_modules/@types/passport-oauth2/",\
+          "packageDependencies": [\
+            ["@types/passport-oauth2", "npm:1.4.11"],\
+            ["@types/express", "npm:4.17.13"],\
+            ["@types/oauth", "npm:0.9.1"],\
+            ["@types/passport", "npm:1.0.7"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2175,6 +2211,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/base64-js-npm-1.5.1-b2f7275641-669632eb37.zip/node_modules/base64-js/",\
           "packageDependencies": [\
             ["base64-js", "npm:1.5.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["base64url", [\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/base64url-npm-3.0.1-4c171c4917-a77b2a3a52.zip/node_modules/base64url/",\
+          "packageDependencies": [\
+            ["base64url", "npm:3.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5726,6 +5771,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["oauth", [\
+        ["npm:0.9.15", {\
+          "packageLocation": "./.yarn/cache/oauth-npm-0.9.15-a6aae972bc-957c0d8d85.zip/node_modules/oauth/",\
+          "packageDependencies": [\
+            ["oauth", "npm:0.9.15"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["object-inspect", [\
         ["npm:1.12.0", {\
           "packageLocation": "./.yarn/cache/object-inspect-npm-1.12.0-d064fa559a-2b36d4001a.zip/node_modules/object-inspect/",\
@@ -5898,6 +5952,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["passport", "npm:0.5.2"],\
             ["passport-strategy", "npm:1.0.0"],\
             ["pause", "npm:0.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["passport-google-oauth20", [\
+        ["npm:2.0.0", {\
+          "packageLocation": "./.yarn/cache/passport-google-oauth20-npm-2.0.0-4187da29c8-1d34f4c2da.zip/node_modules/passport-google-oauth20/",\
+          "packageDependencies": [\
+            ["passport-google-oauth20", "npm:2.0.0"],\
+            ["passport-oauth2", "npm:1.6.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["passport-oauth2", [\
+        ["npm:1.6.1", {\
+          "packageLocation": "./.yarn/cache/passport-oauth2-npm-1.6.1-2799fe66c7-2a5b01a884.zip/node_modules/passport-oauth2/",\
+          "packageDependencies": [\
+            ["passport-oauth2", "npm:1.6.1"],\
+            ["base64url", "npm:3.0.1"],\
+            ["oauth", "npm:0.9.15"],\
+            ["passport-strategy", "npm:1.0.0"],\
+            ["uid2", "npm:0.0.4"],\
+            ["utils-merge", "npm:1.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6534,6 +6612,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/mongoose", "npm:5.11.97"],\
             ["@types/node", "npm:17.0.23"],\
             ["@types/passport", "npm:1.0.7"],\
+            ["@types/passport-google-oauth20", "npm:2.0.11"],\
             ["@types/supertest", "npm:2.0.12"],\
             ["axios", "npm:0.26.1"],\
             ["connect-redis", "npm:6.1.3"],\
@@ -6546,6 +6625,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mongoose", "npm:6.2.10"],\
             ["nodemon", "npm:2.0.15"],\
             ["passport", "npm:0.5.2"],\
+            ["passport-google-oauth20", "npm:2.0.0"],\
             ["redis", "npm:4.0.6"],\
             ["supertest", "npm:6.2.2"],\
             ["ts-jest", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:27.1.4"],\
@@ -7253,6 +7333,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["uid-safe", "npm:2.1.5"],\
             ["random-bytes", "npm:1.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["uid2", [\
+        ["npm:0.0.4", {\
+          "packageLocation": "./.yarn/cache/uid2-npm-0.0.4-cd02831b83-e92325ce2e.zip/node_modules/uid2/",\
+          "packageDependencies": [\
+            ["uid2", "npm:0.0.4"]\
           ],\
           "linkType": "HARD"\
         }]\
