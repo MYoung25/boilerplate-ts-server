@@ -32,6 +32,11 @@ describe('/api/Permissions', () => {
             await Permissions.deleteMany({})
         })
 
+        it('returns a 401 if not logged in', async () => {
+            const response = await request(app).get('/Permissions')
+            expect(response.statusCode).toBe(401)
+        })
+
         it('returns a 200', async () => {
             const response = await request(app).get('/Permissions')
             expect(response.statusCode).toBe(200)
@@ -49,7 +54,7 @@ describe('/api/Permissions', () => {
         afterAll(async () => {
             await Permissions.deleteMany({})
         })
-            
+
         it('returns a 201', async () => {
             const response = await request(app).post('/Permissions').send({})
             expect(response.statusCode).toBe(201)
@@ -65,7 +70,7 @@ describe('/api/Permissions', () => {
             const item = await Permissions.findById(response.body._id)
             expect(item).toHaveProperty('name', 'Permissions')
         })
-    
+
     })
 
     describe('/:id', () => {
@@ -152,7 +157,7 @@ describe('/api/Permissions', () => {
             })
 
         })
-    
+
     })
 
 })

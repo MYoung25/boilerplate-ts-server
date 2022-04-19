@@ -4,7 +4,8 @@
     "scripts": {
         "test": "yarn jest --runInBand ./src",
         "start": "yarn ts-node src/app.ts",
-        "entity:create": "yarn node utils/cli/cli.js",
+        "entity:create": "yarn node utils/entity/create.js",
+        "permissions:seed": "yarn ts-node utils/permissions/seed.ts",
         "healthcheck": "yarn ts-node docker/docker-healthcheck.mjs"
     },
     "dependencies": {

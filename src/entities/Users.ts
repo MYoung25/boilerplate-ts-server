@@ -1,6 +1,6 @@
 import { Schema, model, Types } from 'mongoose'
 
-export interface IUser extends Express.User {
+export interface IUser {
     _id: Types.ObjectId,
     firstName: string
     lastName: string,

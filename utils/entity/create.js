@@ -1,11 +1,11 @@
 const readline = require('readline')
 const fs = require('fs')
 
-const entityTemplate = require('./entityTemplate')
-const entityTestTemplate = require('./entityTestTemplate')
-const routeTemplate = require('./routeTemplate')
-const routeTestTemplate = require('./routeTestTemplate')
-const routeIndex = require('./routeIndex')
+const entityTemplate = require('./templates/entityTemplate')
+const entityTestTemplate = require('./templates/entityTestTemplate')
+const routeTemplate = require('./templates/routeTemplate')
+const routeTestTemplate = require('./templates/routeTestTemplate')
+const routeIndex = require('./templates/routeIndex')
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -40,7 +40,7 @@ function askQuestion () {
                     } catch (e) {
                         fs.mkdirSync('./src/routes')
                     }
-                    
+
                     fs.writeFileSync(`./src/routes/${entityName}.ts`, routeTemplate(entityName))
                     fs.writeFileSync(`./src/routes/${entityName}.test.ts`, routeTestTemplate(entityName))
                     fs.writeFileSync(`./src/routes/index.ts`, routeIndex())
