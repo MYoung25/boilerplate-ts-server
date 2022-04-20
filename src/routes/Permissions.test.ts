@@ -32,11 +32,6 @@ describe('/api/Permissions', () => {
             await Permissions.deleteMany({})
         })
 
-        it('returns a 401 if not logged in', async () => {
-            const response = await request(app).get('/Permissions')
-            expect(response.statusCode).toBe(401)
-        })
-
         it('returns a 200', async () => {
             const response = await request(app).get('/Permissions')
             expect(response.statusCode).toBe(200)
