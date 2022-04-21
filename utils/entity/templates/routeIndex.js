@@ -20,7 +20,6 @@ ${
 export const app = express()
 
 app.use(helmet())
-setupPassport(app)
 
 app.get('/ping', (req: Request, res: Response) => {
   const { readyState } = mongoose.connection
@@ -32,6 +31,7 @@ app.get('/ping', (req: Request, res: Response) => {
 })
 
 app.use(express.json())
+setupPassport(app)
 
 ${
     routes
