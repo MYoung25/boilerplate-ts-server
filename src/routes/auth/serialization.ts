@@ -8,7 +8,7 @@ export class Serialization {
     }
 
     static async deserialize (id: Types.ObjectId, done: (err: Error | null, user: IUser | null) => { }) {
-        const user = await User.findById(id.toString())
+        const user = await User.findByIdWithPermissions(id)
         if (user) {
             done(null, user)
             return

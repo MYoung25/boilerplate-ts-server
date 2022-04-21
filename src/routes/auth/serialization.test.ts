@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 import { Serialization } from './serialization'
 import { User, IUser } from "../../entities/Users"
-import {ErrnoException} from "../../app"
-import {expectCt} from "helmet"
+import {Permissions} from "../../entities/Permissions"
+import {Roles} from "../../entities/Roles"
 
 declare global {
     var __MONGO_URI__: string
@@ -10,14 +10,19 @@ declare global {
 
 describe('Serialization', () => {
     const cb = jest.fn()
+    const perm = new Permissions({ name: 'permissions.get', group: 'permissions' })
+    const role = new Roles({ name: 'User', permissions: [perm] })
     let user = new User({
         firstName: 'hello',
         lastName: 'world',
-        email: 'hello@world.com'
+        email: 'hello@world.com',
+        role
     })
     let connection: any
     beforeAll(async () => {
         connection = await mongoose.connect(global.__MONGO_URI__ as string)
+        await perm.save()
+        await role.save()
         await user.save()
     });
 
@@ -64,6 +69,19 @@ describe('Serialization', () => {
             await Serialization.deserialize(user._id, cb)
             expect(cb).toHaveBeenCalledWith(null, expect.any(User))
             expect(cb.mock.calls[0][1]._id).toEqual(user._id)
+        })
+
+        it('returns the user with permissions', async () => {
+            expect.assertions(4)
+
+            await Serialization.deserialize(user._id, cb)
+            const foundUser = cb.mock.calls[0][1] as IUser
+            expect(foundUser._id).toEqual(user._id)
+            expect(foundUser.role).toHaveProperty('permissions')
+            if (foundUser.role && 'permissions' in foundUser.role) {
+                expect(foundUser.role.permissions).toHaveLength(1)
+                expect(foundUser.role.permissions[0]).toEqual(expect.any(Permissions))
+            }
         })
 
         it('returns an error if no user found', async () => {
