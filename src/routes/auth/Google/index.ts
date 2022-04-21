@@ -18,6 +18,7 @@ passport.use(new Strategy(
 router.get('/', passport.authenticate('google', { scope: ['profile', 'email'] }))
 
 router.get('/callback', passport.authenticate('google'), (req, res) => {
+    console.log(req.session)
     res.sendStatus(204)
 })
 

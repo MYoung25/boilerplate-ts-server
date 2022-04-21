@@ -15,6 +15,16 @@ router.route('/')
         res.status(201).json(item)
     })
 
+router.route('/me')
+    .get((req, res) => {
+        if (req.isAuthenticated()) {
+            console.log(req.user)
+            res.sendStatus(200)
+            return
+        }
+        res.sendStatus(401)
+    })
+
 router.route('/:id')
     .get(async (req: Request, res: Response) => {
         try {

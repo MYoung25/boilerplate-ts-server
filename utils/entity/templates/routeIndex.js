@@ -10,6 +10,7 @@ module.exports = function () {
 import helmet from 'helmet'
 import passport from 'passport'
 import mongoose from 'mongoose'
+import { setupPassport } from "./auth"
 ${
     routes
         .map(route => 'import ' + route + ' from \'./' + route + '\'')
@@ -19,6 +20,7 @@ ${
 export const app = express()
 
 app.use(helmet())
+setupPassport(app)
 
 app.get('/ping', (req: Request, res: Response) => {
   const { readyState } = mongoose.connection

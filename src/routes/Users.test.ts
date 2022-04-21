@@ -68,6 +68,19 @@ describe('/api/Users', () => {
 
     })
 
+    describe('/me', () => {
+
+        describe('GET', () => {
+
+            it('returns 401 for unauthenticated request', async () => {
+                const response = await request(app).get('/Users/me')
+                expect(response.statusCode).toBe(401)
+            })
+
+        })
+
+    })
+
     describe('/:id', () => {
         let item: any
 
