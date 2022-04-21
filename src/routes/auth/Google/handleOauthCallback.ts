@@ -1,4 +1,4 @@
-import { User } from "../../../entities/Users"
+import {IUser, User} from "../../../entities/Users"
 import { Profile, VerifyCallback } from 'passport-google-oauth20'
 
 // {
@@ -43,16 +43,25 @@ export default async (
     done: VerifyCallback
 ) => {
     try {
-        const user = await User.findOneAndUpdate({ googleId: profile.id }, {
+        const userUpdate: Partial<IUser> = {
             googleId: profile.id,
-            firstName: profile.name?.givenName,
-            lastName: profile.name?.familyName,
             email: profile._json.email,
             profilePicture: profile._json.picture
-        }, {
-            upsert: true,
-            returnDocument: 'after'
-        })
+        }
+
+        if (profile.name) {
+            userUpdate.firstName = profile.name.givenName
+            userUpdate.lastName =  profile.name.familyName
+        }
+
+        const user = await User.findOneAndUpdate(
+            { googleId: profile.id },
+            userUpdate,
+            {
+                upsert: true,
+                returnDocument: 'after'
+            }
+        )
         done(null, user)
     } catch (e: any) {
         done(e)

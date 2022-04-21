@@ -13,6 +13,7 @@ describe('Google/handleOauthCallback', function () {
         displayName: 'Google User',
         profileUrl: 'https://google.com',
         id: '0976543fghj',
+        name: { givenName: 'Clark', familyName: 'Kent' },
         _raw: '',
         provider: 'google',
         _json: {
@@ -50,6 +51,17 @@ describe('Google/handleOauthCallback', function () {
 
         expect(foundUser).not.toBeNull()
         expect(foundUser?.googleId).toEqual(profile.id)
+        expect(mockCallback).toHaveBeenCalledWith(null, foundUser)
+    })
+
+    it('inserts a user if they don\'t have a name object', async () => {
+        await handleOauthCallback('access', 'refresh', { ...profile, name: undefined }, mockCallback)
+
+        const foundUser = await User.findOne({ googleId: profile.id })
+
+        expect(foundUser).not.toBeNull()
+        expect(foundUser).toHaveProperty('firstName', undefined)
+        expect(foundUser).toHaveProperty('lastName', undefined)
         expect(mockCallback).toHaveBeenCalledWith(null, foundUser)
     })
 

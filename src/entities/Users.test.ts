@@ -1,4 +1,4 @@
-import mongoose, { Types } from 'mongoose'
+import mongoose from 'mongoose'
 import { IUser, User } from './Users'
 import { Permissions } from './Permissions'
 import { Roles } from './Roles'
@@ -13,7 +13,7 @@ describe('User', () => {
         connection = await mongoose.connect(global.__MONGO_URI__ as string)
     });
 
-    beforeEach(async () => {
+    afterEach(async () => {
         await User.deleteMany({})
     })
 
@@ -30,6 +30,30 @@ describe('User', () => {
 
         const found = await User.findById(entity._id)
         expect(found).toBeDefined()
+    })
+
+    it('saves the password as a hashed value', async () => {
+        expect.assertions(1)
+        const password = 'password'
+        const entity = new User({ password })
+        await entity.save()
+        const found = await User.findById(entity._id)
+        expect(found).toHaveProperty('password', expect.not.stringContaining(password))
+    })
+
+    it('saves the updated password as a hashed value', async () => {
+        expect.assertions(2)
+        const password = 'password'
+        const entity = new User({ password })
+        await entity.save()
+        const found = await User.findById(entity._id)
+        expect(found).toHaveProperty('password', expect.not.stringContaining(password))
+
+        entity.password = 'password2'
+        await entity.save()
+
+        const found2 = await User.findById(entity._id)
+        expect(found2).toHaveProperty('password', expect.not.stringContaining(found?.password || ''))
     })
 
     it('updates a User', async () => {
@@ -78,5 +102,32 @@ describe('User', () => {
                 expect(result.role.permissions[0]).toEqual(expect.any(Permissions))
             }
         })
+    })
+
+    describe('comparePassword', () => {
+        const _id = new mongoose.Types.ObjectId()
+        const email = 'email'
+        const password = 'password'
+        beforeEach(async () => {
+            const entity = new User({ _id, email, password })
+            await entity.save()
+        })
+
+        it('returns User if the passwords match', async () => {
+            const result = await User.authenticate(email, password)
+            expect(result).toEqual(expect.any(User))
+            expect(result).toHaveProperty('_id', _id)
+        })
+
+        it('returns false if the passwords don\'t match', async () => {
+            const result = await User.authenticate(email, 'password1')
+            expect(result).toEqual(false)
+        })
+
+        it('returns false if there is no user with that email', async () => {
+            const result = await User.authenticate('email1', password)
+            expect(result).toEqual(false)
+        })
+
     })
 })

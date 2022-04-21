@@ -7,6 +7,7 @@ import { logger, config } from '../../config'
 import { Serialization } from "./serialization"
 
 import Google from './Google/index'
+import Local from './Local/index'
 
 export const router = Router()
 
@@ -53,6 +54,7 @@ export function setupPassport (app: Express) {
 	app.use(passport.session())
 }
 
+router.use('/login', Local)
 router.use('/google', Google)
 
 export default router

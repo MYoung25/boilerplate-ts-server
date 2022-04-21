@@ -1,5 +1,7 @@
 import { Schema, Model, model, Types } from 'mongoose'
 import { IRoles } from "./Roles"
+import bcrypt from "bcrypt"
+import config from "../config"
 
 export interface IUser {
     _id: Types.ObjectId,
@@ -9,6 +11,7 @@ export interface IUser {
     profilePicture?: string,
     googleId?: string,
     role: Types.ObjectId | IRoles,
+    password: string
 }
 
 export const userSchema = new Schema({
@@ -17,8 +20,30 @@ export const userSchema = new Schema({
     email: String,
     profilePicture: String,
     googleId: String,
-    role: { type: Types.ObjectId, ref: 'Roles' }
+    role: { type: Types.ObjectId, ref: 'Roles' },
+    password: String
 })
+
+userSchema.pre('save', async function () {
+    if (!this.isModified('password')) return
+    this.password = await bcrypt.hash(this.password, config.bcrypt.saltRounds)
+})
+
+export interface UserModel extends Model<IUser> {
+    authenticate (email: string, password: string): Promise<IUser | false>
+    findByIdWithPermissions (_id: Types.ObjectId): Promise<IUser>
+}
+
+userSchema.statics.authenticate = async function authenticate (email: string, password: string): Promise<IUser | false> {
+    const user = await this.findOne({ email })
+    if (user) {
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (isMatch) {
+            return user
+        }
+    }
+    return false
+}
 
 userSchema.statics.findByIdWithPermissions = function findAllBySessionId (_id: Types.ObjectId): Promise<IUser> {
     return this
@@ -27,10 +52,6 @@ userSchema.statics.findByIdWithPermissions = function findAllBySessionId (_id: T
             path: 'role',
             populate: { path: 'permissions' }
         })
-}
-
-export interface UserModel extends Model<IUser> {
-    findByIdWithPermissions (_id: Types.ObjectId): IUser
 }
 
 export const User = model<IUser, UserModel>('User', userSchema)

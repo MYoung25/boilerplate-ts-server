@@ -28,6 +28,9 @@ export const config = {
     google_oauth: {
         client_id: process.env.GOOGLE_OAUTH_CLIENT_ID || 'this_is_a_client_id',
         client_secret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || 'this_is_a_client_secret'
+    },
+    bcrypt: {
+        saltRounds: parseInt(process.env.SALT_ROUNDS || "1") // recommend 13 in production
     }
 }
 

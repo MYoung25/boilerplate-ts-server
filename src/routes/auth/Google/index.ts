@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import passport from 'passport'
-import {Strategy, StrategyOptions} from 'passport-google-oauth20'
-import { config } from '../../../config/index'
+import {Strategy} from 'passport-google-oauth20'
+import { config } from '../../../config'
 import handleOauthCallback from "./handleOauthCallback"
 
 export const router = Router()
@@ -17,8 +17,8 @@ passport.use(new Strategy(
 
 router.get('/', passport.authenticate('google', { scope: ['profile', 'email'] }))
 
+/* istanbul ignore next */
 router.get('/callback', passport.authenticate('google'), (req, res) => {
-    console.log(req.session)
     res.sendStatus(204)
 })
 

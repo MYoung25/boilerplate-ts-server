@@ -1,6 +1,7 @@
 import { logger } from '../config/index'
 import { Router, Response, Request } from 'express'
 import { User } from '../entities/Users'
+import { userHasPermissions } from './auth/middleware'
 
 const router = Router()
 
@@ -16,12 +17,7 @@ router.route('/')
     })
 
 router.route('/me')
-    .get((req, res) => {
-        if (req.isAuthenticated()) {
-            console.log(req.user)
-            res.sendStatus(200)
-            return
-        }
+    .get(userHasPermissions, (req, res) => {
         res.sendStatus(401)
     })
 

@@ -1,7 +1,2 @@
-import userHasPermissions from "./userHasPermissions"
-import publicRoute from "./publicRoute"
-
-export default {
-    userHasPermissions,
-    publicRoute
-}
+export * from "./userHasPermissions"
+export * from "./publicRoute"
