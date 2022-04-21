@@ -1,5 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import { IUser, User } from './Users'
+import { Permissions } from './Permissions'
+import { Roles } from './Roles'
 
 declare global {
     var __MONGO_URI__: string
@@ -52,5 +54,29 @@ describe('User', () => {
         await User.deleteOne({ _id: entity._id })
         const found = await User.findById(entity._id)
         expect(found).toBeNull()
+    })
+
+    describe('findByIdWithPermissions', () => {
+        const perm = new Permissions({ name: 'permissions.get', group: 'permissions' })
+        const role = new Roles({ name: 'User', permissions: [perm] })
+        const user = new User({ role })
+
+        beforeEach(async () => {
+            await perm.save()
+            await role.save()
+            await user.save()
+        })
+
+        it('has permissions in the database', async () => {
+            expect.assertions(4)
+            const result = await User.findByIdWithPermissions(user._id)
+
+            expect(result).toHaveProperty('role')
+            expect(result.role).toHaveProperty('permissions')
+            if (result.role && 'permissions' in result.role) {
+                expect(result.role.permissions).toHaveLength(1)
+                expect(result.role.permissions[0]).toEqual(expect.any(Permissions))
+            }
+        })
     })
 })

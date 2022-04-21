@@ -8,7 +8,6 @@ module.exports = function () {
 
     return `import express, { Request, Response } from 'express'
 import helmet from 'helmet'
-import passport from 'passport'
 import mongoose from 'mongoose'
 import { setupPassport } from "./auth"
 ${

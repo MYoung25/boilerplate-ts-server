@@ -1,4 +1,5 @@
-import { Schema, model, Types } from 'mongoose'
+import { Schema, Model, model, Types } from 'mongoose'
+import { IRoles } from "./Roles"
 
 export interface IUser {
     _id: Types.ObjectId,
@@ -6,7 +7,8 @@ export interface IUser {
     lastName: string,
     email: string,
     profilePicture?: string,
-    googleId?: string
+    googleId?: string,
+    role: Types.ObjectId | IRoles,
 }
 
 export const userSchema = new Schema({
@@ -14,7 +16,21 @@ export const userSchema = new Schema({
     lastName: String,
     email: String,
     profilePicture: String,
-    googleId: String
+    googleId: String,
+    role: { type: Types.ObjectId, ref: 'Roles' }
 })
 
-export const User = model<IUser>('User', userSchema)
+userSchema.statics.findByIdWithPermissions = function findAllBySessionId (_id: Types.ObjectId): Promise<IUser> {
+    return this
+        .findOne({ _id })
+        .populate({
+            path: 'role',
+            populate: { path: 'permissions' }
+        })
+}
+
+export interface UserModel extends Model<IUser> {
+    findByIdWithPermissions (_id: Types.ObjectId): IUser
+}
+
+export const User = model<IUser, UserModel>('User', userSchema)

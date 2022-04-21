@@ -1,9 +1,10 @@
 import express, { Request, Response } from 'express'
 import helmet from 'helmet'
 import mongoose from 'mongoose'
-import {setupPassport} from "./auth"
+import { setupPassport } from "./auth"
 import Permissions from './Permissions'
-import User from './Users'
+import Roles from './Roles'
+import Users from './Users'
 import auth from './auth'
 
 export const app = express()
@@ -23,5 +24,6 @@ app.use(express.json())
 setupPassport(app)
 
 app.use('/permissions', Permissions)
-app.use('/users', User)
+app.use('/roles', Roles)
+app.use('/users', Users)
 app.use('/auth', auth)
