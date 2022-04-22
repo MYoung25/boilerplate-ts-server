@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { Serialization } from './serialization'
+import { Serialization, SerializedUser } from './serialization'
 import { User, IUser } from "../../entities/Users"
 import {Permissions} from "../../entities/Permissions"
 import {Roles} from "../../entities/Roles"
@@ -31,6 +31,9 @@ describe('Serialization', () => {
     })
 
     afterAll(async () => {
+        await perm.delete()
+        await role.delete()
+        await user.delete()
         await connection.disconnect()
     })
 
@@ -75,13 +78,22 @@ describe('Serialization', () => {
             expect.assertions(4)
 
             await Serialization.deserialize(user._id, cb)
-            const foundUser = cb.mock.calls[0][1] as IUser
+            const foundUser = cb.mock.calls[0][1] as SerializedUser
             expect(foundUser._id).toEqual(user._id)
             expect(foundUser.role).toHaveProperty('permissions')
             if (foundUser.role && 'permissions' in foundUser.role) {
                 expect(foundUser.role.permissions).toHaveLength(1)
                 expect(foundUser.role.permissions[0]).toEqual(expect.any(Permissions))
             }
+        })
+
+        it('returns the user with hashPermissions', async () => {
+            expect.assertions(2)
+
+            await Serialization.deserialize(user._id, cb)
+            const foundUser = cb.mock.calls[0][1] as SerializedUser
+            expect(foundUser).toHaveProperty('hashPermissions')
+            expect(foundUser.hashPermissions[perm.name]).toEqual(perm.name)
         })
 
         it('returns an error if no user found', async () => {
