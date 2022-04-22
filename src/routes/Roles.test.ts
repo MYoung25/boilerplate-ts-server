@@ -49,7 +49,7 @@ describe('/api/Roles', () => {
         afterAll(async () => {
             await Roles.deleteMany({})
         })
-            
+
         it('returns a 201', async () => {
             const response = await request(app).post('/Roles').send({})
             expect(response.statusCode).toBe(201)
@@ -57,15 +57,14 @@ describe('/api/Roles', () => {
 
         it('returns the new Roles', async () => {
             const response = await request(app).post('/Roles').send({ name: 'Roles' })
-            expect(response.body).toHaveProperty('name', 'Roles')
+            expect(response.body).toHaveProperty('name', 'ROLES')
         })
 
         it('inserts the new Roles', async () => {
             const response = await request(app).post('/Roles').send({ name: 'Roles' })
             const item = await Roles.findById(response.body._id)
-            expect(item).toHaveProperty('name', 'Roles')
+            expect(item).toHaveProperty('name', 'ROLES')
         })
-    
     })
 
     describe('/:id', () => {
@@ -152,7 +151,7 @@ describe('/api/Roles', () => {
             })
 
         })
-    
+
     })
 
 })
