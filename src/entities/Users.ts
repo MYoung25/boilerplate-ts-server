@@ -1,5 +1,5 @@
 import { Schema, Model, model, Types } from 'mongoose'
-import { IRoles } from "./Roles"
+import {IRoles, Roles} from "./Roles"
 import bcrypt from "bcrypt"
 import config from "../config"
 
@@ -25,6 +25,9 @@ export const userSchema = new Schema({
 })
 
 userSchema.pre('save', async function () {
+    if (!this.role) {
+        this.role = await Roles.findOne({ name: 'USER' })
+    }
     if (!this.isModified('password')) return
     this.password = await bcrypt.hash(this.password, config.bcrypt.saltRounds)
 })

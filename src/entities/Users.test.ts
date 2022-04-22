@@ -9,8 +9,12 @@ declare global {
 
 describe('User', () => {
     let connection: any
+    let userRole = new Roles({
+        name: 'USER'
+    })
     beforeAll(async () => {
         connection = await mongoose.connect(global.__MONGO_URI__ as string)
+        await userRole.save()
     });
 
     afterEach(async () => {
@@ -22,7 +26,7 @@ describe('User', () => {
     })
 
     it('creates a User', async () => {
-        expect.assertions(2)
+        expect.assertions(3)
 
         const entity = await new User({})
             .save()
@@ -30,6 +34,7 @@ describe('User', () => {
 
         const found = await User.findById(entity._id)
         expect(found).toBeDefined()
+        expect(found).toHaveProperty('role', userRole._id)
     })
 
     it('saves the password as a hashed value', async () => {
