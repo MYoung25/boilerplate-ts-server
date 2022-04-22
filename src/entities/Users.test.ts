@@ -19,6 +19,7 @@ describe('User', () => {
 
     afterEach(async () => {
         await User.deleteMany({})
+        await Permissions.deleteMany({})
     })
 
     afterAll(async () => {

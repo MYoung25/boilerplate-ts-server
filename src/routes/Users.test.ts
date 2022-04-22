@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 import { app } from './index'
 import { User } from '../entities/Users'
 import { ErrnoException } from '../app'
+import {Roles} from "../entities/Roles"
+import {Permissions} from "../entities/Permissions"
 
 declare global {
     var __MONGO_URI__: string
@@ -71,10 +73,30 @@ describe('/api/Users', () => {
     describe('/me', () => {
 
         describe('GET', () => {
+            const email = 'email'
+            const password = 'password'
+            const user = new User({ email, password })
+            beforeAll(async () => {
+                const permission = await new Permissions({ name: 'users.me.get' }).save()
+                await new Roles({ name: 'USER', permissions: [ permission ] }).save()
+                await user.save()
+            })
+
+            afterAll(async () => {
+                await User.deleteMany({})
+            })
 
             it('returns 401 for unauthenticated request', async () => {
                 const response = await request(app).get('/Users/me')
                 expect(response.statusCode).toBe(401)
+            })
+
+            it('returns 200 and the user for an authenticated user', async () => {
+                const agent = await request.agent(app)
+                await agent.post('/auth/login')
+                    .send({ email, password })
+                const response = await agent.get('/users/me')
+                expect(response.status).toEqual(200)
             })
 
         })

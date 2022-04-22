@@ -1,6 +1,6 @@
 import { logger } from '../config/index'
 import { Router, Response, Request } from 'express'
-import { User } from '../entities/Users'
+import {IUser, User} from '../entities/Users'
 import { userHasPermissions } from './auth/middleware'
 
 const router = Router()
@@ -17,8 +17,14 @@ router.route('/')
     })
 
 router.route('/me')
-    .get(userHasPermissions, (req, res) => {
-        res.sendStatus(401)
+    .get(userHasPermissions, async (req, res) => {
+        res.status(200)
+        const reqUser = (req.user as IUser)
+        if (reqUser && '_id' in reqUser) {
+            const user = await User.findById(reqUser._id)
+            return res.json(user)
+        }
+
     })
 
 router.route('/:id')
