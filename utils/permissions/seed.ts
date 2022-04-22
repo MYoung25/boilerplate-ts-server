@@ -1,8 +1,10 @@
 import fs from 'fs'
 import path from 'path'
-import { Permission, RouteInterface } from "./permissionsUtilities"
+import { RouteInterface } from "./permissionsUtilities"
 import { establishMongooseConnection } from "../../src/mongodb"
-import { Permissions as PermissionModel } from "../../src/entities/Permissions"
+import { HydratedDocument } from 'mongoose'
+import { Permissions, IPermissions } from "../../src/entities/Permissions"
+import { Roles } from "../../src/entities/Roles"
 
 // @ts-ignore
 fs.readdir('./src/routes/', async (err, files) => {
@@ -10,14 +12,11 @@ fs.readdir('./src/routes/', async (err, files) => {
         !file.includes('test') && file.includes('.ts') && file !== 'index.ts'
     ))
 
-    const permissionsList: Permission[] = []
+    const permissionsList: HydratedDocument<IPermissions>[] = []
     await Promise.all(permissionsRoutes.map(async module => {
         import(path.resolve(__dirname, `../../src/routes/${module}`))
             .then(router => {
-                let moduleCommonNamePlural = module.replace('.ts', '')
-                let moduleCommonNameSingular = moduleCommonNamePlural.replace(/s$/, '')
-                const collectionRoute = new Permission(moduleCommonNamePlural)
-                const itemRoute = new Permission(moduleCommonNameSingular)
+                let moduleCommonName = module.replace('.ts', '').toLowerCase()
 
                 router.default.stack.forEach((layer: {
                     route: {
@@ -26,17 +25,16 @@ fs.readdir('./src/routes/', async (err, files) => {
                         methods: RouteInterface
                     }
                 }) => {
-                    switch (layer.route.path) {
-                        case '/':
-                            collectionRoute.setRoutes(layer.route.methods)
-                            break
-                        case '/:id':
-                            itemRoute.setRoutes(layer.route.methods)
-                            break
-                    }
+                    const path = layer.route.path.slice(1).replace(':', '')
+                    Object.entries(layer.route.methods)
+                        .filter(([method, bool]) => bool)
+                        .forEach(([method]) => {
+                            permissionsList.push(new Permissions({
+                                name: `${moduleCommonName}.${path ? path + '.' : ''}${method}`,
+                                group: moduleCommonName
+                            }))
+                        })
                 })
-                permissionsList.push(collectionRoute)
-                permissionsList.push(itemRoute)
             })
     }))
 
@@ -47,18 +45,27 @@ fs.readdir('./src/routes/', async (err, files) => {
         process.exit(1)
     }
 
-    await Promise.all(permissionsList.map(async (permission: Permission): Promise<any> => {
-        const mappedPermissionsStrings = permission
-            .getMethodsAsArray()
-            .map(method => `${permission.getName().toLowerCase()}.${method}`)
-        return Promise.all(mappedPermissionsStrings.map(permissionString => {
-            return PermissionModel.updateOne(
-                {name: permissionString},
-                {name: permissionString, group: permission.getPlurifiedName() },
-                {upsert: true}
-            )
-        }))
+    const savedPermissions = await Promise.all(permissionsList.map(async (permission: HydratedDocument<IPermissions>) => {
+        const { name, group } = permission
+        return Permissions.findOneAndUpdate({ name: permission.name }, {
+            name, group
+        }, { upsert: true, returnDocument: 'after' })
     }))
+
+    await Roles.findOneAndUpdate(
+        { name: 'SUPERADMIN' },
+        {
+            name: 'SUPERADMIN',
+            permissions: savedPermissions
+        },
+        { upsert: true }
+    )
+
+    await Roles.findOneAndUpdate(
+        { name: 'user' },
+        { name: 'USER', permissions: savedPermissions.filter((permission: HydratedDocument<unknown, IPermissions>) => permission.name === 'users.me.get')},
+        { upsert: true }
+    )
 
     process.exit()
 })

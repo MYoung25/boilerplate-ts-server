@@ -12,4 +12,9 @@ export const rolesSchema = new Schema({
     permissions: [{ type: Types.ObjectId, ref: 'Permissions'} ]
 })
 
+rolesSchema.pre('save', function () {
+    if (!this.isModified('name')) return
+    this.name = this.name.toUpperCase()
+})
+
 export const Roles = model<IRoles>('Roles', rolesSchema)
