@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
-const { User } = require('../src/entities/Users')
+const { Users } = require('../src/entities/Users')
 const { Roles } = require('../src/entities/Roles')
 const { Permissions } = require('../src/entities/Permissions')
 
 export const perm = new Permissions({ name: 'users.me.get', group: 'users' })
 export const role = new Roles({ name: 'USER', permissions: [perm] })
 export const password = 'password'
-export const user = new User({ firstName: 'hello', lastName: 'world', email: 'hello@world.com', password, role })
+export const user = new Users({ firstName: 'hello', lastName: 'world', email: 'hello@world.com', password, role })
 
 declare global {
     var __MONGO_URI__: string
@@ -31,13 +31,13 @@ beforeAll(async () => {
 })
 
 afterEach(async () => {
-    await User.deleteMany({ _id: { $ne: user._id } })
+    await Users.deleteMany({ _id: { $ne: user._id } })
     await Roles.deleteMany({ _id: { $ne: role._id } })
     await Permissions.deleteMany({ _id: { $ne: perm._id } })
 })
 
 afterAll(async () => {
-    await User.deleteMany({})
+    await Users.deleteMany({})
     await Roles.deleteMany({})
     await Permissions.deleteMany({})
     await mongoose.disconnect()

@@ -1,17 +1,17 @@
 import { logger } from '../config/index'
 import { Router, Response, Request } from 'express'
-import {IUser, User} from '../entities/Users'
+import {IUser, Users} from '../entities/Users'
 import { userHasPermissions } from './auth/middleware'
 
 const router = Router()
 
 router.route('/')
     .get(async (req: Request, res: Response) => {
-        const items = await User.find({})
+        const items = await Users.find({})
         res.json(items)
     })
     .post(async (req: Request, res: Response) => {
-        const item = new User(req.body)
+        const item = new Users(req.body)
         await item.save()
         res.status(201).json(item)
     })
@@ -21,7 +21,7 @@ router.route('/me')
         res.status(200)
         const reqUser = (req.user as IUser)
         if (reqUser && '_id' in reqUser) {
-            const user = await User.findById(reqUser._id)
+            const user = await Users.findById(reqUser._id)
             return res.json(user)
         }
 
@@ -30,7 +30,7 @@ router.route('/me')
 router.route('/:id')
     .get(async (req: Request, res: Response) => {
         try {
-            const item = await User.findOne({ _id: req.params.id })
+            const item = await Users.findOne({ _id: req.params.id })
             if (item) {
                 res.json(item)
                 return
@@ -43,7 +43,7 @@ router.route('/:id')
     })
     .patch(async (req: Request, res: Response) => {
         try {
-            const item = await User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+            const item = await Users.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
             if (item) {
                 res.json(item)
                 return
@@ -56,7 +56,7 @@ router.route('/:id')
     })
     .delete(async (req: Request, res: Response) => {
         try {
-            const item = await User.deleteOne({ _id: req.params.id })
+            const item = await Users.deleteOne({ _id: req.params.id })
             if (item.deletedCount === 1) {
                 res.sendStatus(204)
                 return

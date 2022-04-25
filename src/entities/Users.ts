@@ -57,4 +57,4 @@ userSchema.statics.findByIdWithPermissions = function findAllBySessionId (_id: T
         })
 }
 
-export const User = model<IUser, UserModel>('User', userSchema)
+export const Users = model<IUser, UserModel>('Users', userSchema)

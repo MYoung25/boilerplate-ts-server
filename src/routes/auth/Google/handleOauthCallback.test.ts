@@ -1,6 +1,5 @@
 import handleOauthCallback from "./handleOauthCallback"
-import mongoose from 'mongoose'
-import { User } from '../../../entities/Users'
+import { Users } from '../../../entities/Users'
 import { Profile } from 'passport-google-oauth20'
 
 declare global {
@@ -30,11 +29,6 @@ describe('Google/handleOauthCallback', function () {
         jest.clearAllMocks()
     })
 
-    afterAll(async () => {
-        await User.deleteOne({ googleId: profile.id})
-        await User.deleteOne({ googleId: altID })
-    })
-
     it('calls callback', async () => {
         await handleOauthCallback('access', 'refresh', profile, mockCallback)
 
@@ -44,7 +38,7 @@ describe('Google/handleOauthCallback', function () {
     it('inserts a user if they don\'t already exist', async () => {
         await handleOauthCallback('access', 'refresh', profile, mockCallback)
 
-        const foundUser = await User.findOne({ googleId: profile.id })
+        const foundUser = await Users.findOne({ googleId: profile.id })
 
         expect(foundUser).not.toBeNull()
         expect(foundUser?.googleId).toEqual(profile.id)
@@ -55,7 +49,7 @@ describe('Google/handleOauthCallback', function () {
 
         await handleOauthCallback('access', 'refresh', { ...profile, id: altID, name: undefined }, mockCallback)
 
-        const foundUser = await User.findOne({ googleId: altID })
+        const foundUser = await Users.findOne({ googleId: altID })
 
         expect(foundUser).not.toBeNull()
         expect(foundUser).toHaveProperty('firstName', undefined)

@@ -1,7 +1,7 @@
 import request from 'supertest'
 import mongoose from 'mongoose'
 import { app } from './index'
-import { User } from '../entities/Users'
+import { Users } from '../entities/Users'
 import { ErrnoException } from '../app'
 import { user, password } from '../../jest/setup'
 
@@ -14,7 +14,7 @@ describe('/api/Users', () => {
     describe('GET', () => {
 
         beforeAll(async () => {
-            await new User({}).save()
+            await new Users({}).save()
         })
 
         it('returns a 200', async () => {
@@ -24,7 +24,7 @@ describe('/api/Users', () => {
 
         it('returns all Users', async() => {
             const response = await request(app).get('/Users')
-            const users = await User.find({})
+            const users = await Users.find({})
             expect(response.body.length).toBe(users.length)
         })
 
@@ -33,7 +33,7 @@ describe('/api/Users', () => {
     describe('POST', () => {
         const firstName = 'User'
         afterEach(async () => {
-            await User.deleteMany({ firstName })
+            await Users.deleteMany({ firstName })
         })
 
         it('returns a 201', async () => {
@@ -48,7 +48,7 @@ describe('/api/Users', () => {
 
         it('inserts the new User', async () => {
             const response = await request(app).post('/Users').send({ firstName })
-            const item = await User.findById(response.body._id)
+            const item = await Users.findById(response.body._id)
             expect(item).toHaveProperty('firstName', 'User')
         })
 
@@ -135,7 +135,7 @@ describe('/api/Users', () => {
 
             it('deletes the User', async () => {
                 await request(app).delete(`/Users/${user._id}`)
-                const found = await User.findById(user._id)
+                const found = await Users.findById(user._id)
                 expect(found).toBeNull()
             })
 

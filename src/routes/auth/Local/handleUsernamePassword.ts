@@ -1,8 +1,8 @@
-import {IUser, User} from "../../../entities/Users"
+import {IUser, Users} from "../../../entities/Users"
 import {VerifyFunction} from "passport-local"
 
 export const handleUsernamePassword: VerifyFunction = async function handleUsernamePassword (email: string, password: string, done: (err: null | Error, user?: IUser) => void) {
-    const user = await User.authenticate(email, password)
+    const user = await Users.authenticate(email, password)
     if (user) {
         return done(null, user)
     }

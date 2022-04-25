@@ -1,4 +1,4 @@
-import {IUser, User} from "../../../entities/Users"
+import {IUser, Users} from "../../../entities/Users"
 import { Profile, VerifyCallback } from 'passport-google-oauth20'
 
 // {
@@ -54,7 +54,7 @@ export default async (
             userUpdate.lastName =  profile.name.familyName
         }
 
-        const user = await User.findOneAndUpdate(
+        const user = await Users.findOneAndUpdate(
             { googleId: profile.id },
             userUpdate,
             {

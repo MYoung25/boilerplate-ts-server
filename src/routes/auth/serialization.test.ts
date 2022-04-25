@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { Serialization, SerializedUser } from './serialization'
-import { User, IUser } from "../../entities/Users"
+import { Users, IUser } from "../../entities/Users"
 import {Permissions} from "../../entities/Permissions"
 import {Roles} from "../../entities/Roles"
 
@@ -17,7 +17,7 @@ describe('Serialization', () => {
     beforeAll(async () => {
         perm = await Permissions.findOne({ name: 'users.me.get' })
         role = await Roles.findOne({ name: 'USER' })
-        user = await User.findOne({ firstName: 'hello' })
+        user = await Users.findOne({ firstName: 'hello' })
     });
 
     beforeEach(() => {
@@ -58,7 +58,7 @@ describe('Serialization', () => {
             expect.assertions(2)
 
             await Serialization.deserialize(user._id, cb)
-            expect(cb).toHaveBeenCalledWith(null, expect.any(User))
+            expect(cb).toHaveBeenCalledWith(null, expect.any(Users))
             expect(cb.mock.calls[0][1]._id).toEqual(user._id)
         })
 

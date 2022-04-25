@@ -1,5 +1,5 @@
 import { handleUsernamePassword } from './handleUsernamePassword'
-import { User } from '../../../entities/Users'
+import { Users } from '../../../entities/Users'
 import mongoose from 'mongoose'
 
 declare global {
@@ -15,7 +15,7 @@ describe('handleUsernamePassword', function () {
     let user: any
     let connection: any
     beforeAll(async () => {
-        user = await User.findOne({ firstName: 'hello' })
+        user = await Users.findOne({ firstName: 'hello' })
     });
 
     beforeEach(async () => {
@@ -29,7 +29,7 @@ describe('handleUsernamePassword', function () {
     it('calls done with no errors if email/password match', async () => {
         await handleUsernamePassword(email, password, mockDone)
         expect(mockDone).toHaveBeenCalled()
-        expect(mockDone).not.toHaveBeenCalledWith(expect.any(Error), expect.any(User))
+        expect(mockDone).not.toHaveBeenCalledWith(expect.any(Error), expect.any(Users))
     })
 
     it('calls done with an error if email doesn\'t exist', async () => {

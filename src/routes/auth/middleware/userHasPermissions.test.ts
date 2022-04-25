@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import userHasPermissions from './userHasPermissions'
-import { User } from "../../../entities/Users"
+import { Users } from "../../../entities/Users"
 import mongoose from 'mongoose'
 import { Serialization } from "../serialization"
 import {Permissions} from "../../../entities/Permissions"
@@ -21,7 +21,7 @@ const req: Partial<Request> = {
         path: '/me'
     },
     method: 'get',
-    user: new User({}),
+    user: new Users({}),
     isAuthenticated
 }
 const res: Partial<Response> = {
@@ -36,7 +36,7 @@ describe('userHasPermissions', () => {
     beforeAll(async () => {
         perm = await Permissions.findOne({ name: 'users.me.get' })
         role = await Roles.findOne({ name: 'USER' })
-        user = await User.findOne({ firstName: 'hello' })
+        user = await Users.findOne({ firstName: 'hello' })
     })
 
     beforeEach(() => {
@@ -49,7 +49,7 @@ describe('userHasPermissions', () => {
     })
 
     it('sends 401 if user has no permissions', () => {
-        userHasPermissions({...req, user: new User({})} as Request, res as Response, nextMock)
+        userHasPermissions({...req, user: new Users({})} as Request, res as Response, nextMock)
         expect(res.sendStatus).toHaveBeenCalledWith(401)
     })
 

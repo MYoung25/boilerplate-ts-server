@@ -1,4 +1,4 @@
-import { IUser, User } from "../../entities/Users"
+import { IUser, Users } from "../../entities/Users"
 import { Types } from 'mongoose'
 import {IPermissions} from "../../entities/Permissions"
 
@@ -13,7 +13,7 @@ export class Serialization {
     }
 
     static async deserialize (id: Types.ObjectId, done: (err: Error | null, user: SerializedUser | null) => void) {
-        const user = await User.findByIdWithPermissions(id)
+        const user = await Users.findByIdWithPermissions(id)
         if (user && 'permissions' in user.role) {
             const deserializedUser = (user as IUser) as SerializedUser
             deserializedUser.hashPermissions = {}
