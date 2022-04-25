@@ -1,15 +1,9 @@
 import { Request, Response } from 'express'
 import userHasPermissions from './userHasPermissions'
 import { Users } from "../../../entities/Users"
-import mongoose from 'mongoose'
 import { Serialization } from "../serialization"
 import {Permissions} from "../../../entities/Permissions"
 import {Roles} from "../../../entities/Roles"
-
-declare global {
-    var __MONGO_URI__: string
-}
-
 
 const nextMock = jest.fn()
 const isAuthenticated = jest.fn()
@@ -43,13 +37,18 @@ describe('userHasPermissions', () => {
         jest.clearAllMocks()
     })
 
+    it('returns a function', () => {
+        const result = userHasPermissions()
+        expect(typeof result).toBe('function')
+    })
+
     it('sends a 401 if unauthenticated', () => {
-        userHasPermissions(req as Request, res as Response, nextMock)
+        userHasPermissions()(req as Request, res as Response, nextMock)
         expect(res.sendStatus).toHaveBeenCalledWith(401)
     })
 
     it('sends 401 if user has no permissions', () => {
-        userHasPermissions({...req, user: new Users({})} as Request, res as Response, nextMock)
+        userHasPermissions()({...req, user: new Users({})} as Request, res as Response, nextMock)
         expect(res.sendStatus).toHaveBeenCalledWith(401)
     })
 
@@ -57,9 +56,19 @@ describe('userHasPermissions', () => {
         expect.assertions(1)
         isAuthenticated.mockImplementationOnce(() => true)
         await Serialization.deserialize(user._id, (err, serializedUser) => {
-            userHasPermissions({...req, user: serializedUser } as Request, res as Response, nextMock)
+            userHasPermissions()({...req, user: serializedUser } as Request, res as Response, nextMock)
             expect(nextMock).toHaveBeenCalled()
         })
+    })
+
+    describe('public', () => {
+
+        it('calls next if \'public\' is passed in the parameters', () => {
+            expect.assertions(1)
+            userHasPermissions('public')(req as Request, res as Response, nextMock)
+            expect(nextMock).toHaveBeenCalled()
+        })
+
     })
 
 })

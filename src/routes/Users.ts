@@ -17,7 +17,7 @@ router.route('/')
     })
 
 router.route('/me')
-    .get(userHasPermissions, async (req, res) => {
+    .get(userHasPermissions(), async (req, res) => {
         res.status(200)
         const reqUser = (req.user as IUser)
         if (reqUser && '_id' in reqUser) {
