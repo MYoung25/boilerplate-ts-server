@@ -1,24 +1,7 @@
 module.exports = function(entityName) {
-    return `import mongoose from 'mongoose'
-import { I${entityName}, ${entityName} } from './${entityName}'
-
-declare global {
-    var __MONGO_URI__: string
-}
+    return `import { I${entityName}, ${entityName} } from './${entityName}'
 
 describe('${entityName}', () => {
-    let connection: any
-    beforeAll(async () => {
-        connection = await mongoose.connect(global.__MONGO_URI__ as string)
-    });
-
-    beforeEach(async () => {
-        await ${entityName}.deleteMany({})
-    })
-
-    afterAll(async () => {
-        await connection.disconnect()
-    })
 
     it('creates a ${entityName}', async () => {
         expect.assertions(2)

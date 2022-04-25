@@ -1,37 +1,16 @@
 module.exports = function (entityName) {
     return `import request from 'supertest'
-import mongoose from 'mongoose'
 import { app } from './index'
 import { ${entityName} } from '../entities/${entityName}'
 import { ErrnoException } from '../app'
 
-declare global {
-    var __MONGO_URI__: string
-}
-
 // suppress error messages
-const mockConsoleError = jest.spyOn(console, 'error')
+jest.spyOn(console, 'error')
     .mockImplementation((err: ErrnoException) => {})
 
 describe('/api/${entityName}', () => {
-    let connection: any
-    beforeAll(async () => {
-        connection = await mongoose.connect(global.__MONGO_URI__ as string)
-    });
-
-    afterAll(async () => {
-        await connection.disconnect()
-    })
 
     describe('GET', () => {
-
-        beforeAll(async () => {
-            await new ${entityName}({}).save()
-        })
-
-        afterAll(async () => {
-            await ${entityName}.deleteMany({})
-        })
 
         it('returns a 200', async () => {
             const response = await request(app).get('/${entityName}')
@@ -46,10 +25,6 @@ describe('/api/${entityName}', () => {
     })
 
     describe('POST', () => {
-
-        afterAll(async () => {
-            await ${entityName}.deleteMany({})
-        })
             
         it('returns a 201', async () => {
             const response = await request(app).post('/${entityName}').send({})
@@ -70,6 +45,7 @@ describe('/api/${entityName}', () => {
     })
 
     describe('/:id', () => {
+    // TODO: add to jest/setup.ts and then import the value to be used here...
         let item: any
 
         beforeAll(async () => {
