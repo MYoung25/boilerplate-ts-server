@@ -1,6 +1,6 @@
 import { Schema, Model, model, Types } from 'mongoose'
 import {IRoles, Roles} from "./Roles"
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 import config from "../config"
 
 export interface IUser {

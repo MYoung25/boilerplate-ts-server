@@ -1,9 +1,6 @@
 #!/bin/sh
 set -e
 
-yarn
-yarn add bcrypt@5.0.0
-
 # load env from vault in prod
 if [ "$NODE_ENV" = "production" ]; then
 #  source /vault/secrets/env
