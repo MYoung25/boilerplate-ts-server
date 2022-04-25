@@ -30,12 +30,11 @@ function onError (error: ErrnoException) {
     switch (error.code) {
         case 'EACCES':
             logger.error(`${bind} requires elevated privileges`)
-            process.exit(1)
-            break
+            return process.exit(1)
+
         case 'EADDRINUSE':
             logger.error(`${bind} is already in use`)
-            process.exit(1)
-            break
+            return process.exit(1)
         default:
             logger.error(error)
     }

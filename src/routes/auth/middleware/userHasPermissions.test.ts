@@ -1,8 +1,9 @@
 import { Request, Response } from 'express'
 import userHasPermissions from './userHasPermissions'
 import { Users } from "../../../entities/Users"
+import { Permissions } from "../../../entities/Permissions"
 import { Serialization } from "../serialization"
-import { user } from '../../../../jest/setup'
+import { user, role } from '../../../../jest/setup'
 
 const nextMock = jest.fn()
 const isAuthenticated = jest.fn()
@@ -38,6 +39,7 @@ describe('userHasPermissions', () => {
     })
 
     it('sends 401 if user has no permissions', () => {
+        isAuthenticated.mockImplementationOnce(() => true)
         userHasPermissions()({...req, user: new Users({})} as Request, res as Response, nextMock)
         expect(res.sendStatus).toHaveBeenCalledWith(401)
     })
@@ -48,6 +50,30 @@ describe('userHasPermissions', () => {
         await Serialization.deserialize(user._id, (err, serializedUser) => {
             userHasPermissions()({...req, user: serializedUser } as Request, res as Response, nextMock)
             expect(nextMock).toHaveBeenCalled()
+        })
+    })
+
+    it('path is removed if empty', async () => {
+        expect.assertions(1)
+
+        // add this permission to the user's role
+        const userGetPerm = await new Permissions({ name: 'users.get' }).save()
+        role.permissions = [...role.permissions, userGetPerm]
+        await role.save()
+
+        isAuthenticated.mockImplementationOnce(() => true)
+        await Serialization.deserialize(user._id, (err, serializedUser) => {
+            userHasPermissions()({...req, route: { path: '/' }, user: serializedUser } as Request, res as Response, nextMock)
+            expect(nextMock).toHaveBeenCalled()
+        })
+    })
+
+    it('calls sends 401 if user doesn\'t have permissions', async () => {
+        expect.assertions(1)
+        isAuthenticated.mockImplementationOnce(() => true)
+        await Serialization.deserialize(user._id, (err, serializedUser) => {
+            userHasPermissions()({...req, baseUrl: '/somerandomstringthatdoesn\'texist', user: serializedUser } as Request, res as Response, nextMock)
+            expect(res.sendStatus).toHaveBeenCalledWith(401)
         })
     })
 
