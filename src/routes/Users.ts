@@ -6,11 +6,11 @@ import { userHasPermissions } from './auth/middleware'
 const router = Router()
 
 router.route('/')
-    .get(async (req: Request, res: Response) => {
+    .get(userHasPermissions('public'), async (req: Request, res: Response) => {
         const items = await Users.find({})
         res.json(items)
     })
-    .post(async (req: Request, res: Response) => {
+    .post(userHasPermissions('public'), async (req: Request, res: Response) => {
         const item = new Users(req.body)
         await item.save()
         res.status(201).json(item)
@@ -28,7 +28,7 @@ router.route('/me')
     })
 
 router.route('/:id')
-    .get(async (req: Request, res: Response) => {
+    .get(userHasPermissions('public'), async (req: Request, res: Response) => {
         try {
             const item = await Users.findOne({ _id: req.params.id })
             if (item) {
@@ -41,7 +41,7 @@ router.route('/:id')
             logger.error(e)
         }
     })
-    .patch(async (req: Request, res: Response) => {
+    .patch(userHasPermissions('public'), async (req: Request, res: Response) => {
         try {
             const item = await Users.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
             if (item) {
@@ -54,7 +54,7 @@ router.route('/:id')
             logger.error(e)
         }
     })
-    .delete(async (req: Request, res: Response) => {
+    .delete(userHasPermissions('public'), async (req: Request, res: Response) => {
         try {
             const item = await Users.deleteOne({ _id: req.params.id })
             if (item.deletedCount === 1) {
