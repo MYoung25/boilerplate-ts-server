@@ -8,34 +8,23 @@ declare global {
 }
 
 describe('User', () => {
-    let connection: any
-    let userRole = new Roles({
-        name: 'USER'
-    })
+    let userRole: any
     beforeAll(async () => {
-        connection = await mongoose.connect(global.__MONGO_URI__ as string)
-        await userRole.save()
+        userRole = await Roles.findOne({ name: 'USER' })
     });
 
-    afterEach(async () => {
-        await User.deleteMany({})
-        await Permissions.deleteMany({})
-    })
-
-    afterAll(async () => {
-        await connection.disconnect()
-    })
-
     it('creates a User', async () => {
-        expect.assertions(3)
+        expect.assertions(2)
 
-        const entity = await new User({})
-            .save()
-        expect(entity).toBeDefined()
+        const entity = new User({})
+        await entity.save()
 
         const found = await User.findById(entity._id)
         expect(found).toBeDefined()
         expect(found).toHaveProperty('role', userRole._id)
+
+        // cleanup this test
+        await entity.delete()
     })
 
     it('saves the password as a hashed value', async () => {
@@ -45,6 +34,9 @@ describe('User', () => {
         await entity.save()
         const found = await User.findById(entity._id)
         expect(found).toHaveProperty('password', expect.not.stringContaining(password))
+
+        // cleanup this test
+        await entity.delete()
     })
 
     it('saves the updated password as a hashed value', async () => {
@@ -60,6 +52,9 @@ describe('User', () => {
 
         const found2 = await User.findById(entity._id)
         expect(found2).toHaveProperty('password', expect.not.stringContaining(found?.password || ''))
+
+        // cleanup this test
+        await entity.delete()
     })
 
     it('updates a User', async () => {
@@ -72,6 +67,9 @@ describe('User', () => {
         await User.updateOne({ _id: entity._id }, { firstName: 'updated' })
         const found = await User.findById(entity._id)
         expect(found?.firstName).toBe('updated')
+
+        // cleanup this test
+        await entity.delete()
     })
 
     it('deletes a User', async () => {
@@ -111,12 +109,14 @@ describe('User', () => {
     })
 
     describe('comparePassword', () => {
-        const _id = new mongoose.Types.ObjectId()
-        const email = 'email'
+        let _id: any
+        const email = 'hello@world.com'
         const password = 'password'
-        beforeEach(async () => {
-            const entity = new User({ _id, email, password })
-            await entity.save()
+        beforeAll(async () => {
+            const entity = await User.findOne({ email })
+            if (entity) {
+                _id = entity._id
+            }
         })
 
         it('returns User if the passwords match', async () => {

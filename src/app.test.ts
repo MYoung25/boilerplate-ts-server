@@ -15,12 +15,6 @@ const mockConsoleInfo = jest.spyOn(console, 'info')
 
 describe('server', () => {
 
-    beforeAll(async () => {
-        while (mongoose.connection.readyState !== 1) { 
-            await new Promise(resolve => setTimeout(resolve, 100))
-        }
-    })
-
     beforeEach(() => {
         jest.clearAllMocks()
     })
@@ -28,7 +22,6 @@ describe('server', () => {
     afterAll(async () => {
         mockClose.mockRestore()
         server.close()
-        await mongoose.disconnect()
     })
 
     it('is listening', () => {

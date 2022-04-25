@@ -13,24 +13,8 @@ const mockConsoleError = jest.spyOn(console, 'error')
     .mockImplementation((err: ErrnoException) => {})
 
 describe('/api/Permissions', () => {
-    let connection: any
-    beforeAll(async () => {
-        connection = await mongoose.connect(global.__MONGO_URI__ as string)
-    });
-
-    afterAll(async () => {
-        await connection.disconnect()
-    })
 
     describe('GET', () => {
-
-        beforeAll(async () => {
-            await new Permissions({}).save()
-        })
-
-        afterAll(async () => {
-            await Permissions.deleteMany({})
-        })
 
         it('returns a 200', async () => {
             const response = await request(app).get('/Permissions')
@@ -45,25 +29,19 @@ describe('/api/Permissions', () => {
     })
 
     describe('POST', () => {
+        const name = 'PERMISSIONS'
 
         afterAll(async () => {
-            await Permissions.deleteMany({})
+            await Permissions.deleteOne({ name })
         })
 
-        it('returns a 201', async () => {
-            const response = await request(app).post('/Permissions').send({})
+        it('returns a 201 with the new permission object', async () => {
+            const response = await request(app).post('/Permissions').send({ name })
             expect(response.statusCode).toBe(201)
-        })
+            expect(response.body).toHaveProperty('name', name)
 
-        it('returns the new Permissions', async () => {
-            const response = await request(app).post('/Permissions').send({ name: 'Permissions' })
-            expect(response.body).toHaveProperty('name', 'Permissions')
-        })
-
-        it('inserts the new Permissions', async () => {
-            const response = await request(app).post('/Permissions').send({ name: 'Permissions' })
             const item = await Permissions.findById(response.body._id)
-            expect(item).toHaveProperty('name', 'Permissions')
+            expect(item).toHaveProperty('name', name)
         })
 
     })
@@ -72,11 +50,7 @@ describe('/api/Permissions', () => {
         let item: any
 
         beforeAll(async () => {
-            item = await new Permissions({}).save()
-        })
-
-        afterAll(async () => {
-            await Permissions.deleteMany({})
+            item = await Permissions.findOne({ name: 'users.me.get' })
         })
 
         describe('GET', () => {

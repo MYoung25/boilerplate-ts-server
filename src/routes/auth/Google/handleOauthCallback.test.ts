@@ -24,18 +24,15 @@ describe('Google/handleOauthCallback', function () {
             exp: 68999,
         }
     }
-    let connection: any
-    beforeAll(async () => {
-        connection = await mongoose.connect(global.__MONGO_URI__ as string)
-    });
+    const altID = '9875632asdasfadsf'
 
     beforeEach(async () => {
-        await User.deleteMany({})
         jest.clearAllMocks()
     })
 
     afterAll(async () => {
-        await connection.disconnect()
+        await User.deleteOne({ googleId: profile.id})
+        await User.deleteOne({ googleId: altID })
     })
 
     it('calls callback', async () => {
@@ -55,9 +52,10 @@ describe('Google/handleOauthCallback', function () {
     })
 
     it('inserts a user if they don\'t have a name object', async () => {
-        await handleOauthCallback('access', 'refresh', { ...profile, name: undefined }, mockCallback)
 
-        const foundUser = await User.findOne({ googleId: profile.id })
+        await handleOauthCallback('access', 'refresh', { ...profile, id: altID, name: undefined }, mockCallback)
+
+        const foundUser = await User.findOne({ googleId: altID })
 
         expect(foundUser).not.toBeNull()
         expect(foundUser).toHaveProperty('firstName', undefined)

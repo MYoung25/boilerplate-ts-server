@@ -12,20 +12,14 @@ const email = 'username'
 const password = 'password'
 
 describe('handleUsernamePassword', function () {
-    const user = new User({ email, password })
+    let user: any
     let connection: any
     beforeAll(async () => {
-        connection = await mongoose.connect(global.__MONGO_URI__ as string)
-        await user.save()
+        user = await User.findOne({ firstName: 'hello' })
     });
 
     beforeEach(async () => {
         jest.clearAllMocks()
-    })
-
-    afterAll(async () => {
-        await User.deleteMany({})
-        await connection.disconnect()
     })
 
     it('should return a function', function () {

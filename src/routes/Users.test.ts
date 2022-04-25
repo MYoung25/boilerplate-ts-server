@@ -15,23 +15,11 @@ const mockConsoleError = jest.spyOn(console, 'error')
     .mockImplementation((err: ErrnoException) => {})
 
 describe('/api/Users', () => {
-    let connection: any
-    beforeAll(async () => {
-        connection = await mongoose.connect(global.__MONGO_URI__ as string)
-    });
-
-    afterAll(async () => {
-        await connection.disconnect()
-    })
 
     describe('GET', () => {
 
         beforeAll(async () => {
             await new User({}).save()
-        })
-
-        afterAll(async () => {
-            await User.deleteMany({})
         })
 
         it('returns a 200', async () => {
@@ -41,29 +29,31 @@ describe('/api/Users', () => {
 
         it('returns all Users', async() => {
             const response = await request(app).get('/Users')
-            expect(response.body.length).toBe(1)
+            const users = await User.find({})
+            expect(response.body.length).toBe(2)
+            expect(users).toHaveLength(2)
         })
 
     })
 
     describe('POST', () => {
-
-        afterAll(async () => {
-            await User.deleteMany({})
+        const firstName = 'User'
+        afterEach(async () => {
+            await User.deleteMany({ firstName })
         })
 
         it('returns a 201', async () => {
-            const response = await request(app).post('/Users').send({})
+            const response = await request(app).post('/Users').send({ firstName })
             expect(response.statusCode).toBe(201)
         })
 
         it('returns the new User', async () => {
-            const response = await request(app).post('/Users').send({ firstName: 'User' })
+            const response = await request(app).post('/Users').send({ firstName })
             expect(response.body).toHaveProperty('firstName', 'User')
         })
 
         it('inserts the new User', async () => {
-            const response = await request(app).post('/Users').send({ firstName: 'User' })
+            const response = await request(app).post('/Users').send({ firstName })
             const item = await User.findById(response.body._id)
             expect(item).toHaveProperty('firstName', 'User')
         })
@@ -80,10 +70,6 @@ describe('/api/Users', () => {
                 const permission = await new Permissions({ name: 'users.me.get' }).save()
                 await new Roles({ name: 'USER', permissions: [ permission ] }).save()
                 await user.save()
-            })
-
-            afterAll(async () => {
-                await User.deleteMany({})
             })
 
             it('returns 401 for unauthenticated request', async () => {
@@ -108,10 +94,6 @@ describe('/api/Users', () => {
 
         beforeAll(async () => {
             item = await new User({}).save()
-        })
-
-        afterAll(async () => {
-            await User.deleteMany({})
         })
 
         describe('GET', () => {

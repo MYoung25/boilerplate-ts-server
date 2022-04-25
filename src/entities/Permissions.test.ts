@@ -1,23 +1,11 @@
 import mongoose from 'mongoose'
 import { IPermissions, Permissions } from './Permissions'
 
-declare global {
-    var __MONGO_URI__: string
-}
-
 describe('Permissions', () => {
-    let connection: any
+    let entity: any
     beforeAll(async () => {
-        connection = await mongoose.connect(global.__MONGO_URI__ as string)
+        entity = Permissions.findOne({})
     });
-
-    beforeEach(async () => {
-        await Permissions.deleteMany({})
-    })
-
-    afterAll(async () => {
-        await connection.disconnect()
-    })
 
     it('creates a Permissions', async () => {
         expect.assertions(2)

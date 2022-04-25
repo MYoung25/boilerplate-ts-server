@@ -6,18 +6,6 @@ declare global {
 }
 
 describe('Roles', () => {
-    let connection: any
-    beforeAll(async () => {
-        connection = await mongoose.connect(global.__MONGO_URI__ as string)
-    });
-
-    beforeEach(async () => {
-        await Roles.deleteMany({})
-    })
-
-    afterAll(async () => {
-        await connection.disconnect()
-    })
 
     it('creates a Roles', async () => {
         expect.assertions(2)

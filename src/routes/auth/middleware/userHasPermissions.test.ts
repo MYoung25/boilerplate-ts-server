@@ -29,32 +29,18 @@ const res: Partial<Response> = {
 }
 
 describe('userHasPermissions', () => {
-    const perm = new Permissions({ name: 'users.me.get', group: 'users' })
-    const role = new Roles({ name: 'User', permissions: [perm] })
-    let user = new User({
-        firstName: 'hello',
-        lastName: 'world',
-        email: 'hello@world.com',
-        role
-    })
-    let connection: any
+    let perm: any
+    let role: any
+    let user: any
 
     beforeAll(async () => {
-        connection = await mongoose.connect(global.__MONGO_URI__ as string)
-        await perm.save()
-        await role.save()
-        await user.save()
+        perm = await Permissions.findOne({ name: 'users.me.get' })
+        role = await Roles.findOne({ name: 'USER' })
+        user = await User.findOne({ firstName: 'hello' })
     })
 
     beforeEach(() => {
         jest.clearAllMocks()
-    })
-
-    afterAll(async () => {
-        await perm.delete()
-        await role.delete()
-        await user.delete()
-        await connection.disconnect()
     })
 
     it('sends a 401 if unauthenticated', () => {
