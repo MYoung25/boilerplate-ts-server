@@ -3,16 +3,13 @@ import mongoose from 'mongoose'
 import { app } from './index'
 import { Roles } from '../entities/Roles'
 import { ErrnoException } from '../app'
+import { role } from '../../jest/setup'
 
 // suppress error messages
 const mockConsoleError = jest.spyOn(console, 'error')
     .mockImplementation((err: ErrnoException) => {})
 
 describe('/api/Roles', () => {
-    let role: any
-    beforeAll(async () => {
-        role = await Roles.findOne({ name: 'USER'})
-    });
 
     describe('GET', () => {
 
@@ -34,37 +31,26 @@ describe('/api/Roles', () => {
             const response = await request(app).post('/Roles').send({ name: 'Roles' })
             expect(response.statusCode).toBe(201)
             expect(response.body).toHaveProperty('name', 'ROLES')
-
-            // cleanup
-            await Roles.deleteOne({ name: 'ROLES' })
         })
 
         it('inserts the new Roles', async () => {
             const response = await request(app).post('/Roles').send({ name: 'Roles' })
             const item = await Roles.findById(response.body._id)
             expect(item).toHaveProperty('name', 'ROLES')
-
-            // cleanup
-            await Roles.deleteOne({ name: 'ROLES' })
         })
     })
 
     describe('/:id', () => {
-        let item: any
-
-        beforeAll(async () => {
-            item = await Roles.findOne({ name: 'USER' })
-        })
 
         describe('GET', () => {
 
             it('returns a 200', async () => {
-                const response = await request(app).get(`/Roles/${item._id}`)
+                const response = await request(app).get(`/Roles/${role._id}`)
                 expect(response.statusCode).toBe(200)
             })
 
             it('returns the Roles', async () => {
-                const response = await request(app).get(`/Roles/${item._id}`)
+                const response = await request(app).get(`/Roles/${role._id}`)
                 expect(response.body).toHaveProperty('_id', expect.any(String))
                 expect(response.body).toHaveProperty('__v', 0)
             })
@@ -84,12 +70,12 @@ describe('/api/Roles', () => {
         describe('PATCH', () => {
 
             it('returns a 200', async () => {
-                const response = await request(app).patch(`/Roles/${item._id}`).send({ name: 'Roles' })
+                const response = await request(app).patch(`/Roles/${role._id}`).send({ name: 'Roles' })
                 expect(response.statusCode).toBe(200)
             })
 
             it('returns the updated Roles', async () => {
-                const response = await request(app).patch(`/Roles/${item._id}`).send({ name: 'Superman' })
+                const response = await request(app).patch(`/Roles/${role._id}`).send({ name: 'Superman' })
                 expect(response.body).toHaveProperty('name', 'Superman')
             })
 

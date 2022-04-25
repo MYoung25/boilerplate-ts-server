@@ -3,12 +3,7 @@ import mongoose from 'mongoose'
 import { app } from './index'
 import { User } from '../entities/Users'
 import { ErrnoException } from '../app'
-import {Roles} from "../entities/Roles"
-import {Permissions} from "../entities/Permissions"
-
-declare global {
-    var __MONGO_URI__: string
-}
+import { user, password } from '../../jest/setup'
 
 // suppress error messages
 const mockConsoleError = jest.spyOn(console, 'error')
@@ -30,8 +25,7 @@ describe('/api/Users', () => {
         it('returns all Users', async() => {
             const response = await request(app).get('/Users')
             const users = await User.find({})
-            expect(response.body.length).toBe(2)
-            expect(users).toHaveLength(2)
+            expect(response.body.length).toBe(users.length)
         })
 
     })
@@ -63,14 +57,6 @@ describe('/api/Users', () => {
     describe('/me', () => {
 
         describe('GET', () => {
-            const email = 'email'
-            const password = 'password'
-            const user = new User({ email, password })
-            beforeAll(async () => {
-                const permission = await new Permissions({ name: 'users.me.get' }).save()
-                await new Roles({ name: 'USER', permissions: [ permission ] }).save()
-                await user.save()
-            })
 
             it('returns 401 for unauthenticated request', async () => {
                 const response = await request(app).get('/Users/me')
@@ -80,7 +66,7 @@ describe('/api/Users', () => {
             it('returns 200 and the user for an authenticated user', async () => {
                 const agent = await request.agent(app)
                 await agent.post('/auth/login')
-                    .send({ email, password })
+                    .send({ email: user.email, password: password })
                 const response = await agent.get('/users/me')
                 expect(response.status).toEqual(200)
             })
@@ -90,21 +76,16 @@ describe('/api/Users', () => {
     })
 
     describe('/:id', () => {
-        let item: any
-
-        beforeAll(async () => {
-            item = await new User({}).save()
-        })
 
         describe('GET', () => {
 
             it('returns a 200', async () => {
-                const response = await request(app).get(`/Users/${item._id}`)
+                const response = await request(app).get(`/Users/${user._id}`)
                 expect(response.statusCode).toBe(200)
             })
 
             it('returns the User', async () => {
-                const response = await request(app).get(`/Users/${item._id}`)
+                const response = await request(app).get(`/Users/${user._id}`)
                 expect(response.body).toHaveProperty('_id', expect.any(String))
                 expect(response.body).toHaveProperty('__v', 0)
             })
@@ -124,12 +105,12 @@ describe('/api/Users', () => {
         describe('PATCH', () => {
 
             it('returns a 200', async () => {
-                const response = await request(app).patch(`/Users/${item._id}`).send({ firstName: 'User' })
+                const response = await request(app).patch(`/Users/${user._id}`).send({ firstName: 'User' })
                 expect(response.statusCode).toBe(200)
             })
 
             it('returns the updated User', async () => {
-                const response = await request(app).patch(`/Users/${item._id}`).send({ firstName: 'Superman' })
+                const response = await request(app).patch(`/Users/${user._id}`).send({ firstName: 'Superman' })
                 expect(response.body).toHaveProperty('firstName', 'Superman')
             })
 
@@ -148,13 +129,13 @@ describe('/api/Users', () => {
         describe('DELETE', () => {
 
             it('returns a 204', async () => {
-                const response = await request(app).delete(`/Users/${item._id}`)
+                const response = await request(app).delete(`/Users/${user._id}`)
                 expect(response.statusCode).toBe(204)
             })
 
             it('deletes the User', async () => {
-                await request(app).delete(`/Users/${item._id}`)
-                const found = await User.findById(item._id)
+                await request(app).delete(`/Users/${user._id}`)
+                const found = await User.findById(user._id)
                 expect(found).toBeNull()
             })
 

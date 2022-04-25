@@ -2,7 +2,7 @@ const { defaults: tsjPreset } = require('ts-jest/presets')
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
-    setupFilesAfterEnv: ['<rootDir>/jest/setup.js'],
+    setupFilesAfterEnv: ['<rootDir>/jest/setup.ts'],
     preset: '@shelf/jest-mongodb',
     transform: {
         ...tsjPreset.transform

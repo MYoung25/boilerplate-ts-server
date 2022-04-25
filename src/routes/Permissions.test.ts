@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import { app } from './index'
 import { Permissions } from '../entities/Permissions'
 import { ErrnoException } from '../app'
+import { perm } from '../../jest/setup'
 
 declare global {
     var __MONGO_URI__: string
@@ -47,21 +48,16 @@ describe('/api/Permissions', () => {
     })
 
     describe('/:id', () => {
-        let item: any
-
-        beforeAll(async () => {
-            item = await Permissions.findOne({ name: 'users.me.get' })
-        })
 
         describe('GET', () => {
 
             it('returns a 200', async () => {
-                const response = await request(app).get(`/Permissions/${item._id}`)
+                const response = await request(app).get(`/Permissions/${perm._id}`)
                 expect(response.statusCode).toBe(200)
             })
 
             it('returns the Permissions', async () => {
-                const response = await request(app).get(`/Permissions/${item._id}`)
+                const response = await request(app).get(`/Permissions/${perm._id}`)
                 expect(response.body).toHaveProperty('_id', expect.any(String))
                 expect(response.body).toHaveProperty('__v', 0)
             })
@@ -81,12 +77,12 @@ describe('/api/Permissions', () => {
         describe('PATCH', () => {
 
             it('returns a 200', async () => {
-                const response = await request(app).patch(`/Permissions/${item._id}`).send({ name: 'Permissions' })
+                const response = await request(app).patch(`/Permissions/${perm._id}`).send({ name: 'Permissions' })
                 expect(response.statusCode).toBe(200)
             })
 
             it('returns the updated Permissions', async () => {
-                const response = await request(app).patch(`/Permissions/${item._id}`).send({ name: 'Superman' })
+                const response = await request(app).patch(`/Permissions/${perm._id}`).send({ name: 'Superman' })
                 expect(response.body).toHaveProperty('name', 'Superman')
             })
 
@@ -105,13 +101,13 @@ describe('/api/Permissions', () => {
         describe('DELETE', () => {
 
             it('returns a 204', async () => {
-                const response = await request(app).delete(`/Permissions/${item._id}`)
+                const response = await request(app).delete(`/Permissions/${perm._id}`)
                 expect(response.statusCode).toBe(204)
             })
 
             it('deletes the Permissions', async () => {
-                await request(app).delete(`/Permissions/${item._id}`)
-                const found = await Permissions.findById(item._id)
+                await request(app).delete(`/Permissions/${perm._id}`)
+                const found = await Permissions.findById(perm._id)
                 expect(found).toBeNull()
             })
 

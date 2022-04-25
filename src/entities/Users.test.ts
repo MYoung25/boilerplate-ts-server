@@ -22,9 +22,6 @@ describe('User', () => {
         const found = await User.findById(entity._id)
         expect(found).toBeDefined()
         expect(found).toHaveProperty('role', userRole._id)
-
-        // cleanup this test
-        await entity.delete()
     })
 
     it('saves the password as a hashed value', async () => {
@@ -34,9 +31,6 @@ describe('User', () => {
         await entity.save()
         const found = await User.findById(entity._id)
         expect(found).toHaveProperty('password', expect.not.stringContaining(password))
-
-        // cleanup this test
-        await entity.delete()
     })
 
     it('saves the updated password as a hashed value', async () => {
@@ -52,9 +46,6 @@ describe('User', () => {
 
         const found2 = await User.findById(entity._id)
         expect(found2).toHaveProperty('password', expect.not.stringContaining(found?.password || ''))
-
-        // cleanup this test
-        await entity.delete()
     })
 
     it('updates a User', async () => {
@@ -67,9 +58,6 @@ describe('User', () => {
         await User.updateOne({ _id: entity._id }, { firstName: 'updated' })
         const found = await User.findById(entity._id)
         expect(found?.firstName).toBe('updated')
-
-        // cleanup this test
-        await entity.delete()
     })
 
     it('deletes a User', async () => {
