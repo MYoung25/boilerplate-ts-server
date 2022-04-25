@@ -1,5 +1,6 @@
 module.exports = function (entityName) {
-    return `import request from 'supertest'
+    return `import mongoose from 'mongoose'
+import request from 'supertest'
 import { app } from './index'
 import { ${entityName} } from '../entities/${entityName}'
 import { ErrnoException } from '../app'
