@@ -2,8 +2,7 @@ import { Request, Response } from 'express'
 import userHasPermissions from './userHasPermissions'
 import { Users } from "../../../entities/Users"
 import { Serialization } from "../serialization"
-import {Permissions} from "../../../entities/Permissions"
-import {Roles} from "../../../entities/Roles"
+import { user } from '../../../../jest/setup'
 
 const nextMock = jest.fn()
 const isAuthenticated = jest.fn()
@@ -15,7 +14,7 @@ const req: Partial<Request> = {
         path: '/me'
     },
     method: 'get',
-    user: new Users({}),
+    user,
     isAuthenticated
 }
 const res: Partial<Response> = {
@@ -23,15 +22,6 @@ const res: Partial<Response> = {
 }
 
 describe('userHasPermissions', () => {
-    let perm: any
-    let role: any
-    let user: any
-
-    beforeAll(async () => {
-        perm = await Permissions.findOne({ name: 'users.me.get' })
-        role = await Roles.findOne({ name: 'USER' })
-        user = await Users.findOne({ firstName: 'hello' })
-    })
 
     beforeEach(() => {
         jest.clearAllMocks()

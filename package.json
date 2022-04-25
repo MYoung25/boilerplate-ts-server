@@ -4,6 +4,8 @@
     "scripts": {
         "test": "yarn jest --runInBand ./src",
         "start": "yarn ts-node src/app.ts",
+        "lint": "yarn eslint --ext .ts ./src",
+        "lint-fix": "yarn eslint --ext .ts ./src --fix",
         "entity:create": "yarn node utils/entity/create.js",
         "permissions:seed": "yarn ts-node utils/permissions/seed.ts",
         "healthcheck": "yarn ts-node docker/docker-healthcheck.mjs"
@@ -35,6 +37,9 @@
         "@types/passport-google-oauth20": "^2.0.11",
         "@types/passport-local": "^1.0.34",
         "@types/supertest": "^2.0.12",
+        "@typescript-eslint/eslint-plugin": "^5.20.0",
+        "@typescript-eslint/parser": "^5.20.0",
+        "eslint": "^8.14.0",
         "jest": "^27.5.1",
         "jest-environment-node": "^27.5.1",
         "mongodb": "^4.5.0",

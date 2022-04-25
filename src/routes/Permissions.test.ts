@@ -2,16 +2,11 @@ import request from 'supertest'
 import mongoose from 'mongoose'
 import { app } from './index'
 import { Permissions } from '../entities/Permissions'
-import { ErrnoException } from '../app'
 import { perm } from '../../jest/setup'
 
-declare global {
-    var __MONGO_URI__: string
-}
-
 // suppress error messages
-const mockConsoleError = jest.spyOn(console, 'error')
-    .mockImplementation((err: ErrnoException) => {})
+jest.spyOn(console, 'error')
+    .mockImplementation(() => ({}))
 
 describe('/api/Permissions', () => {
 

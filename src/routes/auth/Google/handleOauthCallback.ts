@@ -63,7 +63,7 @@ export default async (
             }
         )
         done(null, user)
-    } catch (e: any) {
-        done(e)
+    } catch (e) {
+        done((e as Error))
     }
 }

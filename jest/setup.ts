@@ -31,12 +31,18 @@ beforeAll(async () => {
 })
 
 afterEach(async () => {
+    if (mongoose.connection.readyState !== 1) {
+        await mongoose.connect(global.__MONGO_URI__)
+    }
     await Users.deleteMany({ _id: { $ne: user._id } })
     await Roles.deleteMany({ _id: { $ne: role._id } })
     await Permissions.deleteMany({ _id: { $ne: perm._id } })
 })
 
 afterAll(async () => {
+    if (mongoose.connection.readyState !== 1) {
+        await mongoose.connect(global.__MONGO_URI__)
+    }
     await Users.deleteMany({})
     await Roles.deleteMany({})
     await Permissions.deleteMany({})

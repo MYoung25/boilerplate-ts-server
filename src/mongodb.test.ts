@@ -3,9 +3,9 @@ import { getMongoDBUriString, establishMongooseConnection } from './mongodb'
 import mongoose from 'mongoose'
 
 const mockConnect = jest.spyOn(mongoose, 'connect')
-// limit any console messages
-const mockConsoleInfo = jest.spyOn(console, 'info')
-    .mockImplementation((string: string) => {})
+// suppress any console messages
+jest.spyOn(console, 'info')
+    .mockImplementation(() => ({}))
 
 describe('MongoDb',  () => {
     describe('getMongoDBUriString', () => {
@@ -41,7 +41,7 @@ describe('MongoDb',  () => {
     describe('establishMongooseConnection', () => {
 
         it('calls mongoose.connect with the uri and config options', () => {
-            mockConnect.mockImplementationOnce((uri, options) => Promise.resolve(mongoose))
+            mockConnect.mockImplementationOnce(() => Promise.resolve(mongoose))
             establishMongooseConnection()
             expect(mockConnect).toHaveBeenLastCalledWith(getMongoDBUriString(), config.mongo.options)
         })

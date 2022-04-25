@@ -2,12 +2,11 @@ import request from 'supertest'
 import mongoose from 'mongoose'
 import { app } from './index'
 import { Users } from '../entities/Users'
-import { ErrnoException } from '../app'
 import { user, password } from '../../jest/setup'
 
 // suppress error messages
-const mockConsoleError = jest.spyOn(console, 'error')
-    .mockImplementation((err: ErrnoException) => {})
+jest.spyOn(console, 'error')
+    .mockImplementation(() => ({}))
 
 describe('/api/Users', () => {
 

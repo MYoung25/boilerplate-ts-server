@@ -1,24 +1,11 @@
 import mongoose from 'mongoose'
 import { Serialization, SerializedUser } from './serialization'
-import { Users, IUser } from "../../entities/Users"
+import { Users } from "../../entities/Users"
 import {Permissions} from "../../entities/Permissions"
-import {Roles} from "../../entities/Roles"
-
-declare global {
-    var __MONGO_URI__: string
-}
+import { user, perm } from '../../../jest/setup'
 
 describe('Serialization', () => {
     const cb = jest.fn()
-    let perm: any
-    let role: any
-    let user: any
-
-    beforeAll(async () => {
-        perm = await Permissions.findOne({ name: 'users.me.get' })
-        role = await Roles.findOne({ name: 'USER' })
-        user = await Users.findOne({ firstName: 'hello' })
-    });
 
     beforeEach(() => {
         jest.clearAllMocks()

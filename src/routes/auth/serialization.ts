@@ -8,8 +8,8 @@ export interface SerializedUser extends IUser {
 
 export class Serialization {
 
-    static serialize (user: IUser, done: (error: null, id: Types.ObjectId) => void) {
-        done(null, user._id)
+    static serialize (user: Express.User, done: (err: null, user: Types.ObjectId) => void) {
+        done(null, (user as IUser)._id)
     }
 
     static async deserialize (id: Types.ObjectId, done: (err: Error | null, user: SerializedUser | null) => void) {

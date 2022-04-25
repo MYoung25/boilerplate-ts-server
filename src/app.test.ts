@@ -1,5 +1,4 @@
 import { server, ErrnoException } from './app'
-import mongoose from 'mongoose'
 
 const mockExit = jest.spyOn(process, 'exit')
     .mockImplementation((number: number | undefined) => { throw new Error('process.exit: ' + number); });
@@ -9,9 +8,9 @@ const mockClose = jest.spyOn(server, 'close')
         return server
     })
 const mockConsoleError = jest.spyOn(console, 'error')
-    .mockImplementation((err: ErrnoException) => {})
+    .mockImplementation(() => ({}))
 const mockConsoleInfo = jest.spyOn(console, 'info')
-    .mockImplementation((string: string) => {})
+    .mockImplementation(() => ({}))
 
 describe('server', () => {
 

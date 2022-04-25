@@ -1,9 +1,4 @@
-import mongoose from 'mongoose'
-import { IRoles, Roles } from './Roles'
-
-declare global {
-    var __MONGO_URI__: string
-}
+import { Roles } from './Roles'
 
 describe('Roles', () => {
 

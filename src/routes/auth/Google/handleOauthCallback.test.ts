@@ -2,10 +2,6 @@ import handleOauthCallback from "./handleOauthCallback"
 import { Users } from '../../../entities/Users'
 import { Profile } from 'passport-google-oauth20'
 
-declare global {
-    var __MONGO_URI__: string
-}
-
 describe('Google/handleOauthCallback', function () {
     const mockCallback = jest.fn()
     const profile: Profile = {

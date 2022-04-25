@@ -1,13 +1,12 @@
 import request from 'supertest'
 import mongoose from 'mongoose'
 import { app } from './index'
-import { Roles } from '../entities/Roles'
-import { ErrnoException } from '../app'
-import { role } from '../../jest/setup'
+import { IRoles, Roles} from '../entities/Roles'
+import {role} from '../../jest/setup'
 
 // suppress error messages
-const mockConsoleError = jest.spyOn(console, 'error')
-    .mockImplementation((err: ErrnoException) => {})
+jest.spyOn(console, 'error')
+    .mockImplementation(() => ({}))
 
 describe('/api/Roles', () => {
 
@@ -18,7 +17,7 @@ describe('/api/Roles', () => {
             expect(response.statusCode).toBe(200)
         })
 
-        it('returns all Roles', async() => {
+        it('returns all Roles', async () => {
             const response = await request(app).get('/Roles')
             expect(response.body.length).toBe(1)
         })
@@ -28,13 +27,13 @@ describe('/api/Roles', () => {
     describe('POST', () => {
 
         it('returns a 201 and the new Roles', async () => {
-            const response = await request(app).post('/Roles').send({ name: 'Roles' })
+            const response = await request(app).post('/Roles').send({name: 'Roles'})
             expect(response.statusCode).toBe(201)
             expect(response.body).toHaveProperty('name', 'ROLES')
         })
 
         it('inserts the new Roles', async () => {
-            const response = await request(app).post('/Roles').send({ name: 'Roles' })
+            const response = await request(app).post('/Roles').send({name: 'Roles'})
             const item = await Roles.findById(response.body._id)
             expect(item).toHaveProperty('name', 'ROLES')
         })
@@ -70,29 +69,29 @@ describe('/api/Roles', () => {
         describe('PATCH', () => {
 
             it('returns a 200', async () => {
-                const response = await request(app).patch(`/Roles/${role._id}`).send({ name: 'Roles' })
+                const response = await request(app).patch(`/Roles/${role._id}`).send({name: 'Roles'})
                 expect(response.statusCode).toBe(200)
             })
 
             it('returns the updated Roles', async () => {
-                const response = await request(app).patch(`/Roles/${role._id}`).send({ name: 'Superman' })
+                const response = await request(app).patch(`/Roles/${role._id}`).send({name: 'Superman'})
                 expect(response.body).toHaveProperty('name', 'Superman')
             })
 
             it('returns a 404', async () => {
-                const response = await request(app).patch(`/Roles/${new mongoose.Types.ObjectId()}`).send({ name: 'Roles' })
+                const response = await request(app).patch(`/Roles/${new mongoose.Types.ObjectId()}`).send({name: 'Roles'})
                 expect(response.statusCode).toBe(404)
             })
 
             it('sends a 500 if a cast error occurs on _id', async () => {
-                const response = await request(app).patch(`/Roles/dfghjkkjhgf`).send({ name: 'Roles' })
+                const response = await request(app).patch(`/Roles/dfghjkkjhgf`).send({name: 'Roles'})
                 expect(response.statusCode).toBe(500)
             })
 
         })
 
         describe('DELETE', () => {
-            let entity: any
+            let entity: mongoose.Document<unknown, unknown, IRoles> & IRoles & { _id: mongoose.Types.ObjectId }
             beforeEach(async () => {
                 entity = new Roles({ name: 'random' })
                 await entity.save()

@@ -42,12 +42,7 @@ export function setupPassport (app: Express) {
 		)
 	}
 
-
-	// passport.(de)serializeUser implements an invalid User definition,
-	// 	ts-ignore the calls and use our IUser definition instead in Serialization
-	// @ts-ignore
 	passport.serializeUser(Serialization.serialize)
-	// @ts-ignore
 	passport.deserializeUser(Serialization.deserialize)
 
 	app.use(passport.initialize())

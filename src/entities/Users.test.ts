@@ -1,16 +1,8 @@
-import { IUser, Users } from './Users'
+import { Users } from './Users'
 import { Permissions } from './Permissions'
-import { Roles } from './Roles'
-
-declare global {
-    var __MONGO_URI__: string
-}
+import { role, user, password } from '../../jest/setup'
 
 describe('User', () => {
-    let userRole: any
-    beforeAll(async () => {
-        userRole = await Roles.findOne({ name: 'USER' })
-    });
 
     it('creates a User', async () => {
         expect.assertions(2)
@@ -20,7 +12,7 @@ describe('User', () => {
 
         const found = await Users.findById(entity._id)
         expect(found).toBeDefined()
-        expect(found).toHaveProperty('role', userRole._id)
+        expect(found).toHaveProperty('role', role._id)
     })
 
     it('saves the password as a hashed value', async () => {
@@ -72,15 +64,6 @@ describe('User', () => {
     })
 
     describe('findByIdWithPermissions', () => {
-        const perm = new Permissions({ name: 'permissions.get', group: 'permissions' })
-        const role = new Roles({ name: 'User', permissions: [perm] })
-        const user = new Users({ role })
-
-        beforeEach(async () => {
-            await perm.save()
-            await role.save()
-            await user.save()
-        })
 
         it('has permissions in the database', async () => {
             expect.assertions(4)
@@ -96,24 +79,15 @@ describe('User', () => {
     })
 
     describe('comparePassword', () => {
-        let _id: any
-        const email = 'hello@world.com'
-        const password = 'password'
-        beforeAll(async () => {
-            const entity = await Users.findOne({ email })
-            if (entity) {
-                _id = entity._id
-            }
-        })
 
         it('returns User if the passwords match', async () => {
-            const result = await Users.authenticate(email, password)
+            const result = await Users.authenticate(user.email, password)
             expect(result).toEqual(expect.any(Users))
-            expect(result).toHaveProperty('_id', _id)
+            expect(result).toHaveProperty('_id', user._id)
         })
 
         it('returns false if the passwords don\'t match', async () => {
-            const result = await Users.authenticate(email, 'password1')
+            const result = await Users.authenticate(user.email, 'password1')
             expect(result).toEqual(false)
         })
 

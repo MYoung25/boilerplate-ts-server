@@ -1,22 +1,10 @@
 import { handleUsernamePassword } from './handleUsernamePassword'
 import { Users } from '../../../entities/Users'
-import mongoose from 'mongoose'
-
-declare global {
-    var __MONGO_URI__: string
-}
+import { user, password } from "../../../../jest/setup"
 
 const mockDone = jest.fn()
 
-const email = 'username'
-const password = 'password'
-
 describe('handleUsernamePassword', function () {
-    let user: any
-    let connection: any
-    beforeAll(async () => {
-        user = await Users.findOne({ firstName: 'hello' })
-    });
 
     beforeEach(async () => {
         jest.clearAllMocks()
@@ -27,7 +15,7 @@ describe('handleUsernamePassword', function () {
     })
 
     it('calls done with no errors if email/password match', async () => {
-        await handleUsernamePassword(email, password, mockDone)
+        await handleUsernamePassword(user.email, password, mockDone)
         expect(mockDone).toHaveBeenCalled()
         expect(mockDone).not.toHaveBeenCalledWith(expect.any(Error), expect.any(Users))
     })
@@ -38,7 +26,7 @@ describe('handleUsernamePassword', function () {
     })
 
     it('calls done with an error if password doesn\'t match', async () => {
-        await handleUsernamePassword(email, 'password1', mockDone)
+        await handleUsernamePassword(user.email, 'password1', mockDone)
         expect(mockDone).toHaveBeenCalledWith(expect.any(Error))
     })
 

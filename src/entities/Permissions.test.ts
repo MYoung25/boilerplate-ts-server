@@ -1,11 +1,6 @@
-import mongoose from 'mongoose'
-import { IPermissions, Permissions } from './Permissions'
+import { Permissions } from './Permissions'
 
 describe('Permissions', () => {
-    let entity: any
-    beforeAll(async () => {
-        entity = Permissions.findOne({})
-    });
 
     it('creates a Permissions', async () => {
         expect.assertions(2)
