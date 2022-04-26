@@ -3,7 +3,7 @@ name: Auto-Update Base
 on:
   push:
     branches:
-      - main
+      - none
 #  schedule:
 #    - cron: "0 3 * * *"
 
@@ -14,8 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Testing...
-        run: git status
+      - name: Fetch
+        run: git fetch upstream
+
+      - name: Rebase
+        run: git rebase upstream/main
 
 
 #      - name: Update Base
