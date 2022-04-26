@@ -1,0 +1,25 @@
+name: Auto-Update Base
+
+on:
+  push:
+    branches:
+      - main
+#  schedule:
+#    - cron: "0 3 * * *"
+
+jobs:
+  update_base:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Testing...
+        run: git status
+
+
+#      - name: Update Base
+#        uses: actions/github-script@v6
+#        with:
+#          script: |
+
