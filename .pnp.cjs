@@ -62,6 +62,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["passport", "npm:0.5.2"],\
             ["passport-google-oauth20", "npm:2.0.0"],\
             ["passport-local", "npm:1.0.0"],\
+            ["polar-cli", "npm:0.1.2"],\
             ["redis", "npm:4.0.6"],\
             ["supertest", "npm:6.2.2"],\
             ["ts-jest", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:27.1.4"],\
@@ -6860,6 +6861,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["polar-cli", [\
+        ["npm:0.1.2", {\
+          "packageLocation": "./.yarn/cache/polar-cli-npm-0.1.2-e5c2dd27a1-334f9c6603.zip/node_modules/polar-cli/",\
+          "packageDependencies": [\
+            ["polar-cli", "npm:0.1.2"],\
+            ["ts-node", "virtual:e5c2dd27a1e5f9724f47a23d305657078819cbf7edede8358416c72cd5d54529551d60fb3311e59dca3734c30a5f0e0b64091503bb1e90879f86c1eb97610d0f#npm:10.7.0"],\
+            ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"],\
+            ["yargs", "npm:17.4.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["prelude-ls", [\
         ["npm:1.1.2", {\
           "packageLocation": "./.yarn/cache/prelude-ls-npm-1.1.2-a0daac0886-c4867c8748.zip/node_modules/prelude-ls/",\
@@ -7455,6 +7468,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["passport", "npm:0.5.2"],\
             ["passport-google-oauth20", "npm:2.0.0"],\
             ["passport-local", "npm:1.0.0"],\
+            ["polar-cli", "npm:0.1.2"],\
             ["redis", "npm:4.0.6"],\
             ["supertest", "npm:6.2.2"],\
             ["ts-jest", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:27.1.4"],\
@@ -8089,6 +8103,42 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "typescript"\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["virtual:e5c2dd27a1e5f9724f47a23d305657078819cbf7edede8358416c72cd5d54529551d60fb3311e59dca3734c30a5f0e0b64091503bb1e90879f86c1eb97610d0f#npm:10.7.0", {\
+          "packageLocation": "./.yarn/unplugged/ts-node-virtual-4bf662b014/node_modules/ts-node/",\
+          "packageDependencies": [\
+            ["ts-node", "virtual:e5c2dd27a1e5f9724f47a23d305657078819cbf7edede8358416c72cd5d54529551d60fb3311e59dca3734c30a5f0e0b64091503bb1e90879f86c1eb97610d0f#npm:10.7.0"],\
+            ["@cspotcode/source-map-support", "npm:0.7.0"],\
+            ["@swc/core", null],\
+            ["@swc/wasm", null],\
+            ["@tsconfig/node10", "npm:1.0.8"],\
+            ["@tsconfig/node12", "npm:1.0.9"],\
+            ["@tsconfig/node14", "npm:1.0.1"],\
+            ["@tsconfig/node16", "npm:1.0.2"],\
+            ["@types/node", null],\
+            ["@types/swc__core", null],\
+            ["@types/swc__wasm", null],\
+            ["@types/typescript", null],\
+            ["acorn", "npm:8.7.0"],\
+            ["acorn-walk", "npm:8.2.0"],\
+            ["arg", "npm:4.1.3"],\
+            ["create-require", "npm:1.1.1"],\
+            ["diff", "npm:4.0.2"],\
+            ["make-error", "npm:1.3.6"],\
+            ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"],\
+            ["v8-compile-cache-lib", "npm:3.0.0"],\
+            ["yn", "npm:3.1.1"]\
+          ],\
+          "packagePeers": [\
+            "@swc/core",\
+            "@swc/wasm",\
+            "@types/node",\
+            "@types/swc__core",\
+            "@types/swc__wasm",\
+            "@types/typescript",\
+            "typescript"\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["tslib", [\
@@ -8653,6 +8703,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["yargs-parser", "npm:20.2.9"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:17.4.1", {\
+          "packageLocation": "./.yarn/cache/yargs-npm-17.4.1-f5d309f85f-e901232287.zip/node_modules/yargs/",\
+          "packageDependencies": [\
+            ["yargs", "npm:17.4.1"],\
+            ["cliui", "npm:7.0.4"],\
+            ["escalade", "npm:3.1.1"],\
+            ["get-caller-file", "npm:2.0.5"],\
+            ["require-directory", "npm:2.1.1"],\
+            ["string-width", "npm:4.2.3"],\
+            ["y18n", "npm:5.0.8"],\
+            ["yargs-parser", "npm:21.0.1"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["yargs-parser", [\
@@ -8660,6 +8724,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/yargs-parser-npm-20.2.9-a1d19e598d-8bb69015f2.zip/node_modules/yargs-parser/",\
           "packageDependencies": [\
             ["yargs-parser", "npm:20.2.9"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:21.0.1", {\
+          "packageLocation": "./.yarn/cache/yargs-parser-npm-21.0.1-b778fd3462-c3ea2ed12c.zip/node_modules/yargs-parser/",\
+          "packageDependencies": [\
+            ["yargs-parser", "npm:21.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
