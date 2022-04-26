@@ -34,7 +34,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["@shelf/jest-mongodb", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:2.2.1"],\
-            ["@types/bcrypt", "npm:5.0.0"],\
             ["@types/bcryptjs", "npm:2.4.2"],\
             ["@types/connect-redis", "npm:0.0.18"],\
             ["@types/express", "npm:4.17.13"],\
@@ -1500,16 +1499,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@types/babel__traverse", "npm:7.14.2"],\
             ["@babel/types", "npm:7.17.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["@types/bcrypt", [\
-        ["npm:5.0.0", {\
-          "packageLocation": "./.yarn/cache/@types-bcrypt-npm-5.0.0-c074c165c2-063c32c7a5.zip/node_modules/@types/bcrypt/",\
-          "packageDependencies": [\
-            ["@types/bcrypt", "npm:5.0.0"],\
-            ["@types/node", "npm:17.0.23"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -7438,7 +7427,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["server", "workspace:."],\
             ["@shelf/jest-mongodb", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:2.2.1"],\
-            ["@types/bcrypt", "npm:5.0.0"],\
             ["@types/bcryptjs", "npm:2.4.2"],\
             ["@types/connect-redis", "npm:0.0.18"],\
             ["@types/express", "npm:4.17.13"],\
