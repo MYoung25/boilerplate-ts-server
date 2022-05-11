@@ -9,6 +9,17 @@ import { Serialization } from "./serialization"
 import Google from './Google/index'
 import Local from './Local/index'
 
+/**
+ * @openapi
+ * tags: 
+ *  - name: auth
+ *    description: authentication schemes
+ * components:
+ *  securitySchemes:
+ *    Local:
+ *      type: 'http'
+ *      scheme: basic
+ */
 export const router = Router()
 
 export function setupPassport (app: Express) {
@@ -49,7 +60,80 @@ export function setupPassport (app: Express) {
 	app.use(passport.session())
 }
 
+/**
+ * @openapi
+ * /auth/login:
+ *  post:
+ *    tags:
+ *      - auth
+ *    operationId: login
+ *    summary: Authenticate by email/password
+ *    description: Authenticate by email/password
+ *    responses:
+ *      204:
+ *          description: Success!
+ *      401:
+ *          description: Authentication Failed
+ *    requestBody:
+ *      content:
+ *          application/json:
+ *              schema:
+ *                  type: object
+ *                  required:
+ *                      - email
+ *                      - password
+ *                  properties:
+ *                      email: 
+ *                          type: string
+ *                      password: 
+ *                          type: string
+ */
 router.use('/login', Local)
+/**
+ * @openapi
+ * /auth/google/callback:
+ *  get:
+ *    tags:
+ *      - auth
+ *    operationId: authGoogleCallback
+ *    description: Authenticate by Google authentication token
+ *    responses:
+ *      204:
+ *          description: Success!
+ *      401:
+ *          description: Authentication Failed
+ *    parameters:
+ *      - in: query
+ *        name: code
+ *        description: Google issued authentication token
+ *        required: true
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: scope
+ *        description: Google scopes desired
+ *        required: true
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: authuser
+ *        description: Google auth-user array position
+ *        required: true
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: hd
+ *        description: user email domain
+ *        required: true
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: prompt
+ *        description: whether to prompt the user
+ *        required: true
+ *        schema:
+ *          type: string
+ */
 router.use('/google', Google)
 
 export default router

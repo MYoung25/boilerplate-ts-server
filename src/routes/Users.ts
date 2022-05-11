@@ -3,8 +3,42 @@ import { Router, Response, Request } from 'express'
 import {IUser, Users} from '../entities/Users'
 import { userHasPermissions } from './auth/middleware'
 
+/**
+ * @openapi
+ * tags: 
+ *  - name: users
+ *    description: Users Routes
+ */
 const router = Router()
-
+/**
+ * @openapi
+ * /users:
+ *  get:
+ *    tags:
+ *      - users
+ *    operationId: searchUsers
+ *    summary: Search users records
+ *    description: Get users records
+ *    responses:
+ *        200:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                  type: array
+ *                  items:
+ *                      $ref: '#/components/schemas/Users'
+ *  post:
+ *    tags:
+ *      - users
+ *    operationId: createUser
+ *    summary: Create a users record
+ *    description: Create a new users record
+ *    requestBody:
+ *      content:
+ *          application/json:
+ *              schema: 
+ *                  $ref: '#/components/schemas/Users'
+ */
 router.route('/')
     .get(userHasPermissions('public'), async (req: Request, res: Response) => {
         const items = await Users.find({})
@@ -27,6 +61,54 @@ router.route('/me')
 
     })
 
+/**
+ * @openapi
+ * /users/{id}:
+ *  parameters:
+ *      - in: path
+ *        name: id
+ *  get:
+ *      tags:
+ *          - users
+ *      description: Get a single users record
+ *      responses:
+ *          200:
+ *              description: Success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Users'
+ *          404:
+ *              description: Item not found
+ *          default:
+ *              description: An unknown error occurred
+ *  patch:
+ *      tags:
+ *          - users
+ *      description: Update a single users record
+ *      responses:
+ *          200:
+ *              description: Success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Users'
+ *          404:
+ *              description: Item not found
+ *          default:
+ *              description: An unknown error occurred 
+ *  delete:
+ *      tags:
+ *          - users
+ *      description: Delete a users record
+ *      responses:
+ *          204:
+ *              description: Success
+ *          404:
+ *              description: Item not found
+ *          default:
+ *              description: An unknown error occurred
+ */
 router.route('/:id')
     .get(userHasPermissions('public'), async (req: Request, res: Response) => {
         try {

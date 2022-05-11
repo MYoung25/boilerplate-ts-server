@@ -7,6 +7,28 @@ export interface IRoles {
     permissions:  IPermissions[]
 }
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *      Roles:
+ *          type: object
+ *          required:
+ *              - name
+ *              - permissions
+ *          properties:
+ *              _id: 
+ *                  type: string
+ *                  example: '627afea4acf098768c92b855'
+ *              name:
+ *                  type: string
+ *                  example: 'permissions.get'
+ *              permissions: 
+ *                  type: array
+ *                  items: 
+ *                      type: string
+ *                      example: '627afea4acf098768c92b855'
+ */
 export const rolesSchema = new Schema({
     name: String,
     permissions: [{ type: Types.ObjectId, ref: 'Permissions'} ]

@@ -6,6 +6,26 @@ export interface IPermissions {
     group: string,
 }
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *      Permissions:
+ *          type: object
+ *          required:
+ *              - name
+ *              - group
+ *          properties:
+ *              _id: 
+ *                  type: string
+ *                  example: '627afea4acf098768c92b855'
+ *              name:
+ *                  type: string
+ *                  example: 'permissions.get'
+ *              group: 
+ *                  type: string
+ *                  example: 'permissions'
+ */
 export const permissionsSchema = new Schema({
     name: String,
     group: String

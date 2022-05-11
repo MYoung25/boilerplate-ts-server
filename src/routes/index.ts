@@ -3,6 +3,7 @@ import helmet from 'helmet'
 import mongoose from 'mongoose'
 import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
+import { config } from '../config'
 import { setupPassport } from "./auth"
 import Permissions from './Permissions'
 import Roles from './Roles'
@@ -12,25 +13,40 @@ import auth from './auth'
 export const app = express()
 
 const swaggerDefinition = {
-  openapi: '3.0.0',
+  openapi: '3.0.3',
   info: {
-    title: 'Express API for JSONPlaceholder',
-    version: '1.0.0',
+    title: config.npm_package_name,
+    version: config.npm_package_version,
   },
-};
+}
 
-const options = {
+const swaggerJSDocOptions = {
   swaggerDefinition,
   // Paths to files containing OpenAPI definitions
-  apis: ['./src/routes/*.ts'],
-};
+  apis: ['./src/routes/*.ts', './src/routes/auth/*.ts', './src/entities/*.ts'],
+}
 
-const swaggerSpec = swaggerJSDoc(options);
+const swaggerSpec = swaggerJSDoc(swaggerJSDocOptions);
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+const swaggerUiOptions = {
+  customCss: '.swagger-ui .topbar { display: none }',
+}
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions))
 
 app.use(helmet())
 
+/** 
+ * @openapi
+ * /ping:
+ *  get:
+ *    description: Ping route for docker healthcheck
+ *    responses:
+ *      200: 
+ *        description: container is active
+ *      503:
+ *        description: container is starting/inactive/errored
+ */
 app.get('/ping', (req: Request, res: Response) => {
   const { readyState } = mongoose.connection
   let status = 503

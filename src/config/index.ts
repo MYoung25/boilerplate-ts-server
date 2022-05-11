@@ -10,6 +10,8 @@ if (process.env.MONGO_URL) {
 export const config = {
     port: process.env.PORT || 3000,
     node_env: process.env.NODE_ENV,
+    npm_package_version: process.env.npm_package_version || '0.0.0',
+    npm_package_name: process.env.npm_package_name || 'API',
     mongo: {
         // include auth in the mongodb_uri env var
         protocol: process.env.MONGODB_PROTOCOL || 'mongodb',
