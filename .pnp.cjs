@@ -46,6 +46,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/passport-google-oauth20", "npm:2.0.11"],\
             ["@types/passport-local", "npm:1.0.34"],\
             ["@types/supertest", "npm:2.0.12"],\
+            ["@types/swagger-jsdoc", "npm:6.0.1"],\
+            ["@types/swagger-ui-express", "npm:4.1.3"],\
             ["@typescript-eslint/eslint-plugin", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:5.20.0"],\
             ["@typescript-eslint/parser", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:5.20.0"],\
             ["axios", "npm:0.26.1"],\
@@ -66,6 +68,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["polar-cli", "npm:0.1.4"],\
             ["redis", "npm:4.0.6"],\
             ["supertest", "npm:6.2.2"],\
+            ["swagger-jsdoc", "npm:6.2.1"],\
+            ["swagger-ui-express", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:4.3.0"],\
             ["ts-jest", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:27.1.4"],\
             ["ts-node", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:10.7.0"],\
             ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"]\
@@ -79,6 +83,65 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@ampproject/remapping", "npm:2.1.2"],\
             ["@jridgewell/trace-mapping", "npm:0.3.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@apidevtools/json-schema-ref-parser", [\
+        ["npm:9.0.9", {\
+          "packageLocation": "./.yarn/cache/@apidevtools-json-schema-ref-parser-npm-9.0.9-cda77aa4ae-b21f6bdd37.zip/node_modules/@apidevtools/json-schema-ref-parser/",\
+          "packageDependencies": [\
+            ["@apidevtools/json-schema-ref-parser", "npm:9.0.9"],\
+            ["@jsdevtools/ono", "npm:7.1.3"],\
+            ["@types/json-schema", "npm:7.0.11"],\
+            ["call-me-maybe", "npm:1.0.1"],\
+            ["js-yaml", "npm:4.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@apidevtools/openapi-schemas", [\
+        ["npm:2.1.0", {\
+          "packageLocation": "./.yarn/cache/@apidevtools-openapi-schemas-npm-2.1.0-5401d2b368-4a8f64935b.zip/node_modules/@apidevtools/openapi-schemas/",\
+          "packageDependencies": [\
+            ["@apidevtools/openapi-schemas", "npm:2.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@apidevtools/swagger-methods", [\
+        ["npm:3.0.2", {\
+          "packageLocation": "./.yarn/cache/@apidevtools-swagger-methods-npm-3.0.2-2f505abefb-d06b1ac5c1.zip/node_modules/@apidevtools/swagger-methods/",\
+          "packageDependencies": [\
+            ["@apidevtools/swagger-methods", "npm:3.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@apidevtools/swagger-parser", [\
+        ["npm:10.0.2", {\
+          "packageLocation": "./.yarn/cache/@apidevtools-swagger-parser-npm-10.0.2-9973224f0d-fbae8e363c.zip/node_modules/@apidevtools/swagger-parser/",\
+          "packageDependencies": [\
+            ["@apidevtools/swagger-parser", "npm:10.0.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:9cdbafaf0c83fe38b6bda1d2f15dd52d5176c60b9ee11b6f6d54d00b5037ba089af950f81c325d052d2ef792b617aa7ff9dc5d4db3226eab29c551007c1c70e3#npm:10.0.2", {\
+          "packageLocation": "./.yarn/__virtual__/@apidevtools-swagger-parser-virtual-dae3c5dbe2/0/cache/@apidevtools-swagger-parser-npm-10.0.2-9973224f0d-fbae8e363c.zip/node_modules/@apidevtools/swagger-parser/",\
+          "packageDependencies": [\
+            ["@apidevtools/swagger-parser", "virtual:9cdbafaf0c83fe38b6bda1d2f15dd52d5176c60b9ee11b6f6d54d00b5037ba089af950f81c325d052d2ef792b617aa7ff9dc5d4db3226eab29c551007c1c70e3#npm:10.0.2"],\
+            ["@apidevtools/json-schema-ref-parser", "npm:9.0.9"],\
+            ["@apidevtools/openapi-schemas", "npm:2.1.0"],\
+            ["@apidevtools/swagger-methods", "npm:3.0.2"],\
+            ["@jsdevtools/ono", "npm:7.1.3"],\
+            ["@types/openapi-types", null],\
+            ["call-me-maybe", "npm:1.0.1"],\
+            ["openapi-types", null],\
+            ["z-schema", "npm:4.2.4"]\
+          ],\
+          "packagePeers": [\
+            "@types/openapi-types",\
+            "openapi-types"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1168,6 +1231,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@jsdevtools/ono", [\
+        ["npm:7.1.3", {\
+          "packageLocation": "./.yarn/cache/@jsdevtools-ono-npm-7.1.3-cb2313543b-2297fcd472.zip/node_modules/@jsdevtools/ono/",\
+          "packageDependencies": [\
+            ["@jsdevtools/ono", "npm:7.1.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@node-redis/bloom", [\
         ["npm:1.0.1", {\
           "packageLocation": "./.yarn/cache/@node-redis-bloom-npm-1.0.1-4c4e8d06ec-b80cd54ae8.zip/node_modules/@node-redis/bloom/",\
@@ -1881,6 +1953,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@types/supertest", "npm:2.0.12"],\
             ["@types/superagent", "npm:4.1.15"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/swagger-jsdoc", [\
+        ["npm:6.0.1", {\
+          "packageLocation": "./.yarn/cache/@types-swagger-jsdoc-npm-6.0.1-086ace7e7d-c15fcbf741.zip/node_modules/@types/swagger-jsdoc/",\
+          "packageDependencies": [\
+            ["@types/swagger-jsdoc", "npm:6.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/swagger-ui-express", [\
+        ["npm:4.1.3", {\
+          "packageLocation": "./.yarn/cache/@types-swagger-ui-express-npm-4.1.3-0c91a9cfb5-1c990fa8c1.zip/node_modules/@types/swagger-ui-express/",\
+          "packageDependencies": [\
+            ["@types/swagger-ui-express", "npm:4.1.3"],\
+            ["@types/express", "npm:4.17.13"],\
+            ["@types/serve-static", "npm:1.13.10"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2859,6 +2951,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["call-me-maybe", [\
+        ["npm:1.0.1", {\
+          "packageLocation": "./.yarn/cache/call-me-maybe-npm-1.0.1-d07e74bc9c-d19e9d6ac2.zip/node_modules/call-me-maybe/",\
+          "packageDependencies": [\
+            ["call-me-maybe", "npm:1.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["callsites", [\
         ["npm:3.1.0", {\
           "packageLocation": "./.yarn/cache/callsites-npm-3.1.0-268f989910-072d17b6ab.zip/node_modules/callsites/",\
@@ -3090,6 +3191,22 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["combined-stream", "npm:1.0.8"],\
             ["delayed-stream", "npm:1.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["commander", [\
+        ["npm:2.20.3", {\
+          "packageLocation": "./.yarn/cache/commander-npm-2.20.3-d8dcbaa39b-ab8c07884e.zip/node_modules/commander/",\
+          "packageDependencies": [\
+            ["commander", "npm:2.20.3"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:6.2.0", {\
+          "packageLocation": "./.yarn/cache/commander-npm-6.2.0-5c82761f33-59baef90f0.zip/node_modules/commander/",\
+          "packageDependencies": [\
+            ["commander", "npm:6.2.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4411,6 +4528,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["glob", [\
+        ["npm:7.1.6", {\
+          "packageLocation": "./.yarn/cache/glob-npm-7.1.6-1ce3a5189a-351d549dd9.zip/node_modules/glob/",\
+          "packageDependencies": [\
+            ["glob", "npm:7.1.6"],\
+            ["fs.realpath", "npm:1.0.0"],\
+            ["inflight", "npm:1.0.6"],\
+            ["inherits", "npm:2.0.4"],\
+            ["minimatch", "npm:3.1.2"],\
+            ["once", "npm:1.4.0"],\
+            ["path-is-absolute", "npm:1.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:7.2.0", {\
           "packageLocation": "./.yarn/cache/glob-npm-7.2.0-bb4644d239-78a8ea9423.zip/node_modules/glob/",\
           "packageDependencies": [\
@@ -5854,6 +5984,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["lodash.get", [\
+        ["npm:4.4.2", {\
+          "packageLocation": "./.yarn/cache/lodash.get-npm-4.4.2-7bda64ed87-e403047ddb.zip/node_modules/lodash.get/",\
+          "packageDependencies": [\
+            ["lodash.get", "npm:4.4.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["lodash.isequal", [\
+        ["npm:4.5.0", {\
+          "packageLocation": "./.yarn/cache/lodash.isequal-npm-4.5.0-f8b0f64d63-da27515dc5.zip/node_modules/lodash.isequal/",\
+          "packageDependencies": [\
+            ["lodash.isequal", "npm:4.5.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["lodash.memoize", [\
         ["npm:4.1.2", {\
           "packageLocation": "./.yarn/cache/lodash.memoize-npm-4.1.2-0e6250041f-9ff3942fee.zip/node_modules/lodash.memoize/",\
@@ -5868,6 +6016,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/lodash.merge-npm-4.6.2-77cb4416bf-ad580b4bdb.zip/node_modules/lodash.merge/",\
           "packageDependencies": [\
             ["lodash.merge", "npm:4.6.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["lodash.mergewith", [\
+        ["npm:4.6.2", {\
+          "packageLocation": "./.yarn/cache/lodash.mergewith-npm-4.6.2-7d2d4201ec-a6db2a9339.zip/node_modules/lodash.mergewith/",\
+          "packageDependencies": [\
+            ["lodash.mergewith", "npm:4.6.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -7463,6 +7620,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/passport-google-oauth20", "npm:2.0.11"],\
             ["@types/passport-local", "npm:1.0.34"],\
             ["@types/supertest", "npm:2.0.12"],\
+            ["@types/swagger-jsdoc", "npm:6.0.1"],\
+            ["@types/swagger-ui-express", "npm:4.1.3"],\
             ["@typescript-eslint/eslint-plugin", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:5.20.0"],\
             ["@typescript-eslint/parser", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:5.20.0"],\
             ["axios", "npm:0.26.1"],\
@@ -7483,6 +7642,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["polar-cli", "npm:0.1.4"],\
             ["redis", "npm:4.0.6"],\
             ["supertest", "npm:6.2.2"],\
+            ["swagger-jsdoc", "npm:6.2.1"],\
+            ["swagger-ui-express", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:4.3.0"],\
             ["ts-jest", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:27.1.4"],\
             ["ts-node", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:10.7.0"],\
             ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"]\
@@ -7847,6 +8008,63 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/supports-preserve-symlinks-flag-npm-1.0.0-f17c4d0028-53b1e247e6.zip/node_modules/supports-preserve-symlinks-flag/",\
           "packageDependencies": [\
             ["supports-preserve-symlinks-flag", "npm:1.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["swagger-jsdoc", [\
+        ["npm:6.2.1", {\
+          "packageLocation": "./.yarn/cache/swagger-jsdoc-npm-6.2.1-a41d8a41c9-d88589c439.zip/node_modules/swagger-jsdoc/",\
+          "packageDependencies": [\
+            ["swagger-jsdoc", "npm:6.2.1"],\
+            ["commander", "npm:6.2.0"],\
+            ["doctrine", "npm:3.0.0"],\
+            ["glob", "npm:7.1.6"],\
+            ["lodash.mergewith", "npm:4.6.2"],\
+            ["swagger-parser", "npm:10.0.2"],\
+            ["yaml", "npm:2.0.0-1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["swagger-parser", [\
+        ["npm:10.0.2", {\
+          "packageLocation": "./.yarn/cache/swagger-parser-npm-10.0.2-9cdbafaf0c-02aa7d6caa.zip/node_modules/swagger-parser/",\
+          "packageDependencies": [\
+            ["swagger-parser", "npm:10.0.2"],\
+            ["@apidevtools/swagger-parser", "virtual:9cdbafaf0c83fe38b6bda1d2f15dd52d5176c60b9ee11b6f6d54d00b5037ba089af950f81c325d052d2ef792b617aa7ff9dc5d4db3226eab29c551007c1c70e3#npm:10.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["swagger-ui-dist", [\
+        ["npm:4.11.0", {\
+          "packageLocation": "./.yarn/cache/swagger-ui-dist-npm-4.11.0-224184bf3b-2b9f327112.zip/node_modules/swagger-ui-dist/",\
+          "packageDependencies": [\
+            ["swagger-ui-dist", "npm:4.11.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["swagger-ui-express", [\
+        ["npm:4.3.0", {\
+          "packageLocation": "./.yarn/cache/swagger-ui-express-npm-4.3.0-bc0c30982a-8d2e1e5389.zip/node_modules/swagger-ui-express/",\
+          "packageDependencies": [\
+            ["swagger-ui-express", "npm:4.3.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:4.3.0", {\
+          "packageLocation": "./.yarn/__virtual__/swagger-ui-express-virtual-0c26316ffc/0/cache/swagger-ui-express-npm-4.3.0-bc0c30982a-8d2e1e5389.zip/node_modules/swagger-ui-express/",\
+          "packageDependencies": [\
+            ["swagger-ui-express", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:4.3.0"],\
+            ["@types/express", "npm:4.17.13"],\
+            ["express", "npm:4.17.3"],\
+            ["swagger-ui-dist", "npm:4.11.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/express",\
+            "express"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -8455,6 +8673,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["validator", [\
+        ["npm:13.7.0", {\
+          "packageLocation": "./.yarn/cache/validator-npm-13.7.0-624277e841-2b83283de1.zip/node_modules/validator/",\
+          "packageDependencies": [\
+            ["validator", "npm:13.7.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["vary", [\
         ["npm:1.1.2", {\
           "packageLocation": "./.yarn/cache/vary-npm-1.1.2-b49f70ae63-ae0123222c.zip/node_modules/vary/",\
@@ -8701,6 +8928,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["yaml", [\
+        ["npm:2.0.0-1", {\
+          "packageLocation": "./.yarn/cache/yaml-npm-2.0.0-1-230a208429-ccfbd1424d.zip/node_modules/yaml/",\
+          "packageDependencies": [\
+            ["yaml", "npm:2.0.0-1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["yargs", [\
         ["npm:16.2.0", {\
           "packageLocation": "./.yarn/cache/yargs-npm-16.2.0-547873d425-b14afbb51e.zip/node_modules/yargs/",\
@@ -8763,6 +8999,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/yn-npm-3.1.1-8ad4259784-2c487b0e14.zip/node_modules/yn/",\
           "packageDependencies": [\
             ["yn", "npm:3.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["z-schema", [\
+        ["npm:4.2.4", {\
+          "packageLocation": "./.yarn/cache/z-schema-npm-4.2.4-450fc6608e-9afc0b8d4f.zip/node_modules/z-schema/",\
+          "packageDependencies": [\
+            ["z-schema", "npm:4.2.4"],\
+            ["commander", "npm:2.20.3"],\
+            ["lodash.get", "npm:4.4.2"],\
+            ["lodash.isequal", "npm:4.5.0"],\
+            ["validator", "npm:13.7.0"]\
           ],\
           "linkType": "HARD"\
         }]\
