@@ -29,7 +29,11 @@ const swaggerJSDocOptions = {
 const swaggerSpec = swaggerJSDoc(swaggerJSDocOptions);
 
 const swaggerUiOptions = {
-  customCss: '.swagger-ui .topbar { display: none }',
+    customCss: '.swagger-ui .topbar { display: none }',
+    swaggerOptions: {
+        filter: true,
+        tagsSorter: 'alpha'
+    }
 }
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions))
@@ -40,6 +44,8 @@ app.use(helmet())
  * @openapi
  * /ping:
  *  get:
+ *    operationId: ping
+ *    summary: ping
  *    description: Ping route for docker healthcheck
  *    responses:
  *      200: 

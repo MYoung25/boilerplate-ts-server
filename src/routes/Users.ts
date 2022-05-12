@@ -98,6 +98,7 @@ router.route('/me')
  *          - users
  *      summary: Get a single user record
  *      description: Get a single user record
+ *      operationId: getUser
  *      responses:
  *          200:
  *              description: Success
@@ -114,6 +115,7 @@ router.route('/me')
  *          - users
  *      summary: Update a single user record
  *      description: Update a single users record
+ *      operationId: updateUser
  *      responses:
  *          200:
  *              description: Success
@@ -130,6 +132,7 @@ router.route('/me')
  *          - users
  *      summary: Delete a user record
  *      description: Delete a users record
+ *      operationId: deleteUser
  *      responses:
  *          204:
  *              description: Success

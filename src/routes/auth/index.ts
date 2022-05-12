@@ -98,6 +98,7 @@ router.use('/login', Local)
  *    tags:
  *      - auth
  *    operationId: authGoogleCallback
+ *    summary: Authenticate by Google authentication token
  *    description: Authenticate by Google authentication token
  *    responses:
  *      204:

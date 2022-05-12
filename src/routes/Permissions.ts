@@ -39,6 +39,12 @@ const router = Router()
  *          application/json:
  *              schema: 
  *                  $ref: '#/components/schemas/Permissions'
+ *    responses:
+ *      201:
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Permissions'
  */
 router.route('/')
     .get(userHasPermissions('public'), async (req: Request, res: Response) => {
@@ -60,6 +66,8 @@ router.route('/')
  *  get:
  *      tags:
  *          - permissions
+ *      operationId: getPermission
+ *      summary: Get a single permissions record
  *      description: Get a single permissions record
  *      responses:
  *          200:
@@ -75,6 +83,8 @@ router.route('/')
  *  patch:
  *      tags:
  *          - permissions
+ *      operationId: updatePermission
+ *      summary: Update a single permissions record
  *      description: Update a single permissions record
  *      responses:
  *          200:
@@ -90,6 +100,8 @@ router.route('/')
  *  delete:
  *      tags:
  *          - permissions
+ *      operationId: deletePermission
+ *      summary: Delete a permissions record
  *      description: Delete a permissions record
  *      responses:
  *          204:

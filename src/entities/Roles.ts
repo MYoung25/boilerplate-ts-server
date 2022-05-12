@@ -29,6 +29,7 @@ export interface IRoles {
  *                      type: string
  *                      example: '627afea4acf098768c92b855'
  *      RolesMe:
+ *          description: Role object returned from Users.findByIdWithPermissions
  *          type: object
  *          required:
  *              - name

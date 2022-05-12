@@ -45,6 +45,7 @@ export interface IUser {
  *                  type: string
  *                  example: '627afea4acf098768c92b855'
  *      UsersMe:
+ *          description: User object returned from Users.findByIdWithPermissions
  *          type: object
  *          required:
  *              - firstName

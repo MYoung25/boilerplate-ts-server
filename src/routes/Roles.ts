@@ -38,6 +38,12 @@ const router = Router()
  *          application/json:
  *              schema: 
  *                  $ref: '#/components/schemas/Roles'
+ *    responses:
+ *      201:
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Roles'
  */
 router.route('/')
     .get(userHasPermissions('public'), async (req: Request, res: Response) => {
@@ -59,6 +65,8 @@ router.route('/')
  *  get:
  *      tags:
  *          - roles
+ *      operationId: getRole
+ *      summary: Get a single roles record
  *      description: Get a single roles record
  *      responses:
  *          200:
@@ -74,6 +82,8 @@ router.route('/')
  *  patch:
  *      tags:
  *          - roles
+ *      operationId: updateRole
+ *      summary: Update a single roles record
  *      description: Update a single roles record
  *      responses:
  *          200:
@@ -89,6 +99,8 @@ router.route('/')
  *  delete:
  *      tags:
  *          - roles
+ *      operationId: deleteRole
+ *      summary: Delete a roles record
  *      description: Delete a roles record
  *      responses:
  *          204:
