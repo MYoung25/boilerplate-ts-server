@@ -1,17 +1,23 @@
 {
     "name": "server",
     "packageManager": "yarn@3.2.0",
+    "version": "0.1.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/MYoung25/polar-base.git"
+    },
+    "files": [
+        "utils/**/*"
+    ],
     "scripts": {
         "test": "yarn jest --runInBand ./src",
         "start": "yarn ts-node src/app.ts",
         "lint": "yarn eslint --ext .ts ./src",
         "lint-fix": "yarn eslint --ext .ts ./src --fix",
-        "entity:create": "yarn node utils/entity/create.js",
         "permissions:seed": "yarn ts-node utils/permissions/seed.ts",
         "healthcheck": "yarn ts-node docker/docker-healthcheck.mjs"
     },
     "dependencies": {
-        "@types/bcryptjs": "^2.4.2",
         "axios": "^0.26.1",
         "bcryptjs": "^2.4.3",
         "connect-redis": "^6.1.3",
@@ -30,7 +36,7 @@
     },
     "devDependencies": {
         "@shelf/jest-mongodb": "^2.2.1",
-        "@types/bcrypt": "^5.0.0",
+        "@types/bcryptjs": "^2.4.2",
         "@types/connect-redis": "^0.0.18",
         "@types/cors": "^2.8.12",
         "@types/express": "^4.17.13",

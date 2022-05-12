@@ -8,6 +8,8 @@ A highly opinionated boilerplate for creating TypeScript servers.  Stack include
 ## Usage
 Testing: `yarn test`
 
-Creating a new entity: `yarn entity:create`
+Seed Permissions: `yarn seed:permissions` (this is included in the docker entrypoint)
 
-Seed Permissions: `yarn seed:permissions`
+### Polar CLI
+Creating a new entity: `yarn polar entity:create`
+
