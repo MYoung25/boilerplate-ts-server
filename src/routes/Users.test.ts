@@ -68,6 +68,14 @@ describe('/api/Users', () => {
                     .send({ email: user.email, password: password })
                 const response = await agent.get('/users/me')
                 expect(response.status).toEqual(200)
+                expect(response.body).toHaveProperty('role')
+                expect(response.body.role).toHaveProperty('permissions')
+                expect(response.body.role.permissions[0]).toEqual(expect.objectContaining({
+                    _id: expect.anything(), // ObjectId, we don't care about type
+                    __v: expect.anything(),
+                    name: expect.any(String),
+                    group: expect.any(String)
+                }))
             })
 
         })

@@ -28,6 +28,22 @@ export interface IRoles {
  *                  items: 
  *                      type: string
  *                      example: '627afea4acf098768c92b855'
+ *      RolesMe:
+ *          type: object
+ *          required:
+ *              - name
+ *              - permissions
+ *          properties:
+ *              _id: 
+ *                  type: string
+ *                  example: '627afea4acf098768c92b855'
+ *              name:
+ *                  type: string
+ *                  example: 'permissions.get'
+ *              permissions: 
+ *                  type: array
+ *                  items: 
+ *                      $ref: '#/components/schemas/Permissions'
  */
 export const rolesSchema = new Schema({
     name: String,

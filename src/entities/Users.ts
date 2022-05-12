@@ -44,6 +44,31 @@ export interface IUser {
  *              role:
  *                  type: string
  *                  example: '627afea4acf098768c92b855'
+ *      UsersMe:
+ *          type: object
+ *          required:
+ *              - firstName
+ *              - lastName
+ *              - role
+ *              - email
+ *          properties:
+ *              _id:
+ *                  type: string
+ *                  example: '627afea4acf098768c92b855'
+ *              firstName:
+ *                  type: string
+ *                  example: 'Clark'
+ *              lastName:
+ *                  type: string
+ *                  example: 'Kent'
+ *              email:
+ *                  type: string
+ *                  example: 'clark@dailyplanet.news'
+ *              profilePicture:
+ *                  type: string
+ *                  example: 'https://google.com/test.png'
+ *              role:
+ *                  $ref: '#/components/schemas/RolesMe'
  */
 export const userSchema = new Schema({
     firstName: String,

@@ -15,10 +15,12 @@ import Local from './Local/index'
  *  - name: auth
  *    description: authentication schemes
  * components:
- *  securitySchemes:
- *    Local:
- *      type: 'http'
- *      scheme: basic
+ *      securitySchemes:
+ *          cookieAuth:
+ *              description: "**USE /auth/login TO LOGIN INSTEAD OF PUTTING ANYTHING HERE**"
+ *              type: apiKey
+ *              in: cookie
+ *              name: connect.sid
  */
 export const router = Router()
 

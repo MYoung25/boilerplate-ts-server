@@ -14,30 +14,36 @@ const router = Router()
  * @openapi
  * /users:
  *  get:
- *    tags:
- *      - users
- *    operationId: searchUsers
- *    summary: Search users records
- *    description: Get users records
- *    responses:
- *        200:
- *          content:
- *            application/json:
- *              schema:
- *                  type: array
- *                  items:
- *                      $ref: '#/components/schemas/Users'
+ *      tags:
+ *          - users
+ *      operationId: searchUsers
+ *      summary: Search users records
+ *      description: Get users records
+ *      responses:
+ *          200:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/Users'
  *  post:
- *    tags:
- *      - users
- *    operationId: createUser
- *    summary: Create a users record
- *    description: Create a new users record
- *    requestBody:
- *      content:
- *          application/json:
- *              schema: 
- *                  $ref: '#/components/schemas/Users'
+ *      tags:
+ *          - users
+ *      operationId: createUser
+ *      summary: Create a users record
+ *      description: Create a new users record
+ *      requestBody:
+ *          content:
+ *              application/json:
+ *                  schema: 
+ *                      $ref: '#/components/schemas/Users'
+ *      responses:
+ *          201:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Users'
  */
 router.route('/')
     .get(userHasPermissions('public'), async (req: Request, res: Response) => {
@@ -49,13 +55,33 @@ router.route('/')
         await item.save()
         res.status(201).json(item)
     })
-
+/**
+ *  @openapi
+ *  /users/me:
+ *      get:
+ *          tags:
+ *              - users
+ *          operationId: getMe
+ *          summary: Get currently logged in user
+ *          description: Get information about the currently logged in user
+ *          security:
+ *              - cookieAuth: []
+ *          responses:
+ *              401:
+ *                  description: Unauthenticated
+ *              200:
+ *                  description: Me
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/components/schemas/UsersMe'
+ */
 router.route('/me')
     .get(userHasPermissions(), async (req, res) => {
         res.status(200)
         const reqUser = (req.user as IUser)
         if (reqUser && '_id' in reqUser) {
-            const user = await Users.findById(reqUser._id)
+            const user = await Users.findByIdWithPermissions(reqUser._id)
             return res.json(user)
         }
 
@@ -70,7 +96,8 @@ router.route('/me')
  *  get:
  *      tags:
  *          - users
- *      description: Get a single users record
+ *      summary: Get a single user record
+ *      description: Get a single user record
  *      responses:
  *          200:
  *              description: Success
@@ -85,6 +112,7 @@ router.route('/me')
  *  patch:
  *      tags:
  *          - users
+ *      summary: Update a single user record
  *      description: Update a single users record
  *      responses:
  *          200:
@@ -100,6 +128,7 @@ router.route('/me')
  *  delete:
  *      tags:
  *          - users
+ *      summary: Delete a user record
  *      description: Delete a users record
  *      responses:
  *          204:
