@@ -1039,6 +1039,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cors@npm:^2.8.12":
+  version: 2.8.12
+  resolution: "@types/cors@npm:2.8.12"
+  checksum: 8c45f112c7d1d2d831b4b266f2e6ed33a1887a35dcbfe2a18b28370751fababb7cd045e745ef84a523c33a25932678097bf79afaa367c6cb3fa0daa7a6438257
+  languageName: node
+  linkType: hard
+
 "@types/express-serve-static-core@npm:^4.17.18":
   version: 4.17.28
   resolution: "@types/express-serve-static-core@npm:4.17.28"
@@ -2405,6 +2412,16 @@ __metadata:
   version: 1.0.3
   resolution: "core-util-is@npm:1.0.3"
   checksum: 9de8597363a8e9b9952491ebe18167e3b36e7707569eed0ebf14f8bba773611376466ae34575bca8cfe3c767890c859c74056084738f09d4e4a6f902b2ad7d99
+  languageName: node
+  linkType: hard
+
+"cors@npm:^2.8.5":
+  version: 2.8.5
+  resolution: "cors@npm:2.8.5"
+  dependencies:
+    object-assign: ^4
+    vary: ^1
+  checksum: ced838404ccd184f61ab4fdc5847035b681c90db7ac17e428f3d81d69e2989d2b680cc254da0e2554f5ed4f8a341820a1ce3d1c16b499f6e2f47a1b9b07b5006
   languageName: node
   linkType: hard
 
@@ -5304,6 +5321,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"object-assign@npm:^4":
+  version: 4.1.1
+  resolution: "object-assign@npm:4.1.1"
+  checksum: fcc6e4ea8c7fe48abfbb552578b1c53e0d194086e2e6bbbf59e0a536381a292f39943c6e9628af05b5528aa5e3318bb30d6b2e53cadaf5b8fe9e12c4b69af23f
+  languageName: node
+  linkType: hard
+
 "object-inspect@npm:^1.9.0":
   version: 1.12.0
   resolution: "object-inspect@npm:1.12.0"
@@ -5604,16 +5628,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"polar-cli@npm:^0.1.4":
-  version: 0.1.4
-  resolution: "polar-cli@npm:0.1.4"
+"polar-cli@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "polar-cli@npm:0.2.1"
   dependencies:
     ts-node: ^10.7.0
     typescript: ^4.6.3
     yargs: ^17.4.1
   bin:
     polar: ./utils/index.ts
-  checksum: 9963626ddaf02bfcdc4b280b28ac1f354bed4a4beae4ca12fd57ce10ef577c3477a6ec87ed1fe1c818aa2595ba33d207d131943a79fc52625c879fc3d43070c1
+  checksum: f6f083dee66ea77047ebe33bd8c2662248da1e3db088449b17c0cf874f2fc2767280d03781d077791cbb6bf370476696e9e7231f7889e6d412b56a5d94be5f04
   languageName: node
   linkType: hard
 
@@ -6131,6 +6155,7 @@ __metadata:
     "@types/bcrypt": ^5.0.0
     "@types/bcryptjs": ^2.4.2
     "@types/connect-redis": ^0.0.18
+    "@types/cors": ^2.8.12
     "@types/express": ^4.17.13
     "@types/express-session": ^1.17.4
     "@types/jest": ^27.4.1
@@ -6147,6 +6172,7 @@ __metadata:
     axios: ^0.26.1
     bcryptjs: ^2.4.3
     connect-redis: ^6.1.3
+    cors: ^2.8.5
     eslint: ^8.14.0
     express: ^4.17.3
     express-session: ^1.17.2
@@ -6159,7 +6185,7 @@ __metadata:
     passport: ^0.5.2
     passport-google-oauth20: ^2.0.0
     passport-local: ^1.0.0
-    polar-cli: ^0.1.4
+    polar-cli: ^0.2.1
     redis: ^4.0.6
     supertest: ^6.2.2
     swagger-jsdoc: ^6.2.1
@@ -7022,7 +7048,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vary@npm:~1.1.2":
+"vary@npm:^1, vary@npm:~1.1.2":
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
   checksum: ae0123222c6df65b437669d63dfa8c36cee20a504101b2fcd97b8bf76f91259c17f9f2b4d70a1e3c6bbcee7f51b28392833adb6b2770b23b01abec84e369660b

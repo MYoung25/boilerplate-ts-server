@@ -37,6 +37,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/bcrypt", "npm:5.0.0"],\
             ["@types/bcryptjs", "npm:2.4.2"],\
             ["@types/connect-redis", "npm:0.0.18"],\
+            ["@types/cors", "npm:2.8.12"],\
             ["@types/express", "npm:4.17.13"],\
             ["@types/express-session", "npm:1.17.4"],\
             ["@types/jest", "npm:27.4.1"],\
@@ -53,6 +54,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["axios", "npm:0.26.1"],\
             ["bcryptjs", "npm:2.4.3"],\
             ["connect-redis", "npm:6.1.3"],\
+            ["cors", "npm:2.8.5"],\
             ["eslint", "npm:8.14.0"],\
             ["express", "npm:4.17.3"],\
             ["express-session", "npm:1.17.2"],\
@@ -65,7 +67,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["passport", "npm:0.5.2"],\
             ["passport-google-oauth20", "npm:2.0.0"],\
             ["passport-local", "npm:1.0.0"],\
-            ["polar-cli", "npm:0.1.4"],\
+            ["polar-cli", "npm:0.2.1"],\
             ["redis", "npm:4.0.6"],\
             ["supertest", "npm:6.2.2"],\
             ["swagger-jsdoc", "npm:6.2.1"],\
@@ -1645,6 +1647,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-cookiejar-npm-2.1.2-2588120a7c-f6e1903454.zip/node_modules/@types/cookiejar/",\
           "packageDependencies": [\
             ["@types/cookiejar", "npm:2.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/cors", [\
+        ["npm:2.8.12", {\
+          "packageLocation": "./.yarn/cache/@types-cors-npm-2.8.12-ff52e8e514-8c45f112c7.zip/node_modules/@types/cors/",\
+          "packageDependencies": [\
+            ["@types/cors", "npm:2.8.12"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3339,6 +3350,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/core-util-is-npm-1.0.3-ca74b76c90-9de8597363.zip/node_modules/core-util-is/",\
           "packageDependencies": [\
             ["core-util-is", "npm:1.0.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["cors", [\
+        ["npm:2.8.5", {\
+          "packageLocation": "./.yarn/cache/cors-npm-2.8.5-c9935a2d12-ced838404c.zip/node_modules/cors/",\
+          "packageDependencies": [\
+            ["cors", "npm:2.8.5"],\
+            ["object-assign", "npm:4.1.1"],\
+            ["vary", "npm:1.1.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6678,6 +6700,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["object-assign", [\
+        ["npm:4.1.1", {\
+          "packageLocation": "./.yarn/cache/object-assign-npm-4.1.1-1004ad6dec-fcc6e4ea8c.zip/node_modules/object-assign/",\
+          "packageDependencies": [\
+            ["object-assign", "npm:4.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["object-inspect", [\
         ["npm:1.12.0", {\
           "packageLocation": "./.yarn/cache/object-inspect-npm-1.12.0-d064fa559a-2b36d4001a.zip/node_modules/object-inspect/",\
@@ -7030,11 +7061,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["polar-cli", [\
-        ["npm:0.1.4", {\
-          "packageLocation": "./.yarn/cache/polar-cli-npm-0.1.4-a5da90f41f-9963626dda.zip/node_modules/polar-cli/",\
+        ["npm:0.2.1", {\
+          "packageLocation": "./.yarn/cache/polar-cli-npm-0.2.1-af3c43ed7e-f6f083dee6.zip/node_modules/polar-cli/",\
           "packageDependencies": [\
-            ["polar-cli", "npm:0.1.4"],\
-            ["ts-node", "virtual:a5da90f41f62cbd99b9453eaf26049fd92c38e855cc60785089fd0e8ab19c76bc09bec5586044051532bbc841858b9959b177186e79884ef62b17c9c04d73f5a#npm:10.7.0"],\
+            ["polar-cli", "npm:0.2.1"],\
+            ["ts-node", "virtual:af3c43ed7e2050d0fd10f5e0637f9069b3de875840ba98f02049e2ba5a7fb7dce5e2c2eb3ce4df3e662d8c1b320f690c8fd4391988023d4eeae24c9cfdd55d1b#npm:10.7.0"],\
             ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"],\
             ["yargs", "npm:17.4.1"]\
           ],\
@@ -7611,6 +7642,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/bcrypt", "npm:5.0.0"],\
             ["@types/bcryptjs", "npm:2.4.2"],\
             ["@types/connect-redis", "npm:0.0.18"],\
+            ["@types/cors", "npm:2.8.12"],\
             ["@types/express", "npm:4.17.13"],\
             ["@types/express-session", "npm:1.17.4"],\
             ["@types/jest", "npm:27.4.1"],\
@@ -7627,6 +7659,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["axios", "npm:0.26.1"],\
             ["bcryptjs", "npm:2.4.3"],\
             ["connect-redis", "npm:6.1.3"],\
+            ["cors", "npm:2.8.5"],\
             ["eslint", "npm:8.14.0"],\
             ["express", "npm:4.17.3"],\
             ["express-session", "npm:1.17.2"],\
@@ -7639,7 +7672,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["passport", "npm:0.5.2"],\
             ["passport-google-oauth20", "npm:2.0.0"],\
             ["passport-local", "npm:1.0.0"],\
-            ["polar-cli", "npm:0.1.4"],\
+            ["polar-cli", "npm:0.2.1"],\
             ["redis", "npm:4.0.6"],\
             ["supertest", "npm:6.2.2"],\
             ["swagger-jsdoc", "npm:6.2.1"],\
@@ -8334,10 +8367,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["virtual:a5da90f41f62cbd99b9453eaf26049fd92c38e855cc60785089fd0e8ab19c76bc09bec5586044051532bbc841858b9959b177186e79884ef62b17c9c04d73f5a#npm:10.7.0", {\
-          "packageLocation": "./.yarn/unplugged/ts-node-virtual-a6fd037bc1/node_modules/ts-node/",\
+        ["virtual:af3c43ed7e2050d0fd10f5e0637f9069b3de875840ba98f02049e2ba5a7fb7dce5e2c2eb3ce4df3e662d8c1b320f690c8fd4391988023d4eeae24c9cfdd55d1b#npm:10.7.0", {\
+          "packageLocation": "./.yarn/unplugged/ts-node-virtual-01f15de4c2/node_modules/ts-node/",\
           "packageDependencies": [\
-            ["ts-node", "virtual:a5da90f41f62cbd99b9453eaf26049fd92c38e855cc60785089fd0e8ab19c76bc09bec5586044051532bbc841858b9959b177186e79884ef62b17c9c04d73f5a#npm:10.7.0"],\
+            ["ts-node", "virtual:af3c43ed7e2050d0fd10f5e0637f9069b3de875840ba98f02049e2ba5a7fb7dce5e2c2eb3ce4df3e662d8c1b320f690c8fd4391988023d4eeae24c9cfdd55d1b#npm:10.7.0"],\
             ["@cspotcode/source-map-support", "npm:0.7.0"],\
             ["@swc/core", null],\
             ["@swc/wasm", null],\
