@@ -1,25 +1,31 @@
-import request from 'supertest'
+import request, { agent } from 'supertest'
 import mongoose from 'mongoose'
 import { app } from './index'
 import { Permissions } from '../entities/Permissions'
-import { perm } from '../../jest/setup'
+import { perm, superadmin, superadminPassword, allPermissions } from '../../jest/setup'
+import { getLoggedInSuperAdminAgent } from '../../jest/utilities'
 
 // suppress error messages
 jest.spyOn(console, 'error')
     .mockImplementation(() => ({}))
 
 describe('/api/Permissions', () => {
+    let superadminAgent: request.SuperAgentTest
+
+    beforeAll(async () => {
+        superadminAgent = await getLoggedInSuperAdminAgent(app)
+    })
 
     describe('GET', () => {
 
         it('returns a 200', async () => {
-            const response = await request(app).get('/Permissions')
+            const response = await superadminAgent.get('/Permissions')
             expect(response.statusCode).toBe(200)
         })
 
         it('returns all Permissionss', async() => {
-            const response = await request(app).get('/Permissions')
-            expect(response.body.length).toBe(1)
+            const response = await superadminAgent.get('/Permissions')
+            expect(response.body.length).toBe(allPermissions.length)
         })
 
     })
@@ -32,7 +38,9 @@ describe('/api/Permissions', () => {
         })
 
         it('returns a 201 with the new permission object', async () => {
-            const response = await request(app).post('/Permissions').send({ name })
+            const response = await superadminAgent
+                .post('/Permissions')
+                .send({ name })
             expect(response.statusCode).toBe(201)
             expect(response.body).toHaveProperty('name', name)
 
@@ -47,23 +55,23 @@ describe('/api/Permissions', () => {
         describe('GET', () => {
 
             it('returns a 200', async () => {
-                const response = await request(app).get(`/Permissions/${perm._id}`)
+                const response = await superadminAgent.get(`/Permissions/${perm._id}`)
                 expect(response.statusCode).toBe(200)
             })
 
             it('returns the Permissions', async () => {
-                const response = await request(app).get(`/Permissions/${perm._id}`)
+                const response = await superadminAgent.get(`/Permissions/${perm._id}`)
                 expect(response.body).toHaveProperty('_id', expect.any(String))
                 expect(response.body).toHaveProperty('__v', 0)
             })
 
             it('returns a 404', async () => {
-                const response = await request(app).get(`/Permissions/${new mongoose.Types.ObjectId()}`)
+                const response = await superadminAgent.get(`/Permissions/${new mongoose.Types.ObjectId()}`)
                 expect(response.statusCode).toBe(404)
             })
 
             it('sends a 500 if a cast error occurs on _id', async () => {
-                const response = await request(app).get(`/Permissions/dfghjkkjhgf`)
+                const response = await superadminAgent.get(`/Permissions/dfghjkkjhgf`)
                 expect(response.statusCode).toBe(500)
             })
 
@@ -72,22 +80,22 @@ describe('/api/Permissions', () => {
         describe('PATCH', () => {
 
             it('returns a 200', async () => {
-                const response = await request(app).patch(`/Permissions/${perm._id}`).send({ name: 'Permissions' })
+                const response = await superadminAgent.patch(`/Permissions/${perm._id}`).send({ name: 'Permissions' })
                 expect(response.statusCode).toBe(200)
             })
 
             it('returns the updated Permissions', async () => {
-                const response = await request(app).patch(`/Permissions/${perm._id}`).send({ name: 'Superman' })
+                const response = await superadminAgent.patch(`/Permissions/${perm._id}`).send({ name: 'Superman' })
                 expect(response.body).toHaveProperty('name', 'Superman')
             })
 
             it('returns a 404', async () => {
-                const response = await request(app).patch(`/Permissions/${new mongoose.Types.ObjectId()}`).send({ name: 'Permissions' })
+                const response = await superadminAgent.patch(`/Permissions/${new mongoose.Types.ObjectId()}`).send({ name: 'Permissions' })
                 expect(response.statusCode).toBe(404)
             })
 
             it('sends a 500 if a cast error occurs on _id', async () => {
-                const response = await request(app).patch(`/Permissions/dfghjkkjhgf`).send({ name: 'Permissions' })
+                const response = await superadminAgent.patch(`/Permissions/dfghjkkjhgf`).send({ name: 'Permissions' })
                 expect(response.statusCode).toBe(500)
             })
 
@@ -96,23 +104,23 @@ describe('/api/Permissions', () => {
         describe('DELETE', () => {
 
             it('returns a 204', async () => {
-                const response = await request(app).delete(`/Permissions/${perm._id}`)
+                const response = await superadminAgent.delete(`/Permissions/${perm._id}`)
                 expect(response.statusCode).toBe(204)
             })
 
             it('deletes the Permissions', async () => {
-                await request(app).delete(`/Permissions/${perm._id}`)
+                await superadminAgent.delete(`/Permissions/${perm._id}`)
                 const found = await Permissions.findById(perm._id)
                 expect(found).toBeNull()
             })
 
             it('tries to delete a nonexistent Permissions', async () => {
-                const response = await request(app).delete(`/Permissions/${new mongoose.Types.ObjectId()}`)
+                const response = await superadminAgent.delete(`/Permissions/${new mongoose.Types.ObjectId()}`)
                 expect(response.statusCode).toBe(404)
             })
 
             it('sends a 500 if an error occurs', async () => {
-                const response = await request(app).delete(`/Permissions/dfghjkkjhgf`)
+                const response = await superadminAgent.delete(`/Permissions/dfghjkkjhgf`)
                 expect(response.statusCode).toBe(500)
             })
 

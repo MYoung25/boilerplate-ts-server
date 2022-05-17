@@ -14,13 +14,14 @@ export class Serialization {
 
     static async deserialize (id: Types.ObjectId, done: (err: Error | null, user: SerializedUser | null) => void) {
         const user = await Users.findByIdWithPermissions(id)
-        if (user && 'permissions' in user.role) {
+        if (user && user.role && 'permissions' in user.role) {
             const deserializedUser = (user as IUser) as SerializedUser
             deserializedUser.hashPermissions = {}
 
             user.role.permissions.forEach((permission: IPermissions): void => {
                 deserializedUser.hashPermissions[permission.name] = permission.name
             })
+            // TODO: add a hashmap of filters to be used with a createFilter function
 
             done(null, deserializedUser)
             return

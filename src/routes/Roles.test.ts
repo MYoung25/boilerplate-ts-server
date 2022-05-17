@@ -19,7 +19,7 @@ describe('/api/Roles', () => {
 
         it('returns all Roles', async () => {
             const response = await request(app).get('/Roles')
-            expect(response.body.length).toBe(1)
+            expect(response.body.length).toBe(2)
         })
 
     })

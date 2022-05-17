@@ -6,6 +6,7 @@ import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 import { config } from '../config'
 import { setupPassport } from "./auth"
+import Filters from './Filters'
 import Permissions from './Permissions'
 import Roles from './Roles'
 import Users from './Users'
@@ -67,6 +68,7 @@ app.get('/ping', (req: Request, res: Response) => {
 app.use(express.json())
 setupPassport(app)
 
+app.use('/filters', Filters)
 app.use('/permissions', Permissions)
 app.use('/roles', Roles)
 app.use('/users', Users)

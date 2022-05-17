@@ -1,16 +1,25 @@
 const mongoose = require('mongoose')
+import { HydratedDocument } from 'mongoose'
+import { IPermissions } from '../src/entities/Permissions'
+import { collectPermissions } from '../utils/permissions/collectPermissions'
 const { Users } = require('../src/entities/Users')
 const { Roles } = require('../src/entities/Roles')
 const { Permissions } = require('../src/entities/Permissions')
 
-export const perm = new Permissions({ name: 'users.me.get', group: 'users' })
-export const role = new Roles({ name: 'USER', permissions: [perm] })
+export const role = new Roles({ name: 'USER', permissions: [] })
 export const password = 'password'
 export const user = new Users({ firstName: 'hello', lastName: 'world', email: 'hello@world.com', password, role })
+
+export const superadminRole = new Roles({ name: 'SUPERADMIN', permissions: [] })
+export const superadminPassword = 'password'
+export const superadmin = new Users({ firstName: 'super', lastName: 'admin', email: 'super@admin.com', password: superadminPassword, role: superadminRole })
 
 declare global {
     var __MONGO_URI__: string
 }
+
+export let perm: IPermissions
+export let allPermissions: HydratedDocument<IPermissions>[] = []
 
 beforeAll(async () => {
     const { readyState } = mongoose.connection
@@ -25,18 +34,36 @@ beforeAll(async () => {
         }
     }
 
-    await perm.save()
+    allPermissions = await collectPermissions()
+    await Promise.all(allPermissions.map(permission => permission.save()))
+
+    // default user should have 
+    perm = allPermissions.filter(permission => permission.name === 'users.me.get')[0]
+    role.permissions = [perm]
     await role.save()
     await user.save()
+
+    
+    // create a superadmin with all permissions
+    superadminRole.permissions = allPermissions
+    await superadminRole.save()
+    await superadmin.save()
 })
 
 afterEach(async () => {
     if (mongoose.connection.readyState !== 1) {
         await mongoose.connect(global.__MONGO_URI__)
     }
-    await Users.deleteMany({ _id: { $ne: user._id } })
-    await Roles.deleteMany({ _id: { $ne: role._id } })
-    await Permissions.deleteMany({ _id: { $ne: perm._id } })
+    await Users.deleteMany({ _id: { $nin: [user._id, superadmin._id] } })
+    await Roles.deleteMany({ _id: { $nin: [role._id, superadminRole._id] } })
+    await Permissions.deleteMany({ _id:
+        { 
+            $nin: [
+                perm._id,
+                ...allPermissions.map(({ _id }) => _id )
+            ]
+        }
+    })
 })
 
 afterAll(async () => {

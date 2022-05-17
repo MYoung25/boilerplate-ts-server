@@ -79,7 +79,7 @@ export const userSchema = new Schema({
     googleId: String,
     role: { type: Types.ObjectId, ref: 'Roles' },
     password: String
-})
+}, { timestamps: true })
 
 userSchema.pre('save', async function () {
     if (!this.role) {

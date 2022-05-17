@@ -1,25 +1,24 @@
 import { logger } from '../config/index'
 import { Router, Response, Request } from 'express'
-import { Permissions } from '../entities/Permissions'
-import { userHasPermissions } from "./auth/middleware"
+import { Filters } from '../entities/Filters'
+import { userHasPermissions } from './auth/middleware'
 
 /**
  * @openapi
  * tags: 
- *  - name: permissions
- *    description: Granular permissions systems
+ *  - name: filters
+ *    description: Filters
  */
 const router = Router()
-
 /**
  * @openapi
- * /permissions:
+ * /filters:
  *  get:
  *    tags:
- *      - permissions
- *    operationId: searchPermissions
- *    summary: Search permissions records
- *    description: Get permissions records
+ *      - filters
+ *    operationId: searchFilters
+ *    summary: Search Filters records
+ *    description: Get Filters records
  *    responses:
  *        200:
  *          content:
@@ -27,92 +26,82 @@ const router = Router()
  *              schema:
  *                  type: array
  *                  items:
- *                      $ref: '#/components/schemas/Permissions'
+ *                      $ref: '#/components/schemas/Filters'
  *  post:
  *    tags:
- *      - permissions
- *    operationId: createPermission
- *    summary: Create a permissions record
- *    description: Create a new permissions record
+ *      - filters
+ *    operationId: createFilters
+ *    summary: Create a Filters record
+ *    description: Create a new Filters record
  *    requestBody:
  *      content:
  *          application/json:
  *              schema: 
- *                  $ref: '#/components/schemas/Permissions'
+ *                  $ref: '#/components/schemas/Filters'
  *    responses:
  *      201:
  *          content:
  *              application/json:
  *                  schema:
- *                      $ref: '#/components/schemas/Permissions'
+ *                      $ref: '#/components/schemas/Filters'
  */
 router.route('/')
     .get(userHasPermissions(), async (req: Request, res: Response) => {
-        try {
-            const items = await Permissions.find({})
-            res.json(items)
-        } catch (e) {
-            res.sendStatus(501)
-            logger.error(e)
-        }
+        const items = await Filters.find({})
+        res.json(items)
     })
     .post(userHasPermissions(), async (req: Request, res: Response) => {
-        try {
-            const item = new Permissions(req.body)
-            await item.save()
-            res.status(201).json(item)
-        } catch (e) {
-            res.sendStatus(501)
-            logger.error(e)
-        }
+        const item = new Filters(req.body)
+        await item.save()
+        res.status(201).json(item)
     })
 
 /**
  * @openapi
- * /permissions/{id}:
+ * /filters/{id}:
  *  parameters:
  *      - in: path
  *        name: id
  *  get:
  *      tags:
- *          - permissions
- *      operationId: getPermission
- *      summary: Get a single permissions record
- *      description: Get a single permissions record
+ *          - filters
+ *      operationId: getFilters
+ *      summary: Get a single Filters record
+ *      description: Get a single Filters record
  *      responses:
  *          200:
  *              description: Success
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/Permissions'
+ *                          $ref: '#/components/schemas/Filters'
  *          404:
  *              description: Item not found
  *          default:
  *              description: An unknown error occurred
  *  patch:
  *      tags:
- *          - permissions
- *      operationId: updatePermission
- *      summary: Update a single permissions record
- *      description: Update a single permissions record
+ *          - filters
+ *      operationId: updateFilters
+ *      summary: Update a single Filters record
+ *      description: Update a single Filters record
  *      responses:
  *          200:
  *              description: Success
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/Permissions'
+ *                          $ref: '#/components/schemas/Filters'
  *          404:
  *              description: Item not found
  *          default:
  *              description: An unknown error occurred 
  *  delete:
  *      tags:
- *          - permissions
- *      operationId: deletePermission
- *      summary: Delete a permissions record
- *      description: Delete a permissions record
+ *          - filters
+ *      operationId: deleteFilters
+ *      summary: Delete a Filters record
+ *      description: Delete a Filters record
  *      responses:
  *          204:
  *              description: Success
@@ -124,7 +113,7 @@ router.route('/')
 router.route('/:id')
     .get(userHasPermissions(), async (req: Request, res: Response) => {
         try {
-            const item = await Permissions.findOne({ _id: req.params.id })
+            const item = await Filters.findOne({ _id: req.params.id })
             if (item) {
                 res.json(item)
                 return
@@ -137,7 +126,7 @@ router.route('/:id')
     })
     .patch(userHasPermissions(), async (req: Request, res: Response) => {
         try {
-            const item = await Permissions.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+            const item = await Filters.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
             if (item) {
                 res.json(item)
                 return
@@ -150,7 +139,7 @@ router.route('/:id')
     })
     .delete(userHasPermissions(), async (req: Request, res: Response) => {
         try {
-            const item = await Permissions.deleteOne({ _id: req.params.id })
+            const item = await Filters.deleteOne({ _id: req.params.id })
             if (item.deletedCount === 1) {
                 res.sendStatus(204)
                 return

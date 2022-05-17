@@ -1,10 +1,12 @@
 import { Schema, model, Types } from 'mongoose'
 import { IPermissions } from "./Permissions"
+import { IFilters } from './Filters'
 
 export interface IRoles {
     _id: Types.ObjectId,
     name: string,
-    permissions:  IPermissions[]
+    permissions:  IPermissions[],
+    filters: IFilters[],
 }
 
 /**
@@ -48,8 +50,9 @@ export interface IRoles {
  */
 export const rolesSchema = new Schema({
     name: String,
-    permissions: [{ type: Types.ObjectId, ref: 'Permissions'} ]
-})
+    permissions: [{ type: Types.ObjectId, ref: 'Permissions'} ],
+    filters: [{ type: Types.ObjectId, ref: 'Filters' } ],
+}, { timestamps: true })
 
 rolesSchema.pre('save', function () {
     if (!this.isModified('name')) return

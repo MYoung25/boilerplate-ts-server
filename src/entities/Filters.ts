@@ -1,34 +1,30 @@
 import { Schema, model, Types } from 'mongoose'
 
-export interface IPermissions {
+export interface IFilters {
     _id: Types.ObjectId,
     name: string,
-    group: string,
+    filter: Record<string, any>
 }
 
 /**
  * @openapi
  * components:
  *  schemas:
- *      Permissions:
+ *      Filters:
  *          type: object
  *          required:
  *              - name
- *              - group
  *          properties:
  *              _id: 
  *                  type: string
  *                  example: '627afea4acf098768c92b855'
  *              name:
  *                  type: string
- *                  example: 'permissions.get'
- *              group: 
- *                  type: string
- *                  example: 'permissions'
+ *                  example: 'Filters'
  */
-export const permissionsSchema = new Schema({
+export const filtersSchema = new Schema({
     name: String,
-    group: String
-}, { timestamps: true })
+    filter: Object
+})
 
-export const Permissions = model<IPermissions>('Permissions', permissionsSchema)
+export const Filters = model<IFilters>('Filters', filtersSchema)

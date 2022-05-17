@@ -15,13 +15,15 @@ function permissionsCheck (req: Request, res: Response, next: NextFunction) {
     const permission = `${baseUrl}.${path ? path + '.' : ''}${method}`
 
     const user = (req.user as SerializedUser)
-    if (user.role && 'permissions' in user.role) {
+
+    if (user.hashPermissions) {
         // see if user has permission string in their hashPermissions
         const hasPermission = user.hashPermissions[permission]
         if (hasPermission) {
             return next()
         }
     }
+
     // user does not have permissions, send a 401 Unauthorized error
     res.sendStatus(401)
 }
