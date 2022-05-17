@@ -1,8 +1,8 @@
-import request, { agent } from 'supertest'
+import request from 'supertest'
 import mongoose from 'mongoose'
 import { app } from './index'
 import { Permissions } from '../entities/Permissions'
-import { perm, superadmin, superadminPassword, allPermissions } from '../../jest/setup'
+import { perm, allPermissions } from '../../jest/setup'
 import { getLoggedInSuperAdminAgent } from '../../jest/utilities'
 
 // suppress error messages

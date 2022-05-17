@@ -8,7 +8,7 @@ import { ErrnoException } from '../app'
 jest.spyOn(console, 'error')
     .mockImplementation((err: ErrnoException) => {})
 
-describe.skip('/api/Filters', () => {
+describe('/api/Filters', () => {
 
     describe('GET', () => {
 
@@ -45,7 +45,6 @@ describe.skip('/api/Filters', () => {
     })
 
     describe('/:id', () => {
-    // TODO: add to jest/setup.ts and then import the value to be used here...
         let item: any
 
         beforeAll(async () => {
