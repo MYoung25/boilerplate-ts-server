@@ -66,7 +66,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["passport", "npm:0.5.2"],\
             ["passport-google-oauth20", "npm:2.0.0"],\
             ["passport-local", "npm:1.0.0"],\
-            ["polar-cli", "npm:0.3.3"],\
+            ["polar-cli", "npm:0.3.4"],\
             ["redis", "npm:4.1.0"],\
             ["supertest", "npm:6.2.3"],\
             ["swagger-jsdoc", "npm:6.2.1"],\
@@ -7113,11 +7113,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["polar-cli", [\
-        ["npm:0.3.3", {\
-          "packageLocation": "./.yarn/cache/polar-cli-npm-0.3.3-2d9a96231c-bc328db266.zip/node_modules/polar-cli/",\
+        ["npm:0.3.4", {\
+          "packageLocation": "./.yarn/cache/polar-cli-npm-0.3.4-7146cfd895-92afa2b412.zip/node_modules/polar-cli/",\
           "packageDependencies": [\
-            ["polar-cli", "npm:0.3.3"],\
-            ["ts-node", "virtual:2d9a96231c7acad7cbee59488b436e37664c87f49bae37459dd42fe20b94f958794a9529206393430c17f6958b93c8d5e46e8569945069bba6a92a1af0383a6f#npm:10.7.0"],\
+            ["polar-cli", "npm:0.3.4"],\
+            ["ts-node", "virtual:7146cfd895ce83fc71b11b59718800a5efafb4fe540843c074f9cea78f98deba954ec5a95951077c69f7c454816f562dfd6c968a15f42b2cab36e7b76e0a5102#npm:10.7.0"],\
             ["typescript", "patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=bda367"],\
             ["yargs", "npm:17.5.0"]\
           ],\
@@ -7697,7 +7697,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["passport", "npm:0.5.2"],\
             ["passport-google-oauth20", "npm:2.0.0"],\
             ["passport-local", "npm:1.0.0"],\
-            ["polar-cli", "npm:0.3.3"],\
+            ["polar-cli", "npm:0.3.4"],\
             ["redis", "npm:4.1.0"],\
             ["supertest", "npm:6.2.3"],\
             ["swagger-jsdoc", "npm:6.2.1"],\
@@ -8349,10 +8349,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:2d9a96231c7acad7cbee59488b436e37664c87f49bae37459dd42fe20b94f958794a9529206393430c17f6958b93c8d5e46e8569945069bba6a92a1af0383a6f#npm:10.7.0", {\
-          "packageLocation": "./.yarn/unplugged/ts-node-virtual-a4a7ff6fec/node_modules/ts-node/",\
+        ["virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:10.7.0", {\
+          "packageLocation": "./.yarn/unplugged/ts-node-virtual-a77d31d2ca/node_modules/ts-node/",\
           "packageDependencies": [\
-            ["ts-node", "virtual:2d9a96231c7acad7cbee59488b436e37664c87f49bae37459dd42fe20b94f958794a9529206393430c17f6958b93c8d5e46e8569945069bba6a92a1af0383a6f#npm:10.7.0"],\
+            ["ts-node", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:10.7.0"],\
             ["@cspotcode/source-map-support", "npm:0.7.0"],\
             ["@swc/core", null],\
             ["@swc/wasm", null],\
@@ -8360,7 +8360,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tsconfig/node12", "npm:1.0.9"],\
             ["@tsconfig/node14", "npm:1.0.1"],\
             ["@tsconfig/node16", "npm:1.0.2"],\
-            ["@types/node", null],\
+            ["@types/node", "npm:17.0.32"],\
             ["@types/swc__core", null],\
             ["@types/swc__wasm", null],\
             ["@types/typescript", null],\
@@ -8385,10 +8385,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:10.7.0", {\
-          "packageLocation": "./.yarn/unplugged/ts-node-virtual-a77d31d2ca/node_modules/ts-node/",\
+        ["virtual:7146cfd895ce83fc71b11b59718800a5efafb4fe540843c074f9cea78f98deba954ec5a95951077c69f7c454816f562dfd6c968a15f42b2cab36e7b76e0a5102#npm:10.7.0", {\
+          "packageLocation": "./.yarn/unplugged/ts-node-virtual-066c3e413e/node_modules/ts-node/",\
           "packageDependencies": [\
-            ["ts-node", "virtual:48fd9d653646a991d0eda5ffe92778b72de446c151643ca5c3964e62f24bed64d28e19b09ae1edf82cd4ab484e9e16d2c4b4953045a3524fb9431546d36f4563#npm:10.7.0"],\
+            ["ts-node", "virtual:7146cfd895ce83fc71b11b59718800a5efafb4fe540843c074f9cea78f98deba954ec5a95951077c69f7c454816f562dfd6c968a15f42b2cab36e7b76e0a5102#npm:10.7.0"],\
             ["@cspotcode/source-map-support", "npm:0.7.0"],\
             ["@swc/core", null],\
             ["@swc/wasm", null],\
@@ -8396,7 +8396,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tsconfig/node12", "npm:1.0.9"],\
             ["@tsconfig/node14", "npm:1.0.1"],\
             ["@tsconfig/node16", "npm:1.0.2"],\
-            ["@types/node", "npm:17.0.32"],\
+            ["@types/node", null],\
             ["@types/swc__core", null],\
             ["@types/swc__wasm", null],\
             ["@types/typescript", null],\

@@ -1,4 +1,4 @@
-import { IFilters, Filters } from './Filters'
+import { Filters } from './Filters'
 
 describe('Filters', () => {
 

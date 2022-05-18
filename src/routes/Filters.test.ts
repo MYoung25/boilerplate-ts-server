@@ -4,11 +4,10 @@ import { getLoggedInSuperAdminAgent } from '../../jest/utilities'
 import { filter } from '../../jest/setup'
 import { app } from './index'
 import { Filters } from '../entities/Filters'
-import { ErrnoException } from '../app'
 
 // suppress error messages
 jest.spyOn(console, 'error')
-    .mockImplementation((err: ErrnoException) => {})
+    .mockImplementation(() => ({}))
 
 describe('/api/Filters', () => {
     let superadminAgent: request.SuperAgentTest

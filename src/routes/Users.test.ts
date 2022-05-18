@@ -2,7 +2,7 @@ import request from 'supertest'
 import mongoose from 'mongoose'
 import { app } from './index'
 import { Users } from '../entities/Users'
-import { user, password } from '../../jest/setup'
+import { user } from '../../jest/setup'
 import { getLoggedInSuperAdminAgent } from '../../jest/utilities'
 
 // suppress error messages
