@@ -30,8 +30,13 @@ export interface IRoles {
  *                  items: 
  *                      type: string
  *                      example: '627afea4acf098768c92b855'
+ *              filters: 
+ *                  type: array
+ *                  items: 
+ *                      type: string
+ *                      example: '627afea4acf098768c92b855'
  *      RolesMe:
- *          description: Role object returned from Users.findByIdWithPermissions
+ *          description: Role object returned from Users.findByIdWithPermissionsAndFilters
  *          type: object
  *          required:
  *              - name
@@ -47,6 +52,10 @@ export interface IRoles {
  *                  type: array
  *                  items: 
  *                      $ref: '#/components/schemas/Permissions'
+ *              filters: 
+ *                  type: array
+ *                  items: 
+ *                      $ref: '#/components/schemas/Filters'
  */
 export const rolesSchema = new Schema({
     name: String,

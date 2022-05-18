@@ -3,20 +3,21 @@ import { IFilters, Filters } from './Filters'
 describe('Filters', () => {
 
     it('creates a Filters', async () => {
-        expect.assertions(2)
+        expect.assertions(3)
         
-        const entity = await new Filters({})
+        const entity = await new Filters({ name: 'Users' })
             .save()
         expect(entity).toBeDefined()
 
         const found = await Filters.findById(entity._id)
         expect(found).toBeDefined()
+        expect(found?.name).toEqual('users')
     })
 
     it('updates a Filters', async () => {
         expect.assertions(2)
         
-        const entity = await new Filters({})
+        const entity = await new Filters({ name: 'Users' })
             .save()
         expect(entity).toBeDefined()
 
@@ -28,7 +29,7 @@ describe('Filters', () => {
     it('deletes a Filters', async () => {
         expect.assertions(2)
         
-        const entity = await new Filters({})
+        const entity = await new Filters({ name: 'Users' })
             .save()
         expect(entity).toBeDefined()
 

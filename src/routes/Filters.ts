@@ -126,6 +126,9 @@ router.route('/:id')
     })
     .patch(userHasPermissions(), async (req: Request, res: Response) => {
         try {
+            if (req.body.name) {
+                req.body.name = req.body.name.toLowerCase()
+            }
             const item = await Filters.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
             if (item) {
                 res.json(item)

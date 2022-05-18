@@ -5680,16 +5680,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"polar-cli@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "polar-cli@npm:0.2.1"
+"polar-cli@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "polar-cli@npm:0.3.0"
   dependencies:
     ts-node: ^10.7.0
     typescript: ^4.6.3
     yargs: ^17.4.1
   bin:
     polar: ./utils/index.ts
-  checksum: f6f083dee66ea77047ebe33bd8c2662248da1e3db088449b17c0cf874f2fc2767280d03781d077791cbb6bf370476696e9e7231f7889e6d412b56a5d94be5f04
+  checksum: 40901dca2613e8ce23ef3931ea81a19e21a75585aeae81d38d0cf59c013e95dcc5812c9c981c336440e0fc808898dabc44c791fcbd7dde445324e383d593253d
   languageName: node
   linkType: hard
 
@@ -6213,7 +6213,7 @@ __metadata:
     passport: ^0.5.2
     passport-google-oauth20: ^2.0.0
     passport-local: ^1.0.0
-    polar-cli: ^0.2.1
+    polar-cli: ^0.3.0
     redis: ^4.0.6
     supertest: ^6.2.2
     swagger-jsdoc: ^6.2.1

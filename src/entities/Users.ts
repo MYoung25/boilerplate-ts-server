@@ -91,7 +91,7 @@ userSchema.pre('save', async function () {
 
 export interface UserModel extends Model<IUser> {
     authenticate (email: string, password: string): Promise<IUser | false>
-    findByIdWithPermissions (_id: Types.ObjectId): Promise<IUser>
+    findByIdWithPermissionsAndFilters (_id: Types.ObjectId): Promise<IUser>
 }
 
 userSchema.statics.authenticate = async function authenticate (email: string, password: string): Promise<IUser | false> {
@@ -105,12 +105,16 @@ userSchema.statics.authenticate = async function authenticate (email: string, pa
     return false
 }
 
-userSchema.statics.findByIdWithPermissions = function findAllBySessionId (_id: Types.ObjectId): Promise<IUser> {
+userSchema.statics.findByIdWithPermissionsAndFilters = function findAllBySessionId (_id: Types.ObjectId): Promise<IUser> {
     return this
         .findOne({ _id })
         .populate({
             path: 'role',
             populate: { path: 'permissions' }
+        })
+        .populate({
+            path: 'role',
+            populate: { path: 'filters' }
         })
 }
 

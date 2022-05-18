@@ -67,7 +67,7 @@ describe('User', () => {
 
         it('has permissions in the database', async () => {
             expect.assertions(4)
-            const result = await Users.findByIdWithPermissions(user._id)
+            const result = await Users.findByIdWithPermissionsAndFilters(user._id)
 
             expect(result).toHaveProperty('role')
             expect(result.role).toHaveProperty('permissions')

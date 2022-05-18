@@ -81,7 +81,7 @@ router.route('/me')
         res.status(200)
         const reqUser = (req.user as IUser)
         if (reqUser && '_id' in reqUser) {
-            const user = await Users.findByIdWithPermissions(reqUser._id)
+            const user = await Users.findByIdWithPermissionsAndFilters(reqUser._id)
             return res.json(user)
         }
 

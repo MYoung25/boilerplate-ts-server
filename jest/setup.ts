@@ -2,11 +2,13 @@ const mongoose = require('mongoose')
 import { HydratedDocument } from 'mongoose'
 import { IPermissions } from '../src/entities/Permissions'
 import { collectPermissions } from '../utils/permissions/collectPermissions'
+const { Filters } = require('../src/entities/Filters')
 const { Users } = require('../src/entities/Users')
 const { Roles } = require('../src/entities/Roles')
 const { Permissions } = require('../src/entities/Permissions')
 
-export const role = new Roles({ name: 'USER', permissions: [] })
+export const filter = new Filters({ name: 'Users', filter: { firstName: 'hello' } })
+export const role = new Roles({ name: 'USER', permissions: [], filters: [filter] })
 export const password = 'password'
 export const user = new Users({ firstName: 'hello', lastName: 'world', email: 'hello@world.com', password, role })
 
@@ -35,6 +37,7 @@ beforeAll(async () => {
     }
 
     allPermissions = await collectPermissions()
+	await filter.save()
     await Promise.all(allPermissions.map(permission => permission.save()))
 
     // default user should have 
@@ -54,6 +57,7 @@ afterEach(async () => {
     if (mongoose.connection.readyState !== 1) {
         await mongoose.connect(global.__MONGO_URI__)
     }
+	await Filters.deleteMany({ _id: { $nin: [filter._id] } })
     await Users.deleteMany({ _id: { $nin: [user._id, superadmin._id] } })
     await Roles.deleteMany({ _id: { $nin: [role._id, superadminRole._id] } })
     await Permissions.deleteMany({ _id:
@@ -73,5 +77,6 @@ afterAll(async () => {
     await Users.deleteMany({})
     await Roles.deleteMany({})
     await Permissions.deleteMany({})
+	await Filters.deleteMany({})
     await mongoose.disconnect()
 })

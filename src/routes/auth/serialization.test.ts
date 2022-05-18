@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import { Serialization, SerializedUser } from './serialization'
 import { Users } from "../../entities/Users"
 import {Permissions} from "../../entities/Permissions"
-import { user, perm } from '../../../jest/setup'
+import { user, perm, filter } from '../../../jest/setup'
 
 describe('Serialization', () => {
     const cb = jest.fn()
@@ -69,6 +69,15 @@ describe('Serialization', () => {
             const foundUser = cb.mock.calls[0][1] as SerializedUser
             expect(foundUser).toHaveProperty('hashPermissions')
             expect(foundUser.hashPermissions[perm.name]).toEqual(perm.name)
+        })
+
+        it('returns the user with hashFilters', async () => {
+            expect.assertions(2)
+
+            await Serialization.deserialize(user._id, cb)
+            const foundUser = cb.mock.calls[0][1] as SerializedUser
+            expect(foundUser).toHaveProperty('hashFilters')
+            expect(foundUser.hashFilters[filter.name]).toEqual(filter.filter)
         })
 
         it('returns an error if no user found', async () => {

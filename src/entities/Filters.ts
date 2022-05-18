@@ -3,7 +3,7 @@ import { Schema, model, Types } from 'mongoose'
 export interface IFilters {
     _id: Types.ObjectId,
     name: string,
-    filter: Record<string, any>
+    filter: Record<string, unknown>
 }
 
 /**
@@ -25,6 +25,12 @@ export interface IFilters {
 export const filtersSchema = new Schema({
     name: String,
     filter: Object
+}, { timestamps: true })
+
+filtersSchema.pre('save', function () {
+    if (this.name) {
+        this.name = this.name.toLowerCase()
+    }
 })
 
 export const Filters = model<IFilters>('Filters', filtersSchema)
