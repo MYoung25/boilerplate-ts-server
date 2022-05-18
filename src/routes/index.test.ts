@@ -8,6 +8,14 @@ describe('/ping', () => {
         const response = await request(app).get('/ping')
         expect(response.status).toBe(200)
     })
+    
+    it('should return a JSON doc from swagger', async () => {
+        const response = await request(app).get('/docs/swagger.json')
+        expect(response.status).toBe(200)
+        expect(response.body).toHaveProperty('openapi')
+        expect(response.body).toHaveProperty('paths')
+        expect(response.body).toHaveProperty('components')
+    })
 
     it('should return 503 if the database is disconnected', async () => {
         await mongoose.disconnect()

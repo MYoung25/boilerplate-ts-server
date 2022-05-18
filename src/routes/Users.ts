@@ -2,6 +2,7 @@ import { logger } from '../config/index'
 import { Router, Response, Request } from 'express'
 import {IUser, Users} from '../entities/Users'
 import { userHasPermissions } from './auth/middleware'
+import { createFilteredQuery } from '../entities/queryUtils'
 
 /**
  * @openapi
@@ -46,14 +47,24 @@ const router = Router()
  *                          $ref: '#/components/schemas/Users'
  */
 router.route('/')
-    .get(userHasPermissions('public'), async (req: Request, res: Response) => {
-        const items = await Users.find({})
-        res.json(items)
+    .get(userHasPermissions(), async (req: Request, res: Response) => {
+        try {
+            const items = await Users.find(createFilteredQuery(req.query, req))
+            res.json(items)
+        } catch (e) {
+            res.sendStatus(500)
+            logger.error(e)
+        }
     })
     .post(userHasPermissions('public'), async (req: Request, res: Response) => {
-        const item = new Users(req.body)
-        await item.save()
-        res.status(201).json(item)
+        try {
+            const item = new Users(req.body)
+            await item.save()
+            res.status(201).json(item)
+        } catch (e) {
+            res.sendStatus(500)
+            logger.error(e)
+        }
     })
 /**
  *  @openapi
@@ -142,9 +153,9 @@ router.route('/me')
  *              description: An unknown error occurred
  */
 router.route('/:id')
-    .get(userHasPermissions('public'), async (req: Request, res: Response) => {
+    .get(userHasPermissions(), async (req: Request, res: Response) => {
         try {
-            const item = await Users.findOne({ _id: req.params.id })
+            const item = await Users.findOne(createFilteredQuery({ _id: req.params.id }, req))
             if (item) {
                 res.json(item)
                 return
@@ -155,9 +166,13 @@ router.route('/:id')
             logger.error(e)
         }
     })
-    .patch(userHasPermissions('public'), async (req: Request, res: Response) => {
+    .patch(userHasPermissions(), async (req: Request, res: Response) => {
         try {
-            const item = await Users.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+            const item = await Users.findOneAndUpdate(
+                createFilteredQuery({ _id: req.params.id }, req),
+                req.body,
+                { new: true }
+            )
             if (item) {
                 res.json(item)
                 return
@@ -168,9 +183,9 @@ router.route('/:id')
             logger.error(e)
         }
     })
-    .delete(userHasPermissions('public'), async (req: Request, res: Response) => {
+    .delete(userHasPermissions(), async (req: Request, res: Response) => {
         try {
-            const item = await Users.deleteOne({ _id: req.params.id })
+            const item = await Users.deleteOne(createFilteredQuery({ _id: req.params.id }, req))
             if (item.deletedCount === 1) {
                 res.sendStatus(204)
                 return

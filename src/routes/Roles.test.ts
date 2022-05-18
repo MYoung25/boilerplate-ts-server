@@ -1,4 +1,5 @@
 import request from 'supertest'
+import { getLoggedInSuperAdminAgent } from '../../jest/utilities'
 import mongoose from 'mongoose'
 import { app } from './index'
 import { IRoles, Roles} from '../entities/Roles'
@@ -9,6 +10,11 @@ jest.spyOn(console, 'error')
     .mockImplementation(() => ({}))
 
 describe('/api/Roles', () => {
+    let superadminAgent: request.SuperAgentTest
+
+    beforeAll(async () => {
+        superadminAgent = await getLoggedInSuperAdminAgent(app)
+    })
 
     describe('GET', () => {
 
@@ -22,6 +28,12 @@ describe('/api/Roles', () => {
             expect(response.body.length).toBe(2)
         })
 
+        it('returns a 500 if the query is malformed', async () => {
+            const response = await superadminAgent
+                .get('/Roles')
+                .query({ _id: 'asdafas' })
+            expect(response.statusCode).toBe(500)
+        })
     })
 
     describe('POST', () => {
@@ -36,6 +48,11 @@ describe('/api/Roles', () => {
             const response = await request(app).post('/Roles').send({name: 'Roles'})
             const item = await Roles.findById(response.body._id)
             expect(item).toHaveProperty('name', 'ROLES')
+        })
+
+        it('returns 500 if the body is malformed', async () => {
+            const response = await superadminAgent.post('/Roles').send({ _id: 'asdasfas' })
+            expect(response.statusCode).toEqual(500)
         })
     })
 

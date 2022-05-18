@@ -28,6 +28,13 @@ describe('/api/Permissions', () => {
             expect(response.body.length).toBe(allPermissions.length)
         })
 
+        it('returns a 500 if the query is malformed', async () => {
+            const response = await superadminAgent
+                .get('/Permissions')
+                .query({ _id: 'asdafas' })
+            expect(response.statusCode).toBe(500)
+        })
+
     })
 
     describe('POST', () => {
@@ -46,6 +53,11 @@ describe('/api/Permissions', () => {
 
             const item = await Permissions.findById(response.body._id)
             expect(item).toHaveProperty('name', name)
+        })
+
+        it('returns 500 if the body is malformed', async () => {
+            const response = await superadminAgent.post('/Permissions').send({ _id: 'permissions' })
+            expect(response.statusCode).toEqual(500)
         })
 
     })

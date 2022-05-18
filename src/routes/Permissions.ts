@@ -2,6 +2,7 @@ import { logger } from '../config/index'
 import { Router, Response, Request } from 'express'
 import { Permissions } from '../entities/Permissions'
 import { userHasPermissions } from "./auth/middleware"
+import { createFilteredQuery } from '../entities/queryUtils'
 
 /**
  * @openapi
@@ -49,10 +50,10 @@ const router = Router()
 router.route('/')
     .get(userHasPermissions(), async (req: Request, res: Response) => {
         try {
-            const items = await Permissions.find({})
+            const items = await Permissions.find(createFilteredQuery(req.query, req))
             res.json(items)
         } catch (e) {
-            res.sendStatus(501)
+            res.sendStatus(500)
             logger.error(e)
         }
     })
@@ -62,7 +63,7 @@ router.route('/')
             await item.save()
             res.status(201).json(item)
         } catch (e) {
-            res.sendStatus(501)
+            res.sendStatus(500)
             logger.error(e)
         }
     })
@@ -124,7 +125,7 @@ router.route('/')
 router.route('/:id')
     .get(userHasPermissions(), async (req: Request, res: Response) => {
         try {
-            const item = await Permissions.findOne({ _id: req.params.id })
+            const item = await Permissions.findOne(createFilteredQuery({ _id: req.params.id }, req))
             if (item) {
                 res.json(item)
                 return
@@ -137,7 +138,11 @@ router.route('/:id')
     })
     .patch(userHasPermissions(), async (req: Request, res: Response) => {
         try {
-            const item = await Permissions.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+            const item = await Permissions.findOneAndUpdate(
+                createFilteredQuery({ _id: req.params.id }, req),
+                req.body,
+                { new: true }
+            )
             if (item) {
                 res.json(item)
                 return
@@ -150,7 +155,7 @@ router.route('/:id')
     })
     .delete(userHasPermissions(), async (req: Request, res: Response) => {
         try {
-            const item = await Permissions.deleteOne({ _id: req.params.id })
+            const item = await Permissions.deleteOne(createFilteredQuery({ _id: req.params.id }, req))
             if (item.deletedCount === 1) {
                 res.sendStatus(204)
                 return

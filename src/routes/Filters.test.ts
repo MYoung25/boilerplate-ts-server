@@ -34,6 +34,12 @@ describe('/api/Filters', () => {
             expect(response.statusCode).toBe(401)
         })
 
+        it('returns a 500 if the query is malformed', async () => {
+            const response = await superadminAgent
+                .get('/Filters')
+                .query({ _id: 'asdafas' })
+            expect(response.statusCode).toBe(500)
+        })
     })
 
     describe('POST', () => {
@@ -53,12 +59,16 @@ describe('/api/Filters', () => {
             const item = await Filters.findById(response.body._id)
             expect(item).toHaveProperty('name', 'filters')
         })
-
+        
         it('returns a 401 for a user without permissions', async () => {
             const response = await request(app).post('/Filters').send({ name: 'Filters' })
             expect(response.statusCode).toBe(401)
         })
-    
+        
+        it('returns 500 if the body is malformed', async () => {
+            const response = await superadminAgent.post('/Filters').send({ _id: 'Filters' })
+            expect(response.statusCode).toEqual(500)
+        })
     })
 
     describe('/:id', () => {
