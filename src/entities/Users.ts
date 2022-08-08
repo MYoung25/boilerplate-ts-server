@@ -78,7 +78,7 @@ export const userSchema = new Schema({
     profilePicture: String,
     googleId: String,
     role: { type: Types.ObjectId, ref: 'Roles' },
-    password: String
+    password: { type: String, select: false },
 }, { timestamps: true })
 
 userSchema.pre('save', async function () {
@@ -95,10 +95,11 @@ export interface UserModel extends Model<IUser> {
 }
 
 userSchema.statics.authenticate = async function authenticate (email: string, password: string): Promise<IUser | false> {
-    const user = await this.findOne({ email })
+    const user = await this.findOne({ email }).select('+password')
     if (user) {
         const isMatch = await bcrypt.compare(password, user.password)
         if (isMatch) {
+            user.password = '' // overwrite password to prevent exposing the hash
             return user
         }
     }

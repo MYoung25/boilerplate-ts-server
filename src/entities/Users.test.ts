@@ -78,12 +78,13 @@ describe('User', () => {
         })
     })
 
-    describe('comparePassword', () => {
+    describe.only('comparePassword', () => {
 
         it('returns User if the passwords match', async () => {
             const result = await Users.authenticate(user.email, password)
             expect(result).toEqual(expect.any(Users))
             expect(result).toHaveProperty('_id', user._id)
+            expect(result).toHaveProperty('password', '')
         })
 
         it('returns false if the passwords don\'t match', async () => {
