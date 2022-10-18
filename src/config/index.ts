@@ -1,4 +1,5 @@
 /* istanbul ignore file */
+// import pino from 'pino'
 
 // parse MONGO url fields from process.env during tests
 if (process.env.MONGO_URL) {
@@ -14,7 +15,7 @@ export const config = {
     npm_package_name: process.env.npm_package_name || 'API',
     session_length: parseInt(process.env.COOKIE_MAX_AGE || (1000 * 60 * 60 * 7).toString()), // defaults to 1 week sessions
     cors: {
-        origin: 'http://localhost:3000',
+        origin: new RegExp(process.env.CORS_ORIGIN || /https?:\/\/localhost:\d{1,4}/),
         credentials: true,
     },
     mongo: {

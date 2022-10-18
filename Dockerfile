@@ -1,15 +1,19 @@
-FROM node:16-alpine
+FROM node:18-alpine
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /app
+RUN yarn set version 3.2.0
+
 COPY package.json .
 
 # copy all env files, but don't fail if they don't exist
 COPY .env* ./
 
-COPY /src/ ./src/
+COPY / ./
+
+RUN yarn
 
 COPY docker/docker-healthcheck.mjs /app/docker/docker-healthcheck.mjs
 RUN chmod +x /app/docker/docker-healthcheck.mjs

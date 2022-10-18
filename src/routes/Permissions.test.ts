@@ -12,7 +12,7 @@ jest.spyOn(console, 'error')
 describe('/api/Permissions', () => {
     let superadminAgent: request.SuperAgentTest
 
-    beforeAll(async () => {
+    beforeEach(async () => {
         superadminAgent = await getLoggedInSuperAdminAgent(app)
     })
 
@@ -24,15 +24,8 @@ describe('/api/Permissions', () => {
         })
 
         it('returns all Permissionss', async() => {
-            const response = await superadminAgent.get('/Permissions')
+            const response = await superadminAgent.get('/Permissions').query({limit: 1000})
             expect(response.body.length).toBe(allPermissions.length)
-        })
-
-        it('returns a 500 if the query is malformed', async () => {
-            const response = await superadminAgent
-                .get('/Permissions')
-                .query({ _id: 'asdafas' })
-            expect(response.statusCode).toBe(500)
         })
 
     })

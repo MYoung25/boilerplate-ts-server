@@ -12,15 +12,11 @@ jest.spyOn(console, 'error')
 describe('/api/Users', () => {
     let superadminAgent: request.SuperAgentTest
 
-    beforeAll(async () => {
+    beforeEach(async () => {
         superadminAgent = await getLoggedInSuperAdminAgent(app)
     })
 
     describe('GET', () => {
-
-        beforeAll(async () => {
-            await new Users({}).save()
-        })
 
         it('returns a 200', async () => {
             const response = await superadminAgent.get('/Users')
@@ -38,35 +34,33 @@ describe('/api/Users', () => {
             expect(response.statusCode).toBe(401)
         })
 
-        it('returns a 500 if the query is malformed', async () => {
-            const response = await superadminAgent
-                .get('/Users')
-                .query({ _id: 'asdafas' })
-            expect(response.statusCode).toBe(500)
-        })
-
     })
 
     describe('POST', () => {
-        const firstName = 'User'
+        const postUser = {
+            firstName: 'RandomName',
+            lastName: 'Lastname',
+            email: 'random@google.com'
+        }
+
         afterEach(async () => {
-            await Users.deleteMany({ firstName })
+            await Users.deleteMany({ firstName: postUser.firstName })
         })
 
         it('returns a 201', async () => {
-            const response = await request(app).post('/Users').send({ firstName })
+            const response = await request(app).post('/Users').send(postUser)
             expect(response.statusCode).toBe(201)
         })
 
         it('returns the new User', async () => {
-            const response = await request(app).post('/Users').send({ firstName })
-            expect(response.body).toHaveProperty('firstName', 'User')
+            const response = await request(app).post('/Users').send(postUser)
+            expect(response.body).toHaveProperty('firstName', postUser.firstName)
         })
 
         it('inserts the new User', async () => {
-            const response = await request(app).post('/Users').send({ firstName })
+            const response = await request(app).post('/Users').send(postUser)
             const item = await Users.findById(response.body._id)
-            expect(item).toHaveProperty('firstName', 'User')
+            expect(item).toHaveProperty('firstName', postUser.firstName)
         })
 
         it('returns 500 if the body is malformed', async () => {

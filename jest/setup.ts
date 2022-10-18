@@ -1,20 +1,21 @@
 const mongoose = require('mongoose')
 import { HydratedDocument } from 'mongoose'
+import { IFilters } from '../src/entities/Filters'
 import { IPermissions } from '../src/entities/Permissions'
+import { IRoles } from '../src/entities/Roles'
 import { collectPermissions } from '../utils/permissions/collectPermissions'
 const { Filters } = require('../src/entities/Filters')
 const { Users } = require('../src/entities/Users')
 const { Roles } = require('../src/entities/Roles')
 const { Permissions } = require('../src/entities/Permissions')
 
-export const filter = new Filters({ name: 'Users', filter: { firstName: 'hello' } })
-export const role = new Roles({ name: 'USER', permissions: [], filters: [filter] })
+export const filter: IFilters = { _id: mongoose.Types.ObjectId(), name: 'user', filter: { firstName: 'hello' } }
+export const role: IRoles = { _id: mongoose.Types.ObjectId(), name: 'USER', permissions: [], filters: [filter] }
 export const password = 'password'
-export const user = new Users({ firstName: 'hello', lastName: 'world', email: 'hello@world.com', password, role })
-
-export const superadminRole = new Roles({ name: 'SUPERADMIN', permissions: [] })
+export const user = { _id: mongoose.Types.ObjectId(), firstName: 'hello', lastName: 'world', email: 'hello@world.com', password, role }
+export const superadminRole: IRoles = { _id: mongoose.Types.ObjectId(), name: 'SUPERADMIN', permissions: [], filters: [] }
 export const superadminPassword = 'password'
-export const superadmin = new Users({ firstName: 'super', lastName: 'admin', email: 'super@admin.com', password: superadminPassword, role: superadminRole })
+export const superadmin = { _id: mongoose.Types.ObjectId(), firstName: 'super', lastName: 'admin', email: 'super@admin.com', password: superadminPassword, role: superadminRole }
 
 declare global {
     var __MONGO_URI__: string
@@ -37,37 +38,33 @@ beforeAll(async () => {
     }
 
     allPermissions = await collectPermissions()
-	await filter.save()
-    await Promise.all(allPermissions.map(permission => permission.save()))
+})
+
+beforeEach(async () => {
+	await new Filters(filter).save()
+    await Promise.all(allPermissions.map(permission => new Permissions(permission).save()))
 
     // default user should have 
-    perm = allPermissions.filter(permission => permission.name === 'users.me.get')[0]
+    perm = await Permissions.findOne({ name: 'users.me.get' })
     role.permissions = [perm]
-    await role.save()
-    await user.save()
+    await Roles(role).save()
+    await Users(user).save()
 
     
     // create a superadmin with all permissions
     superadminRole.permissions = allPermissions
-    await superadminRole.save()
-    await superadmin.save()
+    await new Roles(superadminRole).save()
+    await new Users(superadmin).save()
 })
 
 afterEach(async () => {
     if (mongoose.connection.readyState !== 1) {
         await mongoose.connect(global.__MONGO_URI__)
     }
-	await Filters.deleteMany({ _id: { $nin: [filter._id] } })
-    await Users.deleteMany({ _id: { $nin: [user._id, superadmin._id] } })
-    await Roles.deleteMany({ _id: { $nin: [role._id, superadminRole._id] } })
-    await Permissions.deleteMany({ _id:
-        { 
-            $nin: [
-                perm._id,
-                ...allPermissions.map(({ _id }) => _id )
-            ]
-        }
-    })
+	await Filters.deleteMany({})
+    await Users.deleteMany({})
+    await Roles.deleteMany({})
+    await Permissions.deleteMany({})
 })
 
 afterAll(async () => {

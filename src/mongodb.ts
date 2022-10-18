@@ -10,5 +10,5 @@ export function getMongoDBUriString () {
 }
 
 export function establishMongooseConnection () {
-  return mongoose.connect(getMongoDBUriString(), config.mongo.options as Record<string, unknown>)
+    return mongoose.connect(getMongoDBUriString(), config.mongo.options as Record<string, unknown>)
 }

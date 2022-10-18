@@ -8,14 +8,13 @@ function permissionsCheck (req: Request, res: Response, next: NextFunction) {
 
     // parse request to create permissions string
     const baseUrl = req.baseUrl.slice(1).toLowerCase()
-    const path = req.route.path.slice(1).replace(':', '').toLowerCase()
+    const path = req.route.path.slice(1).replace(/:/g, '').replace(/\//g, '.').toLowerCase()
     const method = req.method.toLowerCase()
 
     // create permissions string
     const permission = `${baseUrl}.${path ? path + '.' : ''}${method}`
 
     const user = (req.user as SerializedUser)
-
     if (user.hashPermissions) {
         // see if user has permission string in their hashPermissions
         const hasPermission = user.hashPermissions[permission]

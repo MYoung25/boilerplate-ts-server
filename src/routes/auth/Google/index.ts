@@ -6,6 +6,17 @@ import handleOauthCallback from "./handleOauthCallback"
 
 export const router = Router()
 
+passport.use(new Strategy(
+    {
+        clientID: config.google_oauth.client_id,
+        clientSecret: config.google_oauth.client_secret,
+        callbackURL: "/auth/google/callback",
+    },
+    handleOauthCallback
+))
+
+router.get('/', passport.authenticate('google', { scope: ['profile', 'email'] }))
+
 /* istanbul ignore next */
 router.get('/callback',
     (req, res, next) => {
@@ -20,7 +31,7 @@ router.get('/callback',
         passport.authenticate(googleStrategy)(req, res, next)
     },
     (req, res) => {
-    res.sendStatus(204)
-})
+        res.sendStatus(204)
+    })
 
 export default router

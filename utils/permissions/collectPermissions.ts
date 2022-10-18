@@ -9,7 +9,7 @@ export async function collectPermissions (): Promise<HydratedDocument<IPermissio
     return new Promise((resolve, reject) => {
         fs.readdir('./src/routes/', async (err, files) => {
             const permissionsRoutes = files.filter((file: string) => (
-                !file.includes('test') && file.includes('.ts') && file !== 'index.ts'
+                !file.includes('test') && !file.includes('auth') && file !== 'index.ts'
             ))
                 
             const permissionsList: HydratedDocument<IPermissions>[] = []
@@ -18,7 +18,6 @@ export async function collectPermissions (): Promise<HydratedDocument<IPermissio
                 import(path.resolve(__dirname, `../../src/routes/${module}`))
                     .then(router => {
                         let moduleCommonName = module.replace('.ts', '').toLowerCase()
-        
                         router.default.stack.forEach((layer: {
                             route: {
                                 path: string,
@@ -26,7 +25,7 @@ export async function collectPermissions (): Promise<HydratedDocument<IPermissio
                                 methods: RouteInterface
                             }
                         }) => {
-                            const path = layer.route.path.slice(1).replace(':', '')
+                            const path = layer.route.path.slice(1).replace(/:/g, '').replace(/\//g, '.').toLowerCase()
                             Object.entries(layer.route.methods)
                                 .filter(([method, bool]) => bool)
                                 .forEach(([method]) => {
